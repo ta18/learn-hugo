@@ -1,0 +1,15 @@
+copyright: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+title: My New Hugo Site
+
+
+theme: github.com/ros4pro/template-hugo
+
+defaultContentLanguage: fr
+defaultContentLanguageInSubdir: true
+languages:
+  fr:
+    languageName: Français
+    weight: 1
+  en:
+    languageName: English
+    weight: 2
