@@ -66,7 +66,7 @@ Cette configuration est partiellement expliquée dans les diapositives. Pour plu
 
 ⌨️ Pour prendre en main le terminal Linux et les commandes de base, à partir d'un terminal, créez les fichiers et dossiers nécessaires pour réaliser cette hierarchie de fichiers ressemblant à un rosier :
 
-![Hierarchie de fichier du rosier](rosier.png)
+![Hierarchie de fichier du rosier](img/rosier.png)
 
 Vous aurez besoin des commandes suivantes :h
 
