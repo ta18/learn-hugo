@@ -107,7 +107,7 @@ source ~/.bashrc    # Pour charger votre .bashrc et donc le nouveau master
 * Quel est le type de ce service ?
 * Consultez le détail des champs. Quels sont les champs de la **requête** de ce service ?
 * Consultez le détail des champs. Quels sont les champs de la **réponse** de ce service ?
-* Appelez ce service pour activer et désactiver le mode compliant et essayez de faire bouger votre robot à la main à chaque fois. Que déduisez-vous de la signification du **mode compliant** ? *Conseil :* aidez-vous de l'autocomplétion avec la touche <TAB>
+* Appelez ce service pour activer et désactiver le mode compliant et essayez de faire bouger votre robot à la main à chaque fois. Que déduisez-vous de la signification du **mode compliant** ? *Conseil :* aidez-vous de l'autocomplétion avec la touche `TAB`.
 
 ##### 2.1.2.c. Tracer la courbe des positions des moteurs en temps réel
 
@@ -130,7 +130,7 @@ git clone https://github.com/poppy-project/poppy_ergo_jr_moveit_config.git
 
 💻 Compilez votre workspace puis sourcez votre `.bashrc`. Démarrez MoveIt avec `roslaunch` avec le paramètre `fake_execution` à false pour se connecter au vrai robot :
 
-```
+```bash
 roslaunch poppy_ergo_jr_moveit_config demo.launch fake_execution:=false gripper:=true
 ```
 
