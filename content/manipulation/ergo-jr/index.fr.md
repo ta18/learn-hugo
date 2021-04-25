@@ -17,7 +17,7 @@ La robotique de manipulation regroupe la manipulation d'objets avec des robots. 
 
 ## Diapositives
 
-{{< pdf src="https://files.ros4.pro/manipulation.pdf" >}}
+{{<pdf src="https://files.ros4.pro/manipulation.pdf" >}}
 
 ## 1. Préparer le matériel (avec un robot réel)
 

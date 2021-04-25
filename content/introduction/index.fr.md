@@ -10,7 +10,7 @@ weight: 1
 
 ## Diapositives
 
-{{< pdf src="https://files.ros4.pro/introduction.pdf" >}}
+{{<pdf src="https://files.ros4.pro/introduction.pdf" >}}
 
 ## 1. Démarrer Ubuntu et ROS
 

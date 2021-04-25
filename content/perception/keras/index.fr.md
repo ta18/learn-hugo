@@ -12,7 +12,7 @@
 
 ## Diapositives
 
-{{< pdf src="https://files.ros4.pro/perception.pdf" >}}
+{{<pdf src="https://files.ros4.pro/perception.pdf" >}}
 
 ## 0. Installation
 

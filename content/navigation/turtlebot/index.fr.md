@@ -14,7 +14,7 @@
 
 ## Diapositives
 
-{{< pdf src="https://files.ros4.pro/navigation.pdf" >}}
+{{<pdf src="https://files.ros4.pro/navigation.pdf" >}}
 
 ## Travaux pratiques
 
