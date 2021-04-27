@@ -1,5 +1,9 @@
 ---
-
+menu:
+  main:
+    name: "Torch"
+    weight: 3
+    parent: "perception"
 ---
 
 # IV. Perception avec Torch (PyTorch)

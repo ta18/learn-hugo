@@ -1,6 +1,11 @@
 ---
-
+menu:
+  main:
+    name: "E.DO"
+    weight: 1
+    parent: "manipulation"
 ---
+
 # III. Robotique de manipulation avec E.DO
 
 La robotique de manipulation regroupe la manipulation d'objets avec des robots : des bras articulés à 5 ou 6 axes, les robots [SCARA](https://en.wikipedia.org/wiki/SCARA) (Selective Compliance Assembly Robot Arm), les robots [cartésiens](https://en.wikipedia.org/wiki/Cartesian_coordinate_robot) (linéaires), les robots [parallèles](https://en.wikipedia.org/wiki/Parallel_manipulator) ... Dans ce TP nous utilisons un robot [E.DO du fabriquant Comau](https://edo.cloud/).

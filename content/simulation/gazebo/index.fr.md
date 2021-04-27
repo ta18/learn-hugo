@@ -1,8 +1,9 @@
 ---
 menu:
   main:
-    name: "VII - Simulation"
-    weight: 8
+    name: "Gazebo"
+    weight: 3
+    parent: "simulation"
 ---
 
 # VII. Simulation avec Gazebo

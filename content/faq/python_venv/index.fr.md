@@ -1,6 +1,11 @@
 ---
-
+menu:
+  main:
+    name: "FAQ Python : environnement virtuel"
+    weight: 2
+    parent: "faq"
 ---
+
 # 🔨 Créer et utiliser un Environnement Virtuel Python (EVP)
 
 ## Intérêt

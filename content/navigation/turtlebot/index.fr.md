@@ -1,5 +1,9 @@
 ---
-
+menu:
+  main:
+    name: "Turtlebot"
+    weight: 3
+    parent: "navigation"
 ---
 
 # II. Robotique de navigation avec Turtlebot

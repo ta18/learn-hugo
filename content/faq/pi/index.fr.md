@@ -1,6 +1,11 @@
 ---
-
+menu:
+  main:
+    name: "FAQ robots basés sur Raspberry Pi"
+    weight: 1
+    parent: "faq"
 ---
+
 # 📥 Flasher la carte SD
 
 Note préliminaire : la carte SD du robot ne se comporte pas tout-à-fait comme une carte SD "normale". Elle ne permet pas de stocker des fichiers dessus ; il est également normal qu'une carte SD insérée dans votre ordinateur n'apparaisse pas dans le Poste de Travail avant de l'avoir flashée.

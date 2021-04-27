@@ -1,6 +1,11 @@
 ---
-
+menu:
+  main:
+    name: "Keras"
+    weight: 2
+    parent: "perception"
 ---
+
 # IV. Perception avec Keras
 
 **tensorflow** et **keras** sont deux modules Python qui permettent de construire des réseaux de neurones apprenants. Nous allons les utiliser pour entraîner un réseau de neurones à reconnaître des chiffres écrits manuellement au feutre avec différentes calligraphies, ce que l'on appelle aussi **classifier**.

@@ -1,6 +1,11 @@
 ---
-
+menu:
+  main:
+    name: "Sawyer"
+    weight: 3
+    parent: "manipulation"
 ---
+
 # III. Robotique de manipulation avec Sawyer
 
 La robotique de manipulation regroupe la manipulation d'objets avec des robots : des bras articulés à 5 ou 6 axes, les robots [SCARA](https://en.wikipedia.org/wiki/SCARA) (Selective Compliance Assembly Robot Arm), les robots [cartésiens](https://en.wikipedia.org/wiki/Cartesian_coordinate_robot) (linéaires), les robots [parallèles](https://en.wikipedia.org/wiki/Parallel_manipulator) ... Dans ce TP nous utilisons un robot Sawyer du fabriquant Rethink Robotics.

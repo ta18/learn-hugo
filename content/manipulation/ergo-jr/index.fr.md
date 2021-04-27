@@ -1,5 +1,9 @@
 ---
-
+menu:
+  main:
+    name: "Poppy Ergo Jr"
+    weight: 2
+    parent: "manipulation"
 ---
 
 # III. Robotique de manipulation avec Poppy Ergo Jr
