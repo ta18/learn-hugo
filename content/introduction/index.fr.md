@@ -1,5 +1,8 @@
 ---
-weight: 1
+menu:
+  main:
+    name: "I. Introduction à Linux, ROS et ROS-I"
+    weight: 2
 ---
 # I. Introduction à Linux, ROS et ROS-I
 

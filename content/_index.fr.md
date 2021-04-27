@@ -1,5 +1,8 @@
 ---
-
+menu:
+  main:
+    name: "Qu'est-ce que c'est ?"
+    weight: 1
 ---
 
 # Cours et Travaux pratiques de robotique

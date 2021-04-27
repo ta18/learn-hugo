@@ -1,6 +1,10 @@
 ---
-
+menu:
+  main:
+    name: "VII - Simulation"
+    weight: 8
 ---
+
 # VII. Simulation avec Gazebo
 
 En robotique il est souvent très utile de pouvoir travailler en simulation. Un simulateur physique permet essentiellement de simuler des forces/couples sur des objets et des articulations. [Gazebo](http://gazebosim.org/) est un environnement de simulation **physique** pour robotique, supporté par ROS. Nous nous servirons de la simulation dans Gazebo de manière transparente, "comme si" il s'agissait du véritable robot.
