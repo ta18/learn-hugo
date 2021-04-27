@@ -9,9 +9,11 @@ languages:
   fr:
     languageName: Français
     weight: 1
+    contentDir: content/french
   en:
     languageName: English
     weight: 2
+    contentDir: content/english
 
 markup:
   goldmark:
