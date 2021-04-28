@@ -4,7 +4,8 @@ theme: github.com/ros4pro/template-hugo
 params:
   themeVariant: "ros"
   disableBreadcrumb: true
-  
+  titleSeparator: "-"
+
 defaultContentLanguage: fr
 defaultContentLanguageInSubdir: true
 languages:
