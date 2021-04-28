@@ -7,8 +7,6 @@ menu:
     parent: "integration"
 ---
 
-# V. Intégration Poppy Ergo Jr + Turtlebot + Keras
-
 L'intégration consiste à intégrer dans une même cellule robotique les 3 briques logicielles travaillées les autres jours, à savoir :
 
 * La manipulation par le bras robotique

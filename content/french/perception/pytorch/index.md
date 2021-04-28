@@ -1,13 +1,11 @@
 ---
-title: "Torch"
+title: "Perception avec Torch (PyTorch)"
 menu:
   main:
     name: "Torch"
     weight: 3
     parent: "perception"
 ---
-
-# IV. Perception avec Torch (PyTorch)
 
 Torch est une bilbiothèque opensource d'apprentissage machine et en particulier d'apprentissage profond. Depuis 2018 seule sa version Python nommée PyTorch est maintenue. Nous allons l'utiliser ici sur des imagettes sur lesquelles sont inscrites des chiffres marqués manuellement au feutre avec différentes calligraphies. Le réseau de neurones que vous allez créer devra apprendre lui-même à déterminer quel chiffre est marqué, ce que l'on appelle **classifier**.
 

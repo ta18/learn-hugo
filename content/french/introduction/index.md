@@ -1,11 +1,10 @@
 ---
-title: "Introduction à Linux, ROS"
+title: "I. Introduction à Linux, ROS"
 menu:
   main:
     name: "I. Introduction à Linux, ROS et ROS-I"
     weight: 2
 ---
-# I. Introduction à Linux, ROS et ROS-I
 
 ## Prérequis
 

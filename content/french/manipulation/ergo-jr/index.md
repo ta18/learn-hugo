@@ -1,13 +1,11 @@
 ---
-title: "Poppy Ergo Jr"
+title: "Robotique de manipulation avec Poppy Ergo Jr"
 menu:
   main:
     name: "Poppy Ergo Jr"
     weight: 2
     parent: "manipulation"
 ---
-
-# III. Robotique de manipulation avec Poppy Ergo Jr
 
 La robotique de manipulation regroupe la manipulation d'objets avec des robots. Dans ce TP nous utilisons un robot opensource [Poppy Ergo Jr](https://www.poppy-project.org/fr/robots/poppy-ergo-jr/) qui peut être 100% imprimé en 3D à la maison ou à l'école.
 

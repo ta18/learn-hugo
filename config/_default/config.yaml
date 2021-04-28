@@ -1,6 +1,8 @@
 copyright: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
 
 theme: github.com/ros4pro/template-hugo
+params:
+  themeVariant: "ros"
 
 defaultContentLanguage: fr
 defaultContentLanguageInSubdir: true

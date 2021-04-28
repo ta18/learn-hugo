@@ -1,4 +1,5 @@
 ---
+title: "III. Manipulation"
 menu:
   main:
     name: "III. Manipulation"

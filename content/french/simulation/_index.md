@@ -1,4 +1,5 @@
 ---
+title: "VII - Simulation"
 menu:
   main:
     name: "VII - Simulation"

@@ -6,8 +6,6 @@ menu:
     weight: 7
 ---
 
-# Robotique théorique
-
 Ce cours et TP aborde les notions de base des concepts théoriques sous-jacents à la robotique : les modèles géométriques direct et indirect, ainsi que les probablités appliquées aux filtres en traitement du signal.
 
 ## Prérequis
