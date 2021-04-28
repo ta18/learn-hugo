@@ -3,7 +3,8 @@ copyright: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Internation
 theme: github.com/ros4pro/template-hugo
 params:
   themeVariant: "ros"
-
+  disableBreadcrumb: true
+  
 defaultContentLanguage: fr
 defaultContentLanguageInSubdir: true
 languages:
