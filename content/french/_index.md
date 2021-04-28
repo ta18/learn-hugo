@@ -1,4 +1,5 @@
 ---
+title: "Qu'est ce que c'est ?"
 menu:
   main:
     name: "Qu'est-ce que c'est ?"

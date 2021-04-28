@@ -1,4 +1,5 @@
 ---
+title: "Torch"
 menu:
   main:
     name: "Torch"

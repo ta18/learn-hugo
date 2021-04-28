@@ -1,4 +1,5 @@
 ---
+title: "Robotique théorique"
 menu:
   main:
     name: "VI - Robotique théorique"

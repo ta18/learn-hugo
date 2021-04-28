@@ -1,4 +1,5 @@
 ---
+title: "E.DO"
 menu:
   main:
     name: "E.DO"

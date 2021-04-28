@@ -1,4 +1,5 @@
 ---
+title: "FAQ Python : environnement virtuel"
 menu:
   main:
     name: "FAQ Python : environnement virtuel"

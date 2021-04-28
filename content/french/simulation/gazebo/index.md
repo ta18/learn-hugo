@@ -1,4 +1,5 @@
 ---
+title: "Gazebo"
 menu:
   main:
     name: "Gazebo"

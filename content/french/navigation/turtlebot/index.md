@@ -1,4 +1,5 @@
 ---
+title: "Turtlebot"
 menu:
   main:
     name: "Turtlebot"

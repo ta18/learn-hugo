@@ -1,4 +1,5 @@
 ---
+title: "FAQ robots basés sur Raspberry Pi"
 menu:
   main:
     name: "FAQ robots basés sur Raspberry Pi"

@@ -1,4 +1,5 @@
 ---
+title: "Poppy Ergo Jr"
 menu:
   main:
     name: "Poppy Ergo Jr"

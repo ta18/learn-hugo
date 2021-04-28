@@ -1,4 +1,5 @@
 ---
+title: "OpenCV"
 menu:
   main:
     name: "OpenCV"
