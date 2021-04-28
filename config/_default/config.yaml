@@ -1,8 +1,6 @@
 copyright: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
 
-module:
-  imports:
-  - path: github.com/ros4pro/template-hugo
+theme: github.com/ros4pro/template-hugo
 
 params:
   themeVariant: "ros"
