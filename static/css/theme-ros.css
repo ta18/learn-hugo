@@ -112,4 +112,9 @@ border-color: var(--MENU-SEARCH-BOX-color);
 
 #body .nav:hover {
   background-color: #1C1F2B;
+  color: #FFFFFF
+}
+
+#body .nav {
+  color: #FFFFFF
 }
