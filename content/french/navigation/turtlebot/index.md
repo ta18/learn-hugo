@@ -23,8 +23,6 @@ menu:
 
 ### 1. Assemblage du Turtlebot (avec un robot réel)
 
-⚠️ **Attention** la documentation officielle du Turtlebot convient très bien pour l'électromécanique mais la documentaiton logicielle est obsolète, ne tapez aucune commande de la documentation sans avoir demandé si elle convient !
-
 ⚠️ **Attention** : vous ne pourrez faire aucune erreur de câblage sauf avec le câble d'alimentation de la Raspberry Pi qui doit impérativement être branché comme sur le schéma ci-dessous **au risque de déteriorer définitivement le matériel**.
 
 ![Attention au câble d'alimentation](img/tb3_power_cable.png)
@@ -35,7 +33,7 @@ menu:
 
 ### 2. Bringup du TB3 (avec un robot réel)
 
-📀 Si ce n'est déjà fait, installez les dépendances, récupérez le metapackage `turtlebot3` sur votre poste de travail et compilez :
+📀 Installez les dépendances suivantes :
 
 ```bash
 sudo apt install ros-noetic-joy ros-noetic-teleop-twist-joy \
@@ -44,33 +42,15 @@ sudo apt install ros-noetic-joy ros-noetic-teleop-twist-joy \
   ros-noetic-rosserial-python ros-noetic-rosserial-client \
   ros-noetic-rosserial-msgs ros-noetic-amcl ros-noetic-map-server \
   ros-noetic-move-base ros-noetic-urdf ros-noetic-xacro \
-  ros-noetic-compressed-image-transport ros-noetic-rqt-image-view \
+  ros-noetic-compressed-image-transport ros-noetic-rqt* ros-noetic-rviz \
   ros-noetic-gmapping ros-noetic-navigation ros-noetic-interactive-markers
+
+sudo apt install ros-noetic-dynamixel-sdk
+sudo apt install ros-noetic-turtlebot3-msgs
+sudo apt install ros-noetic-turtlebot3
 ```
 
-```bash
-cd ~/catkin_ws/src
-```
-
-```bash
-git clone https://github.com/ros4pro/turtlebot3/
-```
-
-```bash
-git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
-```
-
-```bash
-git  clone https://github.com/ros4pro/ros4pro.git
-```
-
-```bash
-cd ~/catkin_ws && catkin_make
-```
-
-```bash
-source ~/.bashrc
-```
+<!-- TODO : More -->
 
 🔍 Vérifiez d'abord la configuration réseau de ROS sur votre PC et sur le TB3 : *ROS_MASTER_URI* doit pointer vers le Turtlebot. Vérifiez également que vous avez connecté le robot au Wifi avec les [instructions](../../introduction/README.md) de l'introduction. Si vous partagez le Wifi avec d'autres groupes, vérifiez aussi que vous avez renommé votre robot en y ajoutant votre numéro de groupe (par ex `burger8`).
 
