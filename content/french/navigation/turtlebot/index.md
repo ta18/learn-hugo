@@ -3,7 +3,7 @@ title: "Robotique de navigation avec Turtlebot"
 menu:
   main:
     name: "Turtlebot"
-    weight: 3
+    weight: 1
     parent: "navigation"
 ---
 
@@ -50,13 +50,27 @@ sudo apt install ros-noetic-turtlebot3-msgs
 sudo apt install ros-noetic-turtlebot3
 ```
 
-<!-- TODO : More -->
+```bash
+cd ~/catkin_ws/src
+```
+
+```bash
+git clone https://github.com/ros4pro/turtlebot3_ros4pro.git
+```
+
+```bash
+cd ~/catkin_ws && catkin_make
+```
+
+```bash
+source ~/.bashrc
+```
 
 🔍 Vérifiez d'abord la configuration réseau de ROS sur votre PC et sur le TB3 : *ROS_MASTER_URI* doit pointer vers le Turtlebot. Vérifiez également que vous avez connecté le robot au Wifi avec les [instructions](../../introduction) de l'introduction. Si vous partagez le Wifi avec d'autres groupes, vérifiez aussi que vous avez renommé votre robot en y ajoutant votre numéro de groupe (par ex `burger8`).
 
 💻 Lancez `roscore` dans un premier terminal.
 
-🤖 En ssh sur le TB3 lancez la commande `roslaunch turtlebot3_bringup turtlebot3_robot.launch`.
+🤖 En ssh sur le TB3 lancez la commande `roslaunch turtlebot3_ros4pro bringup.launch`.
 S'il n'y a aucune erreur vous êtes prêt à piloter le robot depuis votre poste de travail, que ce soit pour la téléopération, la cartographie ou la navigation autonome.
 
 ### 2.bis. Bringup du Turtlebot (en simulation)
@@ -87,7 +101,7 @@ Plusieurs environnements de simulation sont disponibles :
 
 🎮 La première étape pour piloter votre robot consiste à vérifier que votre poste de travail peut effectivement prendre le contrôle du Turtlebot, en le téléopérant via les touches du clavier.
 
-💻 Dans un nouveau terminal lancez la commande `roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch` et gardez le focus sur le terminal pour controler le robot avec le clavier grâce aux touches indiquées. Vérifiez que vous pouvez avancer, reculer, tourner à gauche et à droite. Vous pouvez tuer ce dernier avec Ctrl+C lorsque vous avez terminé.
+💻 Dans un nouveau terminal lancez la commande `roslaunch turtlebot3_ros4pro teleop_key.launch` et gardez le focus sur le terminal pour controler le robot avec le clavier grâce aux touches indiquées. Vérifiez que vous pouvez avancer, reculer, tourner à gauche et à droite. Vous pouvez tuer ce dernier avec Ctrl+C lorsque vous avez terminé.
 
 ### 4. Cartographie
 
@@ -95,21 +109,23 @@ Plusieurs environnements de simulation sont disponibles :
 
 💻 Lancez le commande `roslaunch turtlebot3_slam turtlebot3_slam.launch`. RViz se lance et vous devriez apercevoir le robot, les scans du LIDAR et la carte en construction.
 
-💻 Dans un nouveau terminal lancez la commande `roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch` et gardez le focus sur le terminal pour contrôler le robot avec le clavier comme précédemment. Cependant cette fois-ci, votre carte est en cours d'enregistrement. Quand la carte est terminée **ne quittez ni RViz ni le terminal de la cartographie**.
+💻 Dans un nouveau terminal lancez la commande `roslaunch turtlebot3_ros4pro teleop_key.launch` et gardez le focus sur le terminal pour contrôler le robot avec le clavier comme précédemment. Cependant cette fois-ci, votre carte est en cours d'enregistrement. Quand la carte est terminée **ne quittez ni RViz ni le terminal de la cartographie**.
 
-💻 Dans un nouveau terminal lancez la commande `roscd turtlebot3_navigation/maps/` pour aller dans le dossier où la carte est enregistrée.
+💻 Dans un nouveau terminal lancez la commande `roscd turtlebot3_ros4pro/maps/` pour aller dans le dossier où la carte est enregistrée.
 
 💾 La commande qui va suivre va supprimer la carte précédente s'il y en a une, le cas échéant faites-en une copie si vous souhaitez la conserver. Lancez la commande `roslaunch ros4pro map_saver.launch` qui va sauvegarder la carte dans les fichiers maps.yaml et maps.pgm et écraser les anciens.
 
 ### 5. Navigation
 
-💻 Lancez le commande `roslaunch turtlebot3_navigation turtlebot3_navigation.launch` pour lancer la localisation et la navigation autonome.
+💻 Lancez le commande `roslaunch turtlebot3_ros4pro navigation.launch` pour lancer la localisation et la navigation autonome.
 
 👀 Sur RViz vous devez voir le robot, les scans du LIDAR, les particules de AMCL et la carte que vous avez enregistrée.
 
 📍 Si le robot est mal localisé, utilisez l'outil *2D Pose Estimate* sur RViz. Cliquez et Glissez avec la souris pour positionner le robot sur la carte.
 
 📍 Pour donner des ordres de navigation, utilisez l'outil *2D Nav Goal* sur RViz. Cliquez et Glissez avec la souris sur la carte là où le robot doit aller.
+
+<!-- TODO : Stop here -->
 
 ### 6. Scenario de navigation
 
