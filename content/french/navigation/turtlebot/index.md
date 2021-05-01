@@ -52,7 +52,7 @@ sudo apt install ros-noetic-turtlebot3
 
 <!-- TODO : More -->
 
-🔍 Vérifiez d'abord la configuration réseau de ROS sur votre PC et sur le TB3 : *ROS_MASTER_URI* doit pointer vers le Turtlebot. Vérifiez également que vous avez connecté le robot au Wifi avec les [instructions](../../introduction/README.md) de l'introduction. Si vous partagez le Wifi avec d'autres groupes, vérifiez aussi que vous avez renommé votre robot en y ajoutant votre numéro de groupe (par ex `burger8`).
+🔍 Vérifiez d'abord la configuration réseau de ROS sur votre PC et sur le TB3 : *ROS_MASTER_URI* doit pointer vers le Turtlebot. Vérifiez également que vous avez connecté le robot au Wifi avec les [instructions](../../introduction) de l'introduction. Si vous partagez le Wifi avec d'autres groupes, vérifiez aussi que vous avez renommé votre robot en y ajoutant votre numéro de groupe (par ex `burger8`).
 
 💻 Lancez `roscore` dans un premier terminal.
 
@@ -157,7 +157,7 @@ Vous avez toute liberté pour choisir un objet qui représentera la base du robo
 
 ## Documentation
 
-* [FAQ des robots](../../faq/pi/README.md)
+* [FAQ des robots](../../faq/pi)
 * [Documentation du TB3](http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/) (obsolète pour les commandes logicielles !)
 * [gmapping](http://wiki.ros.org/gmapping)
 * [move_base](http://wiki.ros.org/move_base)
