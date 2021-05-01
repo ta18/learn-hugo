@@ -1,7 +1,7 @@
 # ROS4PRO Material
 
-This repository is the new learn.ros4pro website.
-It is currently in development and not ready to deploy!
+This repository is the new learn.e.ros4pro website.
+It is created with Hugo, a Jamstack framework.
 
 ## Installation and getting started
 
