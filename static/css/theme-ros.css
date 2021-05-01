@@ -118,3 +118,9 @@ border-color: var(--MENU-SEARCH-BOX-color);
 #body .nav {
   color: #FFFFFF
 }
+
+code {
+  color: #9dbed8;
+  background: #2D3143;
+  border: none;
+}
