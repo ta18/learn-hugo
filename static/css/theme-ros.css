@@ -11,7 +11,7 @@
   --MAIN-TEXT-color:#B2BFCF; /* Color of text by default */
   --MAIN-TITLES-TEXT-color: #FFFFF9; /* Color of titles h2-h3-h4-h5 */
   --MAIN-LINK-color:#3EB1D0; /* Color of links */
-  --MAIN-LINK-HOVER-color:#3EB1D0; /* Color of hovered links */
+  --MAIN-LINK-HOVER-color:#0fc6f8; /* Color of hovered links */
   --MAIN-ANCHOR-color: #2D6E84; /* color of anchors on titles */
 
   --MENU-HEADER-BG-color:#A52639; /* Background color of menu header */
@@ -57,6 +57,7 @@ a {
 
 a:hover {
   color: var(--MAIN-LINK-HOVER-color);
+  text-decoration: underline;
 }
 
 #sidebar ul li.visited > a .read-icon {
