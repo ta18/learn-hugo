@@ -81,8 +81,8 @@ Taper `yes` pour confirmer la connexion puis taper le mot de passe. Votre invite
 
 #### Turtlebot
 
-* Nom d'utilisateur `pi`
-* Nom de machine `raspberrypi` (ajouter `.local` dans les commandes : `raspberrypi.local`)
+* Nom d'utilisateur `ubuntu`
+* Nom de machine `turtlebot` (ajouter `.local` dans les commandes : `turtlebot.local`)
 * Mot de passe `turtlebot`
 
 #### Poppy
