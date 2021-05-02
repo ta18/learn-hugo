@@ -3,7 +3,7 @@ title: "Robotique de navigation avec Turtlebot"
 menu:
   main:
     name: "Turtlebot"
-    weight: 3
+    weight: 1
     parent: "navigation"
 ---
 
@@ -23,8 +23,6 @@ menu:
 
 ### 1. Assemblage du Turtlebot (avec un robot réel)
 
-⚠️ **Attention** la documentation officielle du Turtlebot convient très bien pour l'électromécanique mais la documentaiton logicielle est obsolète, ne tapez aucune commande de la documentation sans avoir demandé si elle convient !
-
 ⚠️ **Attention** : vous ne pourrez faire aucune erreur de câblage sauf avec le câble d'alimentation de la Raspberry Pi qui doit impérativement être branché comme sur le schéma ci-dessous **au risque de déteriorer définitivement le matériel**.
 
 ![Attention au câble d'alimentation](img/tb3_power_cable.png)
@@ -35,7 +33,7 @@ menu:
 
 ### 2. Bringup du TB3 (avec un robot réel)
 
-📀 Si ce n'est déjà fait, installez les dépendances, récupérez le metapackage `turtlebot3` sur votre poste de travail et compilez :
+📀 Installez les dépendances suivantes :
 
 ```bash
 sudo apt install ros-noetic-joy ros-noetic-teleop-twist-joy \
@@ -44,8 +42,12 @@ sudo apt install ros-noetic-joy ros-noetic-teleop-twist-joy \
   ros-noetic-rosserial-python ros-noetic-rosserial-client \
   ros-noetic-rosserial-msgs ros-noetic-amcl ros-noetic-map-server \
   ros-noetic-move-base ros-noetic-urdf ros-noetic-xacro \
-  ros-noetic-compressed-image-transport ros-noetic-rqt-image-view \
+  ros-noetic-compressed-image-transport ros-noetic-rqt* ros-noetic-rviz \
   ros-noetic-gmapping ros-noetic-navigation ros-noetic-interactive-markers
+
+sudo apt install ros-noetic-dynamixel-sdk
+sudo apt install ros-noetic-turtlebot3-msgs
+sudo apt install ros-noetic-turtlebot3
 ```
 
 ```bash
@@ -53,15 +55,7 @@ cd ~/catkin_ws/src
 ```
 
 ```bash
-git clone https://github.com/ros4pro/turtlebot3/
-```
-
-```bash
-git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
-```
-
-```bash
-git  clone https://github.com/ros4pro/ros4pro.git
+git clone https://github.com/ros4pro/turtlebot3_ros4pro.git
 ```
 
 ```bash
@@ -74,9 +68,8 @@ source ~/.bashrc
 
 🔍 Vérifiez d'abord la configuration réseau de ROS sur votre PC et sur le TB3 : *ROS_MASTER_URI* doit pointer vers le Turtlebot. Vérifiez également que vous avez connecté le robot au Wifi avec les [instructions](../../introduction) de l'introduction. Si vous partagez le Wifi avec d'autres groupes, vérifiez aussi que vous avez renommé votre robot en y ajoutant votre numéro de groupe (par ex `burger8`).
 
-💻 Lancez `roscore` dans un premier terminal.
-
-🤖 En ssh sur le TB3 lancez la commande `roslaunch turtlebot3_bringup turtlebot3_robot.launch`.
+🤖 En ssh sur le TB3 lancez la commande `roslaunch turtlebot3_ros4pro bringup.launch`.
+Le programme doit rester ouvert pendant toute la durée de la manipulation.
 S'il n'y a aucune erreur vous êtes prêt à piloter le robot depuis votre poste de travail, que ce soit pour la téléopération, la cartographie ou la navigation autonome.
 
 ### 2.bis. Bringup du Turtlebot (en simulation)
@@ -107,23 +100,23 @@ Plusieurs environnements de simulation sont disponibles :
 
 🎮 La première étape pour piloter votre robot consiste à vérifier que votre poste de travail peut effectivement prendre le contrôle du Turtlebot, en le téléopérant via les touches du clavier.
 
-💻 Dans un nouveau terminal lancez la commande `roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch` et gardez le focus sur le terminal pour controler le robot avec le clavier grâce aux touches indiquées. Vérifiez que vous pouvez avancer, reculer, tourner à gauche et à droite. Vous pouvez tuer ce dernier avec Ctrl+C lorsque vous avez terminé.
+💻 Dans un nouveau terminal lancez la commande `roslaunch turtlebot3_ros4pro teleop_key.launch` et gardez le focus sur le terminal pour controler le robot avec le clavier grâce aux touches indiquées. Vérifiez que vous pouvez avancer, reculer, tourner à gauche et à droite. Vous pouvez tuer ce dernier avec Ctrl+C lorsque vous avez terminé.
 
 ### 4. Cartographie
 
 🗺️ Nous allons désormais créer la carte de l'environnement dans lequel votre Turtlebot évoluera lorsqu'il naviguera de manière autonome.
 
-💻 Lancez le commande `roslaunch turtlebot3_slam turtlebot3_slam.launch`. RViz se lance et vous devriez apercevoir le robot, les scans du LIDAR et la carte en construction.
+💻 Lancez le commande `roslaunch turtlebot3_ros4pro slam.launch`. RViz se lance et vous devriez apercevoir le robot, les scans du LIDAR et la carte en construction.
 
-💻 Dans un nouveau terminal lancez la commande `roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch` et gardez le focus sur le terminal pour contrôler le robot avec le clavier comme précédemment. Cependant cette fois-ci, votre carte est en cours d'enregistrement. Quand la carte est terminée **ne quittez ni RViz ni le terminal de la cartographie**.
+💻 Dans un nouveau terminal lancez la commande `roslaunch turtlebot3_ros4pro teleop_key.launch` et gardez le focus sur le terminal pour contrôler le robot avec le clavier comme précédemment. Cependant cette fois-ci, votre carte est en cours d'enregistrement. Quand la carte est terminée **ne quittez ni RViz ni le terminal de la cartographie**.
 
-💻 Dans un nouveau terminal lancez la commande `roscd turtlebot3_navigation/maps/` pour aller dans le dossier où la carte est enregistrée.
+💻 Dans un nouveau terminal lancez la commande `roscd turtlebot3_ros4pro/maps/` pour aller dans le dossier où la carte est enregistrée.
 
-💾 La commande qui va suivre va supprimer la carte précédente s'il y en a une, le cas échéant faites-en une copie si vous souhaitez la conserver. Lancez la commande `roslaunch ros4pro map_saver.launch` qui va sauvegarder la carte dans les fichiers maps.yaml et maps.pgm et écraser les anciens.
+💾 La commande qui va suivre va supprimer la carte précédente s'il y en a une, le cas échéant faites-en une copie si vous souhaitez la conserver. Lancez la commande `roslaunch turtlebot3_ros4pro map_saver.launch` qui va sauvegarder la carte dans le dossier maps du package `turtlebot3_ros4pro` (fichiers maps.yaml et maps.pgm).
 
 ### 5. Navigation
 
-💻 Lancez le commande `roslaunch turtlebot3_navigation turtlebot3_navigation.launch` pour lancer la localisation et la navigation autonome.
+💻 Lancez le commande `roslaunch turtlebot3_ros4pro navigation.launch` pour lancer la localisation et la navigation autonome.
 
 👀 Sur RViz vous devez voir le robot, les scans du LIDAR, les particules de AMCL et la carte que vous avez enregistrée.
 
@@ -135,9 +128,9 @@ Plusieurs environnements de simulation sont disponibles :
 
 🚗 L'objectif final du TP est de faire passer le robot par une suite de 4 ou 5 points de passage, comme pour une patrouille, avec un retour au point de départ. Si cela n'est pas déjà fait, choisissez plusieurs points de passage faciles à mesurer avec un mètre depuis le point de départ, avec un grand nombre d'obstacles sur le chemin. Si l'environnement a fortement changé, pensez à enregistrer une nouvelle carte.
 
-🐍 Les commandes pour naviguer jusqu'à chaque point de passage seront des instructions dans un fichier Python. Le noeud `navigation_scenario.py` auquel vous pourrez accéder en tapant `roscd ros4pro/src/nodes` est une ébauche de script Python pour y parvenir.
+🐍 Les commandes pour naviguer jusqu'à chaque point de passage seront des instructions dans un fichier Python. Le noeud `simple_navigation_goals.py` auquel vous pourrez accéder en tapant `roscd turtlebot3_ros4pro/src/nodes` est une ébauche de script Python pour y parvenir.
 
-🐍 Complétez ce fichier Python afin d'exécuter le scenario et ainsi effectuer la patrouille. Pour exécuter le scénario lancez la navigation en arrière plan comme indiqué dans **2.5 Navigation** puis lancez la commande `rosrun ros4pro navigate_waypoints.py`.
+🐍 Complétez ce fichier Python afin d'exécuter le scenario et ainsi effectuer la patrouille. Pour exécuter le scénario lancez la navigation en arrière plan comme indiqué dans **2.5 Navigation** puis lancez la commande `rosrun turtlebot3_ros4pro simple_navigation_goals.py`.
 
 ## 🧳 Challenge additionnel : Carry my luggage
 
@@ -178,6 +171,6 @@ Vous avez toute liberté pour choisir un objet qui représentera la base du robo
 ## Documentation
 
 * [FAQ des robots](../../faq/pi)
-* [Documentation du TB3](http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/) (obsolète pour les commandes logicielles !)
+* [Documentation du TB3](http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/)
 * [gmapping](http://wiki.ros.org/gmapping)
 * [move_base](http://wiki.ros.org/move_base)

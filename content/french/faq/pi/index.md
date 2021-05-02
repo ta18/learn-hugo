@@ -24,14 +24,17 @@ Pour flasher l'une de ces images sur une carte SD :
 * Dans Etcher, "Flash from file", sélectionnez le fichier image ainsi que la destination (la carte SD) et validez
 * Le flash de la carte SD est en cours ... ⚠️⏳ Optimisez votre temps, la copie dure environ 15 minutes. Dès qu'Etcher a terminé, votre carte SD est prête à être configurée pour le Wifi et/ou insérée dans le robot
 
-Optionnellement, en cas de besoin de restaurer les robots avec les images d'usine, voici les liens (mais ces images ne sont pas utilisables avec ROS4PRO) :
+Optionnellement, en cas de besoin de restaurer les robots avec les images d'usine, voici les liens (mais il y a un risque de collision de nom entre les deux robots, si la configuration n'a pas été faites) :
 
-* [Image d'usine du Turtlebot](http://www.robotis.com/service/download.php?no=1738) (pas de namespace complet, n'inclut pas la posibilité d'intégrer plusieurs robots)
+* [Lien vers la documentation](https://emanual.robotis.com/docs/en/platform/turtlebot3/sbc_setup/#sbc-setup) (pas de namespace complet, n'inclut pas la possibilité d'intégrer plusieurs robots)
 * [Image d'usine de Poppy Ergo Jr](https://github.com/poppy-project/poppy-ergo-jr/releases/download/2.0.0/2017-04-06-poppy-ergo-jr.img.zip) (avec l'interface graphique `http://poppy.local` mais sans ROS)
 
 ## 📡 Connecter le robot en Wifi
 
-⚠️ La mise en place de la connexion du robot en Wifi ne nécessite pas de démarrer le robot
+⚠️ La mise en place de la connexion du robot en Wifi ne nécessite pas de démarrer les robots.
+⚠️ Les robots ont une procédure différente.
+
+### Ergo JR
 
 1. Insérer la carde SD du robot en question dans votre poste de travail (pas dans votre robot) et ouvrir la partition nommée `boot`
 
@@ -47,7 +50,27 @@ En cas de problème, il est possible de connecter un écran HDMI à la Raspberry
 
 La connexion Wifi fonctionne aussi avec les points d'accès mobiles d'Android et iOS.
 
-### 🖧 Se connecter via SSH à un robot
+### Turtlebot 3
+
+
+1. Télécharger le fichier [50-cloud-init.yaml](https://files.ros4.pro/50-cloud-init.yaml) et modifiez-le pour renseigner le bon login et mot de passe wifi dans les `WIFI_SSID` et `password`. Respectez bien l'indentation.
+
+2. Insérer la carde SD du robot en question dans votre poste de travail (pas dans votre robot)
+
+3. Lancer un terminal à la racine de la partition `boot`.
+Pour se faire ouvrez la partition `boot`, et via par un clic-droit, choississez `ouvrir dans un terminal`.
+
+4. Copier le fichier en modifiant cette commande : 
+
+```bash
+sudo ~/Téléchargements/50-cloud-init.yaml ./etc/netplan/
+```
+
+5. Vérifier dans `/etc/netplan/` de la partition `boot` si le fichier a correctement été copié.
+
+[Aide dans la documentation](https://emanual.robotis.com/docs/en/platform/turtlebot3/sbc_setup/#configure-the-raspberry-pi-2) (en cas de problème)
+
+## 🖧 Se connecter via SSH à un robot
 
 SSH (Secure SHell) permet d'ouvrir un terminal à distance sur une autre machine que celle sur laquelle on tape les commandes (par exemple le robot, qui n'a ni clavier ni écran pour interagir avec un terminal). Il est nécessaire de connaître :
 
@@ -67,8 +90,8 @@ Taper `yes` pour confirmer la connexion puis taper le mot de passe. Votre invite
 
 #### Turtlebot
 
-* Nom d'utilisateur `pi`
-* Nom de machine `raspberrypi` (ajouter `.local` dans les commandes : `raspberrypi.local`)
+* Nom d'utilisateur `ubuntu`
+* Nom de machine `turtlebot` (ajouter `.local` dans les commandes : `turtlebot.local`)
 * Mot de passe `turtlebot`
 
 #### Poppy
@@ -106,3 +129,24 @@ Veillez bien à utiliser ensuite ce nouveau nom dans vos futures commandes (SSH 
 🔋 Il s'agit du signal de batterie faible et il ne doit pas être ignoré.
 
 Turtlebot est alimenté par une batterie puissante de type Li-Po. Ce type de batterie rend dangereux leur utilisation lorsque la charge est très faible. Dans un cas extrême elle pourrait chauffer et prendre feu. Mettre en charge rapidement la batterie lorsque Turtlebot bipe.
+
+### Mettre à jour l'openCR
+
+Si vous avez une erreur à propos d'une openCR incompatible, voici la méthode pour mettre à jour le firmware.
+
+Faites les commandes suivantes :
+
+```bash
+cd ./opencr_update
+./update.sh /dev/ttyACM0 burger_noetic.opencr
+```
+
+#### Tester sa mise à jour
+
+![OpenCR](./img/opencr_models.png)
+
+1. Placer le robot sur un sol plat dans un espace libre.
+
+2. Appuyer longuement sur le bouton `PUSH SW 1` pendant quelque secondes, le robot devrait aller tout droit pendant 30 centimètres.
+
+3. Appuyer longuement sur le bouton `PUSH SW 2` pendant quelque secondes, le robot devrait tourner de 180 degrées sur place.
