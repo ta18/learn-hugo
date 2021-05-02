@@ -124,15 +124,13 @@ Plusieurs environnements de simulation sont disponibles :
 
 📍 Pour donner des ordres de navigation, utilisez l'outil *2D Nav Goal* sur RViz. Cliquez et Glissez avec la souris sur la carte là où le robot doit aller.
 
-<!-- TODO : Stop here -->
-
 ### 6. Scenario de navigation
 
 🚗 L'objectif final du TP est de faire passer le robot par une suite de 4 ou 5 points de passage, comme pour une patrouille, avec un retour au point de départ. Si cela n'est pas déjà fait, choisissez plusieurs points de passage faciles à mesurer avec un mètre depuis le point de départ, avec un grand nombre d'obstacles sur le chemin. Si l'environnement a fortement changé, pensez à enregistrer une nouvelle carte.
 
-🐍 Les commandes pour naviguer jusqu'à chaque point de passage seront des instructions dans un fichier Python. Le noeud `navigation_scenario.py` auquel vous pourrez accéder en tapant `roscd ros4pro/src/nodes` est une ébauche de script Python pour y parvenir.
+🐍 Les commandes pour naviguer jusqu'à chaque point de passage seront des instructions dans un fichier Python. Le noeud `simple_navigation_goals.py` auquel vous pourrez accéder en tapant `roscd turtlebot3_ros4pro/src/nodes` est une ébauche de script Python pour y parvenir.
 
-🐍 Complétez ce fichier Python afin d'exécuter le scenario et ainsi effectuer la patrouille. Pour exécuter le scénario lancez la navigation en arrière plan comme indiqué dans **2.5 Navigation** puis lancez la commande `rosrun ros4pro navigate_waypoints.py`.
+🐍 Complétez ce fichier Python afin d'exécuter le scenario et ainsi effectuer la patrouille. Pour exécuter le scénario lancez la navigation en arrière plan comme indiqué dans **2.5 Navigation** puis lancez la commande `rosrun turtlebot3_ros4pro simple_navigation_goals.py`.
 
 ## 🧳 Challenge additionnel : Carry my luggage
 
@@ -173,6 +171,6 @@ Vous avez toute liberté pour choisir un objet qui représentera la base du robo
 ## Documentation
 
 * [FAQ des robots](../../faq/pi)
-* [Documentation du TB3](http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/) (obsolète pour les commandes logicielles !)
+* [Documentation du TB3](http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/)
 * [gmapping](http://wiki.ros.org/gmapping)
 * [move_base](http://wiki.ros.org/move_base)
