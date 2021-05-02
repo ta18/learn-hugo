@@ -24,7 +24,7 @@ Pour flasher l'une de ces images sur une carte SD :
 * Dans Etcher, "Flash from file", sélectionnez le fichier image ainsi que la destination (la carte SD) et validez
 * Le flash de la carte SD est en cours ... ⚠️⏳ Optimisez votre temps, la copie dure environ 15 minutes. Dès qu'Etcher a terminé, votre carte SD est prête à être configurée pour le Wifi et/ou insérée dans le robot
 
-Optionnellement, en cas de besoin de restaurer les robots avec les images d'usine, voici les liens (mais ces images ne sont pas utilisables avec ROS4PRO) :
+Optionnellement, en cas de besoin de restaurer les robots avec les images d'usine, voici les liens (mais il y a un risque de collision de nom entre les deux robots, si la configuration n'a pas été faites) :
 
 * [Lien vers la documentation](https://emanual.robotis.com/docs/en/platform/turtlebot3/sbc_setup/#sbc-setup) (pas de namespace complet, n'inclut pas la possibilité d'intégrer plusieurs robots)
 * [Image d'usine de Poppy Ergo Jr](https://github.com/poppy-project/poppy-ergo-jr/releases/download/2.0.0/2017-04-06-poppy-ergo-jr.img.zip) (avec l'interface graphique `http://poppy.local` mais sans ROS)
@@ -52,11 +52,21 @@ La connexion Wifi fonctionne aussi avec les points d'accès mobiles d'Android et
 
 ### Turtlebot 3
 
-1. Insérer la carde SD du robot en question dans votre poste de travail (pas dans votre robot) et ouvrir la partition nommée `boot`
 
-2. Télécharger le fichier [50-cloud-init.yaml](https://files.ros4.pro/50-cloud-init.yaml) et modifiez-le pour renseigner le bon login et mot de passe wifi dans les `WIFI_SSID` et `password`. Respectez bien l'indentation.
+1. Télécharger le fichier [50-cloud-init.yaml](https://files.ros4.pro/50-cloud-init.yaml) et modifiez-le pour renseigner le bon login et mot de passe wifi dans les `WIFI_SSID` et `password`. Respectez bien l'indentation.
 
-3. Déplacer le fichier dans le dossier `/etc/netplan/` dans la partition `boot`.
+2. Insérer la carde SD du robot en question dans votre poste de travail (pas dans votre robot)
+
+3. Lancer un terminal à la racine de la partition `boot`.
+Pour se faire ouvrez la partition `boot`, et via par un clic-droit, choississez `ouvrir dans un terminal`.
+
+4. Copier le fichier en modifiant cette commande : 
+
+```bash
+sudo ~/Téléchargements/50-cloud-init.yaml ./etc/netplan/
+```
+
+5. Vérifier dans `/etc/netplan/` de la partition `boot` si le fichier a correctement été copié.
 
 [Aide dans la documentation](https://emanual.robotis.com/docs/en/platform/turtlebot3/sbc_setup/#configure-the-raspberry-pi-2) (en cas de problème)
 
