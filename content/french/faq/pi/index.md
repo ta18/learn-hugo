@@ -26,12 +26,15 @@ Pour flasher l'une de ces images sur une carte SD :
 
 Optionnellement, en cas de besoin de restaurer les robots avec les images d'usine, voici les liens (mais ces images ne sont pas utilisables avec ROS4PRO) :
 
-* [Image d'usine du Turtlebot](http://www.robotis.com/service/download.php?no=1738) (pas de namespace complet, n'inclut pas la posibilité d'intégrer plusieurs robots)
+* [Lien vers la documentation](https://emanual.robotis.com/docs/en/platform/turtlebot3/sbc_setup/#sbc-setup) (pas de namespace complet, n'inclut pas la possibilité d'intégrer plusieurs robots)
 * [Image d'usine de Poppy Ergo Jr](https://github.com/poppy-project/poppy-ergo-jr/releases/download/2.0.0/2017-04-06-poppy-ergo-jr.img.zip) (avec l'interface graphique `http://poppy.local` mais sans ROS)
 
 ## 📡 Connecter le robot en Wifi
 
-⚠️ La mise en place de la connexion du robot en Wifi ne nécessite pas de démarrer le robot
+⚠️ La mise en place de la connexion du robot en Wifi ne nécessite pas de démarrer les robots.
+⚠️ Les robots ont une procédure différente.
+
+### Ergo JR
 
 1. Insérer la carde SD du robot en question dans votre poste de travail (pas dans votre robot) et ouvrir la partition nommée `boot`
 
@@ -47,7 +50,18 @@ En cas de problème, il est possible de connecter un écran HDMI à la Raspberry
 
 La connexion Wifi fonctionne aussi avec les points d'accès mobiles d'Android et iOS.
 
-### 🖧 Se connecter via SSH à un robot
+### Turtlebot 3
+
+
+1. Insérer la carde SD du robot en question dans votre poste de travail (pas dans votre robot) et ouvrir la partition nommée `boot`
+
+2. Télécharger le fichier [50-cloud-init.yaml](https://files.ros4.pro/50-cloud-init.yaml) et modifiez-le pour renseigner le bon login et mot de passe wifi dans les `WIFI_SSID` et `password`. Respectez bien l'indentation.
+
+3. Déplacer le fichier dans le dossier `/etc/netplan/` dans la partition `boot`.
+
+[Aide dans la documentation](https://emanual.robotis.com/docs/en/platform/turtlebot3/sbc_setup/#configure-the-raspberry-pi-2) (en cas de problème)
+
+## 🖧 Se connecter via SSH à un robot
 
 SSH (Secure SHell) permet d'ouvrir un terminal à distance sur une autre machine que celle sur laquelle on tape les commandes (par exemple le robot, qui n'a ni clavier ni écran pour interagir avec un terminal). Il est nécessaire de connaître :
 
