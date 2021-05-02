@@ -69,8 +69,8 @@ source ~/.bashrc
 🔍 Vérifiez d'abord la configuration réseau de ROS sur votre PC et sur le TB3 : *ROS_MASTER_URI* doit pointer vers le Turtlebot. Vérifiez également que vous avez connecté le robot au Wifi avec les [instructions](../../introduction) de l'introduction. Si vous partagez le Wifi avec d'autres groupes, vérifiez aussi que vous avez renommé votre robot en y ajoutant votre numéro de groupe (par ex `burger8`).
 
 🤖 En ssh sur le TB3 lancez la commande `roslaunch turtlebot3_ros4pro bringup.launch`.
+Le programme doit rester ouvert pendant toute la durée de la manipulation.
 S'il n'y a aucune erreur vous êtes prêt à piloter le robot depuis votre poste de travail, que ce soit pour la téléopération, la cartographie ou la navigation autonome.
-L
 
 ### 2.bis. Bringup du Turtlebot (en simulation)
 
