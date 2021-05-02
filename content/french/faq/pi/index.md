@@ -52,7 +52,6 @@ La connexion Wifi fonctionne aussi avec les points d'accès mobiles d'Android et
 
 ### Turtlebot 3
 
-
 1. Insérer la carde SD du robot en question dans votre poste de travail (pas dans votre robot) et ouvrir la partition nommée `boot`
 
 2. Télécharger le fichier [50-cloud-init.yaml](https://files.ros4.pro/50-cloud-init.yaml) et modifiez-le pour renseigner le bon login et mot de passe wifi dans les `WIFI_SSID` et `password`. Respectez bien l'indentation.
