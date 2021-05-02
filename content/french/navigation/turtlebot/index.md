@@ -68,9 +68,9 @@ source ~/.bashrc
 
 🔍 Vérifiez d'abord la configuration réseau de ROS sur votre PC et sur le TB3 : *ROS_MASTER_URI* doit pointer vers le Turtlebot. Vérifiez également que vous avez connecté le robot au Wifi avec les [instructions](../../introduction) de l'introduction. Si vous partagez le Wifi avec d'autres groupes, vérifiez aussi que vous avez renommé votre robot en y ajoutant votre numéro de groupe (par ex `burger8`).
 
-💻 Lancez `roscore` dans un premier terminal.
+🤖 En ssh sur le TB3 lancez la commande `roscore`.
 
-🤖 En ssh sur le TB3 lancez la commande `roslaunch turtlebot3_ros4pro bringup.launch`.
+🤖 En ssh sur le TB3 lancez dans un autre terminal la commande `roslaunch turtlebot3_ros4pro bringup.launch`.
 S'il n'y a aucune erreur vous êtes prêt à piloter le robot depuis votre poste de travail, que ce soit pour la téléopération, la cartographie ou la navigation autonome.
 
 ### 2.bis. Bringup du Turtlebot (en simulation)
@@ -107,13 +107,13 @@ Plusieurs environnements de simulation sont disponibles :
 
 🗺️ Nous allons désormais créer la carte de l'environnement dans lequel votre Turtlebot évoluera lorsqu'il naviguera de manière autonome.
 
-💻 Lancez le commande `roslaunch turtlebot3_slam turtlebot3_slam.launch`. RViz se lance et vous devriez apercevoir le robot, les scans du LIDAR et la carte en construction.
+💻 Lancez le commande `roslaunch turtlebot3_ros4pro slam.launch`. RViz se lance et vous devriez apercevoir le robot, les scans du LIDAR et la carte en construction.
 
 💻 Dans un nouveau terminal lancez la commande `roslaunch turtlebot3_ros4pro teleop_key.launch` et gardez le focus sur le terminal pour contrôler le robot avec le clavier comme précédemment. Cependant cette fois-ci, votre carte est en cours d'enregistrement. Quand la carte est terminée **ne quittez ni RViz ni le terminal de la cartographie**.
 
 💻 Dans un nouveau terminal lancez la commande `roscd turtlebot3_ros4pro/maps/` pour aller dans le dossier où la carte est enregistrée.
 
-💾 La commande qui va suivre va supprimer la carte précédente s'il y en a une, le cas échéant faites-en une copie si vous souhaitez la conserver. Lancez la commande `roslaunch ros4pro map_saver.launch` qui va sauvegarder la carte dans les fichiers maps.yaml et maps.pgm et écraser les anciens.
+💾 La commande qui va suivre va supprimer la carte précédente s'il y en a une, le cas échéant faites-en une copie si vous souhaitez la conserver. Lancez la commande `roslaunch turtlebot3_ros4pro map_saver.launch` qui va sauvegarder la carte dans le dossier maps du package `turtlebot3_ros4pro` (fichiers maps.yaml et maps.pgm).
 
 ### 5. Navigation
 
