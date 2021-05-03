@@ -62,7 +62,7 @@ Pour se faire ouvrez la partition `boot`, et via par un clic-droit, choississez 
 4. Copier le fichier en modifiant cette commande :
 
 ```bash
-sudo ~/Téléchargements/50-cloud-init.yaml ./etc/netplan/
+sudo cp ~/Téléchargements/50-cloud-init.yaml ./etc/netplan/
 ```
 
 5. Vérifier dans `/etc/netplan/` de la partition `boot` si le fichier a correctement été copié.
