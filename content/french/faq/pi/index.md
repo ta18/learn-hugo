@@ -7,7 +7,7 @@ menu:
     parent: "faq"
 ---
 
-# 📥 Flasher la carte SD
+## 📥 Flasher la carte SD
 
 Note préliminaire : la carte SD du robot ne se comporte pas tout-à-fait comme une carte SD "normale". Elle ne permet pas de stocker des fichiers dessus ; il est également normal qu'une carte SD insérée dans votre ordinateur n'apparaisse pas dans le Poste de Travail avant de l'avoir flashée.
 
@@ -56,16 +56,13 @@ La connexion Wifi fonctionne aussi avec les points d'accès mobiles d'Android et
 
 2. Insérer la carde SD du robot en question dans votre poste de travail (pas dans votre robot)
 
-3. Lancer un terminal à la racine de la partition `boot`.
-Pour se faire ouvrez la partition `boot`, et via par un clic-droit, choississez `ouvrir dans un terminal`.
-
-4. Copier le fichier en modifiant cette commande :
+3. Ouvrir un terminal et copier le fichier avec cette commande :
 
 ```bash
-sudo cp ~/Téléchargements/50-cloud-init.yaml ./etc/netplan/
+sudo cp ~/Téléchargements/50-cloud-init.yaml /media/$(whoami)/writable/etc/netplan/
 ```
 
-5. Vérifier dans `/etc/netplan/` de la partition `boot` si le fichier a correctement été copié.
+5. Vérifier dans `/media/$(whoami)/writable/etc/netplan` si le fichier a correctement été copié.
 
 [Aide dans la documentation](https://emanual.robotis.com/docs/en/platform/turtlebot3/sbc_setup/#configure-the-raspberry-pi-2) (en cas de problème)
 
