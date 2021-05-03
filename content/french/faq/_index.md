@@ -1,8 +1,8 @@
 ---
-title: "Foires aux Questions"
+title: "Foire aux Questions"
 menu:
-  main:
-    name: "Foires aux Questions"
+  main
+    name: "Foire aux Questions"
     weight: 9
     identifier: "faq"
 ---
