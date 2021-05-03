@@ -79,8 +79,8 @@ S'il n'y a aucune erreur vous êtes prêt à piloter le robot depuis votre poste
 📥 Vous devez télécharger et installer le paquet ROS de simulation du TB3 :
 
 * 💻 Lancez `cd ~/catkin_ws/src` dans un terminal pour vous déplacer dans le dossier contenant les sources de vos paquets ROS.
-* 💻 Lancez `git clone https://github.com/ros4pro/turtlebot3_simulations.git` dans le même terminal, le dossier `turtlebot3_simulations` est créé dans le répertoire `~/catkin_ws/src`.
-* 💻 Lancez `cd ..; catkin_make`, le nouveau paquet est installé. Après la compilation lancez `source ~/.bashrc` dans chaque terminal pour les mettre à jour ou fermez les tous.
+* 💻 Lancez `git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git` dans le même terminal, le dossier `turtlebot3_simulations` est créé dans le répertoire `~/catkin_ws/src`.
+* 💻 Lancez `cd ~/catkin_ws && catkin_make`, le nouveau paquet est installé. Après la compilation lancez `source ~/.bashrc` dans chaque terminal pour les mettre à jour ou fermez les tous.
 
 🔍 La simulation remplace le robot donc vous ne devez ni essayer de lancer le bringup du TB3 et ni vous connecter au robot. À la place vous devez lancer le simulateur et configurer *ROS_MASTER_URI* pour pointer vers votre PC (*ROS master = cette machine*).
 
