@@ -7,6 +7,12 @@ menu:
     parent: "faq"
 ---
 
+### 🔔 Mon Turtlebot bipe
+
+🔋 **Il s'agit du signal de batterie faible et il ne doit pas être ignoré.**
+
+Turtlebot est alimenté par une batterie puissante de type Li-Po. Ce type de batterie rend dangereux leur utilisation lorsque la charge est très faible. Dans un cas extrême elle pourrait chauffer et prendre feu. **Mettre en charge rapidement la batterie lorsque Turtlebot bipe.**
+
 ## 📥 Flasher la carte SD
 
 Note préliminaire : la carte SD du robot ne se comporte pas tout-à-fait comme une carte SD "normale". Elle ne permet pas de stocker des fichiers dessus ; il est également normal qu'une carte SD insérée dans votre ordinateur n'apparaisse pas dans le Poste de Travail avant de l'avoir flashée.
@@ -24,11 +30,19 @@ Pour flasher l'une de ces images sur une carte SD :
 * Dans Etcher, "Flash from file", sélectionnez le fichier image ainsi que la destination (la carte SD) et validez
 * Le flash de la carte SD est en cours ... ⚠️⏳ Optimisez votre temps, la copie dure environ 15 minutes. Dès qu'Etcher a terminé, votre carte SD est prête à être configurée pour le Wifi et/ou insérée dans le robot
 
-Optionnellement, en cas de besoin de restaurer les robots avec les images d'usine, voici les liens (mais il y a un risque de collision de nom entre les deux robots, si la configuration n'a pas été faites) :
+Optionnellement, en cas de besoin de restaurer les robots avec les images d'usine, voici les liens (mais il y a un risque de collision de nom entre les deux robots, si la configuration n'a pas été faite) :
 
 * [Lien vers la documentation](https://emanual.robotis.com/docs/en/platform/turtlebot3/sbc_setup/#sbc-setup) (pas de namespace complet, n'inclut pas la possibilité d'intégrer plusieurs robots)
 * [Image d'usine de Poppy Ergo Jr](https://github.com/poppy-project/poppy-ergo-jr/releases/download/2.0.0/2017-04-06-poppy-ergo-jr.img.zip) (avec l'interface graphique `http://poppy.local` mais sans ROS)
 
+⚠️ Si votre ordinateur n'arrive pas à lire la carte SD, vous pouvez essayer la procédure suivante :
+
+1. Fermer tous les terminaux ouverts et réessayer
+2. Ouvrir un terminal et exécuter les 2 commandes suivantes. Redémarrer l'ordinateur et réessayer
+```bash
+sudo apt-get install --reinstall udisks2
+sudo apt-get install exfat-fuse exfat-utils
+```
 ## 📡 Connecter le robot en Wifi
 
 ⚠️ La mise en place de la connexion du robot en Wifi ne nécessite pas de démarrer les robots.
@@ -42,7 +56,7 @@ Optionnellement, en cas de besoin de restaurer les robots avec les images d'usin
 
 3. Créer un fichier vide nommé `ssh` au même endroit dans `boot` (par exemple avec la commande `touch ssh` dans le dossier courant)
 
-4. Taper la commande `sync` puis éjectez proprement la carte SD dans le navigateur de fichier pour éviter toute perte de données avant de la retirer.
+4. Taper la commande `sync` puis éjectez proprement la carte SD dans le navigateur de fichier pour éviter toute perte de données avant de la retirer
 
 Ces 2 fichiers `wpa_supplicant.conf` et `ssh` seront supprimés au prochain démarrage du robot, signalant que la demande de connexion Wifi a bien été prise en compte. C'est donc normal que vous ne les trouviez plus en regardant à nouveau le contenu de `boot` après un premier démarrage du robot.
 
@@ -52,7 +66,7 @@ La connexion Wifi fonctionne aussi avec les points d'accès mobiles d'Android et
 
 ### Turtlebot 3
 
-1. Télécharger le fichier [50-cloud-init.yaml](https://files.ros4.pro/50-cloud-init.yaml) et modifiez-le pour renseigner le bon login et mot de passe wifi dans les `WIFI_SSID` et `password`. Respectez bien l'indentation.
+1. Télécharger le fichier [50-cloud-init.yaml](https://files.ros4.pro/50-cloud-init.yaml) et modifiez-le pour renseigner le bon login et mot de passe wifi dans les `WIFI_SSID` et `password`. **Respectez scrupuleusement l'indentation ! Ne rajoutez pas d'espaces ou de sauts de lignes et n'utilisez pas des tabulations (l'identation se fait avec 4 espaces)** Il est facile de faire une erreur sur ce fichier et il n'y aura aucun message d'erreur puisque c'est lui qui détermine si le robot va réussir à s'appairer au réseau. 
 
 2. Insérer la carde SD du robot en question dans votre poste de travail (pas dans votre robot)
 
@@ -121,12 +135,6 @@ Veillez bien à utiliser ensuite ce nouveau nom dans vos futures commandes (SSH 
     * **Si `PWR` s'allume** en 🔴 ➡️ Votre Raspberry Pi est fonctionnelle mais la carte SD ne possède pas une image valable. Recommencez la procédure de flash ci-dessus.
     * **Si `PWR` ne s'allume pas** ➡️ Votre Raspberry Pi  n'est pas fonctionnelle. Vous avez peut-être mal branché la Pixl (Poppy) ou bien le câble rouge-noir (Turtlebot)
 
-### 🔔 Mon Turtlebot bipe
-
-🔋 Il s'agit du signal de batterie faible et il ne doit pas être ignoré.
-
-Turtlebot est alimenté par une batterie puissante de type Li-Po. Ce type de batterie rend dangereux leur utilisation lorsque la charge est très faible. Dans un cas extrême elle pourrait chauffer et prendre feu. Mettre en charge rapidement la batterie lorsque Turtlebot bipe.
-
 ### Mettre à jour l'openCR du Turtlebot
 
 Si vous avez une erreur à propos d'une openCR incompatible, voici la méthode pour mettre à jour le firmware.
@@ -140,10 +148,24 @@ cd ./opencr_update
 
 Puis testez la mise à jour :
 
-1. Placer le robot sur un sol plat dans un espace libre.
+1. Placer le robot sur un sol plat dans un espace libre
 
-2. Appuyer longuement sur le bouton `PUSH SW 1` pendant quelque secondes, le robot devrait aller tout droit pendant 30 centimètres.
+2. Appuyer longuement sur le bouton `PUSH SW 1` pendant quelque secondes, le robot devrait aller tout droit pendant 30 centimètres
 
-3. Appuyer longuement sur le bouton `PUSH SW 2` pendant quelque secondes, le robot devrait tourner de 180 degrées sur place.
+3. Appuyer longuement sur le bouton `PUSH SW 2` pendant quelque secondes, le robot devrait tourner de 180 degrées sur place
 
 ![OpenCR](./img/opencr_models.png)
+
+## 📡 Comment effectuer un scan pour trouver l'adresse IP de la raspberry pi ?
+Normalement vous n'avez pas besoin d'utiliser les adresses IP en dur, à la place on utile avahi-daemon (déjà installé) pour effectuer la résolusion des noms (c'est ce qui permet de faire `ping raspberrypi.local` sans connaître son adresse). Mais si pour une obscure raison vous voulez quand même le faire, voici comment précéder. Ouvrir un terminal et exécuter les commandes suivantes :
+```bash
+sudo apt install net-tools
+```
+```bash
+ifconfig
+```
+Rechercher votre adresse IP IPV4, par exemple "inet 192.168.1.30". Puis lancer un scan nmap sur cette adresse. Les devices connectés à votre réseau devraient apparaître avec un nom qui permet de les discriminer.
+```bash
+sudo nmap -sP 192.168.1.30/24
+```
+
