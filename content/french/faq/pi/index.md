@@ -70,17 +70,18 @@ sudo cp ~/Téléchargements/50-cloud-init.yaml /media/$(whoami)/writable/etc/net
 
 SSH (Secure SHell) permet d'ouvrir un terminal à distance sur une autre machine que celle sur laquelle on tape les commandes (par exemple le robot, qui n'a ni clavier ni écran pour interagir avec un terminal). Il est nécessaire de connaître :
 
-* Le nom de la machine distante (par ex `poppy.local` ou `raspberrypi.local`)
-* Le nom d'utilisateur propriétaire de la session sur laquelle ouvrir un terminal (toujours `pi` dans notre cas)
+* Le nom de la machine distante (par ex `poppy.local` ou `turtlebot.local`)
+* Le nom d'utilisateur propriétaire de la session sur laquelle ouvrir un terminal (`pi` pour Poppy ou `ubuntu` pour Turtlebot)
 * Le mot de passe de cette session (cf mots ce passe par défaut ci-dessous)
 
-La commande est la suivante, à taper dans un terminal sur Ubuntu :
+La commande est l'une des suivantes, à taper dans un terminal sur Ubuntu :
 
 ```bash
 ssh pi@poppy.local
+ssh ubuntu@turtlebot.local
 ```
 
-Taper `yes` pour confirmer la connexion puis taper le mot de passe. Votre invite de commande devrait désormais indiquer `pi@poppy.local~$` : toute commande tapée dans ce terminal sera exécutée par le robot. En cas d'erreur, consultez la procédure de diagnostic ci-dessous.
+Taper `yes` pour confirmer la connexion puis taper le mot de passe (`turtlebot` pour Turtlebot ou `raspberry` pour Poppy). Votre invite de commande devrait désormais indiquer `pi@poppy.local~$` ou `ubuntu@turtlebot.local~$` : toute commande tapée dans ce terminal sera exécutée par le robot. En cas d'erreur, consultez la procédure de diagnostic ci-dessous.
 
 ### 🔑 Mots de passe par défaut
 
@@ -115,7 +116,7 @@ Veillez bien à utiliser ensuite ce nouveau nom dans vos futures commandes (SSH 
 
 * **Si 1 ligne s'affiche chaque seconde** avec des statistiques de temps en millisecondes ➡️ Test réseau réussi. Vous avez peut-être oublié de démarrer le roscore ou bien `ROS_MASTER_URI` dans le fichier `~/.bashrc` pointe vers le mauvais robot
 * **Si une erreur survient** et la commande s'arrête ➡️ Test réseau échoué. Vérifiez que la LED verte ACT de la Raspberry Pi vacille pendant environ 45 secondes lorsque vous venez de brancher l'alimentation :
-  * **Si `ACT` vacille** en 🟢 ➡️ Votre Raspberry Pi démarre correctement mais la configuration réseau est incorrecte. Vérifiez que vous avez placé le fichier `wpa_supplicant.conf` au bon endroit dans la partition `boot` sur la carte SD si vous êtes en Wifi ; ou bien connectez-vous avec un câble RJ45 sur un routeur
+  * **Si `ACT` vacille** en 🟢 ➡️ Votre Raspberry Pi démarre correctement mais la configuration réseau est incorrecte. Vérifiez que vous n'avez pas fait d'erreur  dans le fichier de configuration Wifi (`wpa_supplicant.conf` ou `50-cloud-init.yaml`) ou réessayez ; ou bien connectez-vous avec un câble RJ45 sur un routeur
   * **Si `ACT` ne vacille pas** ➡️ Votre Raspberry Pi ne démarre pas correctement. La LED rouge `PWR` s'allume-t-elle ?
     * **Si `PWR` s'allume** en 🔴 ➡️ Votre Raspberry Pi est fonctionnelle mais la carte SD ne possède pas une image valable. Recommencez la procédure de flash ci-dessus.
     * **Si `PWR` ne s'allume pas** ➡️ Votre Raspberry Pi  n'est pas fonctionnelle. Vous avez peut-être mal branché la Pixl (Poppy) ou bien le câble rouge-noir (Turtlebot)
@@ -126,23 +127,23 @@ Veillez bien à utiliser ensuite ce nouveau nom dans vos futures commandes (SSH 
 
 Turtlebot est alimenté par une batterie puissante de type Li-Po. Ce type de batterie rend dangereux leur utilisation lorsque la charge est très faible. Dans un cas extrême elle pourrait chauffer et prendre feu. Mettre en charge rapidement la batterie lorsque Turtlebot bipe.
 
-### Mettre à jour l'openCR
+### Mettre à jour l'openCR du Turtlebot
 
 Si vous avez une erreur à propos d'une openCR incompatible, voici la méthode pour mettre à jour le firmware.
 
-Faites les commandes suivantes :
+Tapez les commandes suivantes :
 
 ```bash
 cd ./opencr_update
 ./update.sh /dev/ttyACM0 burger_noetic.opencr
 ```
 
-#### Tester sa mise à jour
-
-![OpenCR](./img/opencr_models.png)
+Puis testez la mise à jour :
 
 1. Placer le robot sur un sol plat dans un espace libre.
 
 2. Appuyer longuement sur le bouton `PUSH SW 1` pendant quelque secondes, le robot devrait aller tout droit pendant 30 centimètres.
 
 3. Appuyer longuement sur le bouton `PUSH SW 2` pendant quelque secondes, le robot devrait tourner de 180 degrées sur place.
+
+![OpenCR](./img/opencr_models.png)
