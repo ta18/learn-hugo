@@ -139,7 +139,7 @@ Veillez bien à utiliser ensuite ce nouveau nom dans vos futures commandes (SSH 
 
 Si vous avez une erreur à propos d'une openCR incompatible, voici la méthode pour mettre à jour le firmware.
 
-Tapez les commandes suivantes :
+Tapez les commandes suivantes sur la raspberry pi (donc en SSH depuis votre PC):
 
 ```bash
 cd ./opencr_update
@@ -159,13 +159,10 @@ Puis testez la mise à jour :
 ## 📡 Comment effectuer un scan pour trouver l'adresse IP de la raspberry pi ?
 Normalement vous n'avez pas besoin d'utiliser les adresses IP en dur, à la place on utile avahi-daemon (déjà installé) pour effectuer la résolution des noms (c'est ce qui permet de faire `ping raspberrypi.local` sans connaître son adresse). Mais si pour une obscure raison vous voulez quand même le faire, voici comment précéder. Ouvrir un terminal et exécuter les commandes suivantes :
 ```bash
-sudo apt install net-tools
+sudo apt install arp-scan
 ```
 ```bash
-ifconfig
+sudo arp-scan --localnet
 ```
-Rechercher votre adresse IP IPV4, par exemple "inet 192.168.1.30". Puis lancer un scan nmap sur cette adresse. Les devices connectés à votre réseau devraient apparaître avec un nom qui permet de les discriminer.
-```bash
-sudo nmap -sP 192.168.1.30/24
-```
+Les devices connectés à votre réseau devraient apparaître avec un nom qui permet de les discriminer.
 
