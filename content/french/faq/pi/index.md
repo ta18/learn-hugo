@@ -157,7 +157,7 @@ Puis testez la mise à jour :
 ![OpenCR](./img/opencr_models.png)
 
 ## 📡 Comment effectuer un scan pour trouver l'adresse IP de la raspberry pi ?
-Normalement vous n'avez pas besoin d'utiliser les adresses IP en dur, à la place on utile avahi-daemon (déjà installé) pour effectuer la résolusion des noms (c'est ce qui permet de faire `ping raspberrypi.local` sans connaître son adresse). Mais si pour une obscure raison vous voulez quand même le faire, voici comment précéder. Ouvrir un terminal et exécuter les commandes suivantes :
+Normalement vous n'avez pas besoin d'utiliser les adresses IP en dur, à la place on utile avahi-daemon (déjà installé) pour effectuer la résolution des noms (c'est ce qui permet de faire `ping raspberrypi.local` sans connaître son adresse). Mais si pour une obscure raison vous voulez quand même le faire, voici comment précéder. Ouvrir un terminal et exécuter les commandes suivantes :
 ```bash
 sudo apt install net-tools
 ```
