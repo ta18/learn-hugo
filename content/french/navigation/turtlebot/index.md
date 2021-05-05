@@ -43,7 +43,7 @@ sudo apt install ros-noetic-joy ros-noetic-teleop-twist-joy \
   ros-noetic-rosserial-msgs ros-noetic-amcl ros-noetic-map-server \
   ros-noetic-move-base ros-noetic-urdf ros-noetic-xacro \
   ros-noetic-compressed-image-transport ros-noetic-rqt* ros-noetic-rviz \
-  ros-noetic-gmapping ros-noetic-navigation ros-noetic-interactive-markers
+  ros-noetic-gmapping ros-noetic-navigation ros-noetic-interactive-markers ros-noetic-tf2-tools
 
 sudo apt install ros-noetic-dynamixel-sdk
 sudo apt install ros-noetic-turtlebot3-msgs
