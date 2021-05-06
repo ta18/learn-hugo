@@ -46,36 +46,36 @@ les indications du paragraphe suivant pour installer une version récente de ten
 
 Créér un dossier spécifique pour le travail avec l'API TOD, par exemple tod_tf2 :
 
-	(tf2) jlc@pikatchou~$ cd <quelque_part>   # choisis le répertoire où créer tod_tf2, par exemple : ~/catkin_ws/
-	(tf2) jlc@pikatchou~$ mkdir tod_tf2
-
+```bash
+(tf2) jlc@pikatchou~$ cd <quelque_part>   # choisis le répertoire où créer tod_tf2, par exemple : ~/catkin_ws/
+(tf2) jlc@pikatchou~$ mkdir tod_tf2
+```
 Va dans le dossier `tod_tf2`  et clone la branche master du dépôt github tensorflow/models :
-
-	(tf2) jlc@pikatchou~$ cd tod_tf2
-	(tf2) jlc@pikatchou~$ git clone https://github.com/tensorflow/models.git
-
+```bash
+(tf2) jlc@pikatchou~$ cd tod_tf2
+(tf2) jlc@pikatchou~$ git clone https://github.com/tensorflow/models.git
+```
 Une fois téléchargé, tu obtiens un dossier racine `models` qui contient quatre dossiers : l’API TOD est dans le dossier `models/research/object_detection` :
-	
-	(tf2) jlc@pikatchou~$ cd .. && tree -d -L 2 tod_tf2
-	tod_tf2
-	└── models
-	    ├── community
-	    ├── official
-	    ├── orbit
-	    └── research
-
-	
+```bash	
+(tf2) jlc@pikatchou~$ cd .. && tree -d -L 2 tod_tf2
+tod_tf2
+└── models
+    ├── community
+    ├── official
+    ├── orbit
+    └── research
+```	
 
 Complète ton installation avec quelques paquets Python utiles pour le travail avec l'API TOD :
-
-	(tf2) jlc@pikatchou $ conda install cython contextlib2 pillow lxml
-	(tf2) jlc@pikatchou $ pip install labelimg
-
+```bash
+(tf2) jlc@pikatchou $ conda install cython contextlib2 pillow lxml
+(tf2) jlc@pikatchou $ pip install labelimg
+```
 Mets à jour la variable d’environnement `PYTHONPATH` en ajoutant à la fin du fichier ~/.bashrc les deux lignes :
-
-	export TOD_TF2="<chemin absolu du dossier tod_tf2>"
-	export PYTHONPATH=$TOD_TF2/models:$TOD_TF2/models/research:$PYTHONPATH
-
+```bash
+export TOD_TF2="<chemin absolu du dossier tod_tf2>"
+export PYTHONPATH=$TOD_TF2/models:$TOD_TF2/models/research:$PYTHONPATH
+```
 remplace `"<chemin absolu du dossier tod_tf2>"` par le chemin absolu du dossier `tod_tf2` sur ta machine.
 
 Lance un nouveau terminal pour activer le nouvel environnement shell ; tout ce qui suit sera fait dans ce nouveau terminal.
@@ -86,14 +86,14 @@ L’API native TOD utilise des fichiers `*.proto` pour la configuration des mod
 Ces fichiers doivent être traduits en fichiers `*.py` afin que l’API Python puisse fonctionner correctement.  
 
 Du dois installer en premier la commande `protoc` :
-
-	(tf2) jlc@pikatchou $ sudo apt install protobuf-compiler
-
+```bash
+(tf2) jlc@pikatchou $ sudo apt install protobuf-compiler
+```
 Tu peux ensuite te positionner dans le dossier `tod_tf2/models/research` et taper :
-
-	# From tod_tf2/models/research/
-	(tf2) jlc@pikatchou $ protoc object_detection/protos/*.proto  --python_out=.
-
+```bash
+# From tod_tf2/models/research/
+(tf2) jlc@pikatchou $ protoc object_detection/protos/*.proto  --python_out=.
+```
 Cette commande travaille de façon muette.
 
 ### 2.3 Installer l'API COCO
@@ -101,29 +101,30 @@ Cette commande travaille de façon muette.
 COCO est une banque de données destinée à alimenter les algorithmes de détection d’objets, de segmentation… voir [cocodataset.org](https://cocodataset.org) pour les tutoriels, publications… 
 
 💻 Pour installer l’API Python de COCO, clone le site cocoapi dans le dossie `/tmp`, tape la commande `make` dans le dossier `cocoapi/PythonAPI`, puis recopie le dossier `pycococtools` dans `models/research/` :
-
-	(tf2) jlc@pikatchou~$ cd /tmp
-	(tf2) jlc@pikatchou~$ git clone  https://github.com/cocodataset/cocoapi.git
-	(tf2) jlc@pikatchou~$ cd cocoapi/PythonAPI/
-	(tf2) jlc@pikatchou~$ make
-	(tf2) jlc@pikatchou~$ cp -r pycocotools/ <chemin absolu du dossier tod_tf2>/models/research/
-
+```bash
+(tf2) jlc@pikatchou~$ cd /tmp
+(tf2) jlc@pikatchou~$ git clone  https://github.com/cocodataset/cocoapi.git
+(tf2) jlc@pikatchou~$ cd cocoapi/PythonAPI/
+(tf2) jlc@pikatchou~$ make
+(tf2) jlc@pikatchou~$ cp -r pycocotools/ <chemin absolu du dossier tod_tf2>/models/research/
+```
 ### 2.4 Finalisation 
 
 💻 Pour finir l'installation, place-toi dans le dossier  `models/research/` et tape les commandes :
-
-	# From tod_tf2/models/research/
-	(tf2) jlc@pikatchou $ cp object_detection/packages/tf2/setup.py .
-	(tf2) jlc@pikatchou $ python setup.py build
-	(tf2) jlc@pikatchou $ pip install .
+```bash
+# From tod_tf2/models/research/
+(tf2) jlc@pikatchou $ cp object_detection/packages/tf2/setup.py .
+(tf2) jlc@pikatchou $ python setup.py build
+(tf2) jlc@pikatchou $ pip install .
+```
 
 ### 2.5 Tester l'installation de l'API TOD
 
 💻 Pour tester ton installation de l’API TOD, place-toi dans le dossier `models/research/` et tape la commande :
-
-	# From within tod_tf2/models/research/
-	(tf2) jlc@pikatchou~$ python object_detection/builders/model_builder_tf2_test.py
-
+```bash	
+# From within tod_tf2/models/research/
+(tf2) jlc@pikatchou~$ python object_detection/builders/model_builder_tf2_test.py
+```
 Le programme déroule toute une série de tests et doit se terminer par un OK :
 
 	...
@@ -239,12 +240,13 @@ Pour la détection des faces des cubes dans les images faites par le robot Poppy
 
 Quelques commandes shell suffisent pour créer les premiers niveaux de cette arborescence :
 
-	# From within tod_tf2
-	(tf2) jlc@pikatchou $ mkdir -p workspace/images/faces_cubes/test
-	(tf2) jlc@pikatchou $ mkdir -p workspace/images/faces_cubes/train
-	(tf2) jlc@pikatchou $ mkdir -p workspace/pre_trained
-	(tf2) jlc@pikatchou $ mkdir -p workspace/training/faces_cubes
-
+```bash	
+# From within tod_tf2
+(tf2) jlc@pikatchou $ mkdir -p workspace/images/faces_cubes/test
+(tf2) jlc@pikatchou $ mkdir -p workspace/images/faces_cubes/train
+(tf2) jlc@pikatchou $ mkdir -p workspace/pre_trained
+(tf2) jlc@pikatchou $ mkdir -p workspace/training/faces_cubes
+```
 On vérifie :
 
 	# From within tod_tf2
@@ -270,17 +272,17 @@ Il existe également des versions __Fast R-CNN__ et __Faster R-CNN__ qui permett
 
 La différence entre Faster R-CNN et SSD est qu’avec R-CNN on réalise une classification sur chacune des 2000 fenêtres générées par l’algorithme de recherche ciblée, alors qu’avec SSD on cherche à prédire la classe ET la fenêtre de l’objet, en même temps. SSD apprend les décalages à appliquer sur les cadres utilisées pour encadrer au mieux l’objet plutôt que d’apprendre les fenêtres en elle-mêmes (ce que fait Faster R-CNN). Cela rend SSD plus rapide que Faster R-CNN, mais également moins précis.
 
-Pour le travail de reconnaissance des faces des cubes dans les images fournies par la caméra du robot Ergo Jr tu peux télécharger le réseau `SSD MobileNet V1 FPN 640x640` sur le site [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md).
+📥 Pour le travail de reconnaissance des faces des cubes dans les images fournies par la caméra du robot Ergo Jr tu peux télécharger le réseau `SSD MobileNet V1 FPN 640x640` sur le site [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md).
 
 Une fois téléchargé, il faut extraire l'archive TGZ au bon endroit de l'arborescence de travail :
-
-	# From within tod_tf2
-	(tf2) jlc@pikatchou $ tar xvzf ~/Téléchargements/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8.tar.gz -C workspace/pre_trained
-
+```bash
+# From within tod_tf2
+(tf2) jlc@pikatchou $ tar xvzf ~/Téléchargements/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8.tar.gz -C workspace/pre_trained
+```
 puis créer le dossier `ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8` dans le dossier `workspace/training/faces_cubes` :
-	
-	(tf2) jlc@pikatchou $ mkdir workspace/training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8
-
+```bash	
+(tf2) jlc@pikatchou $ mkdir workspace/training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8
+```
 On vérifie :
 
 	(tf2) jlc@pikatchou $ tree -d workspace
@@ -299,20 +301,128 @@ On vérifie :
 		└── ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8
 
 
-## 4. Construction de la banque d'images labellisées 
+## 4. Création des données d'entrée de l'apprentissage supervisé
+
+Ce travail se décompose en plusieurs étapes
+
+1. Création des images avec la caméra du robot -> fichiers \*.jpg, \*.png
+2. Annotation des images avec le logiciel labelImg -> fichiers \*.xml
+3. Conversion des fichiers annotés \*.xml au format CSV
+4. Conversion des fichiers annotés CSV au format _tensorflow record_
 
 
-## 5. Entraînement du réseau avec la banque d'images
+### 4.1 Création des images avec la caméra du robot  
+
+Les images des faces des cubes peuvent être faites en utilisant le service ROS `get_image` proposé par le robot Poppy Ergo Jr.
+
+image001.png               |  image002.png
+:-------------------------:|:-------------------------:
+![image1](img/image.png)   |  ![image2](img/image001.png)
 
 
-## 6. Évaluation des inférences du réseau avec les images de test
+🤖 Rappels : lancement du ROS Master et des services ROS sur le robot :
+ 
+* allumer le robot Poppy Ergo Jr,
+* se connecter sur la carte RPi du robot : `ssh pi@poppy.local` (mdp: `raspberry`) 
+* ✅ vérifier que `ROS_MASTER_URI` pointe bien vers `poppy.local:11311` :
+```
+pi@poppy:~ $ env|grep ROS_MASTER
+ROS_MASTER_URI=http://poppy.local:11311
+```	
+* si `ROS_MASTER_URI` n'est pas bon, édite le fichier `~/.bahrc` du robot et mets la bonne valeur...
+* Lance le ROS Master et les services ROS sur le robot avec la commande : `roslaunch poppy_controllers control.launch`
+
+💻 Et maintenant dans un terminal sur ton PC :
+* ✅ vérifie que `ROS_MASTER_URI` pointe bien vers `poppy.local:11311` :
+```bash
+(tf2) jlc@pikatchou:~ $ env|grep ROS_MASTER
+ROS_MASTER_URI=http://poppy.local:11311
+```	
+* si `ROS_MASTER_URI` n'est pas bon, édite ton fchier `~/.bahrc` entmets la bonne valeur...
+
+
+🐍 Tu peux maintenant utiliser le programme Python `get_image_from_ergo.py` pour créer des images nommées `imagesxxx.png` (`xxx` = `001`, `002`...) avec l'appui sur la touche Enter pour passer d'une prise d'image à l'autre :
+```python
+import cv2, rospy
+from poppy_controllers.srv import GetImage
+from cv_bridge import CvBridge
+
+i=1
+while True:
+    get_image = rospy.ServiceProxy("get_image", GetImage)
+    response = get_image()
+    bridge = CvBridge()
+    image = bridge.imgmsg_to_cv2(response.image)
+    cv2.imwrite(f"image{i:03d}.png", image)
+    cv2.imshow("Poppy camera", image)
+    rep = input("Enter...")
+    #cv2.waitKey(0)
+    i += 1
+```
+
+si tu obtiens l'erreur : `ModuleNotFoundError: No module named 'rospkg'`, il faut simplement ajouter le module Python `rospkg` à ton EVP `tf2` :
+```bash
+(tf2) jlc@pikatchou:~ $ pip install rospkg
+```
+
+
+Chaque équipe peut faire quelques dizaines d'images variant les faces des cubes visibles puis les images peuvent être déposées sur un serveur pour servir à toutes les équipes.
+
+Une fois collectées toutes les images, il faut mettre environ 90 % des images dans le dossier `workspace\images\faces_cubes\train` et le reste des images dans le dossier `workspace\images\faces_cubes\test`.
+
+### 4.2 Annoter des images avec le logiciel labelImg
+
+L'annotation des images peut être faite de façon très simple avec le logiciel `labelImg`.
+C’est une étape du travail qui prend du temps et qui peut être réalisée à plusieurs en se répartissant les images.
+
+L'installation du module Python `labelImg` faite dans l'EVP `tf2` (cf section 2.) tu peux lancer le programme `labelImg` en tapant :
+(tf2) jlc@mike labelImg
+
+Utilise les boutons [Open Dir] et [Change Save Dir] pour positionner `labelImg` dans le dossier `workspace/images/face_cubes/train/` : la première image est automatiquement chargée
+
+![labelImg_2.png](img/labelImg_2.png)
+
+Pour chaque image, tu dois annoter les objets à reconnaître :
+* avec le bouton [Create RectBox], tu entoures une face de cube,
+* la boite des label s'ouvre alors et tu dois écrire le blabel `one` ou `two` en fonction de la face sélectionnée,
+* itère le processus pour chacune des faces de cubes présente dans l'image...
+* quand c'est fini, tu cliques sur le bouton [Save] et tu passes à l'image suivante avec le bouton [Next Image].
+* Une fois toutes les images annotées, utilise les boutons [Open Dir] et [Change Save Dir] pour travailler avec les images du dossier `workspace/images/face_cubes/test/` et annote toutes les images de test.
+
+
+    première face          |  deuxième face            |  fin
+:-------------------------:|:-------------------------:|:-------------------------:
+![1](img/labelImg_3.png)   |  ![2](img/labelImg_4.png) | ![3](img/labelImg_5.png)
+
+
+### 4.3 Convertir les fichiers annotés du format XML au format CSV
+
+Utilise le programme Python `xml_to_csv_tt.py` pour convertir les fichiers \*.xml de l'étape précédente en fichiers au format CSV.
+
+
+### 4.4 Convertir des fichiers annotés du format CSV au format _tfrecord_
+
+Utilise le programme Python `generate_tfrecord_tt.py` pour convertir les fichiers \*.csv de l'étape précédente en fichiers au format _tensorflow record_.
+
+
+## 5. Entraînement supervisé du réseau pré-entraîné
+
+Ce travail se décompose en plusieurs étapes
+
+1. Création du fichier de configuration de l'entraînement.
+2. Lancement de l'entraînement supervisé.
+
+
+## 6. Évaluation des inférences du réseau
+
+Une fois le rédeau entraîné avec les données d'entraînement et de test, on peut évaluer qualitativement la qualité du réseau entraîné en utilisant de nouvelles images.
+
+L'idée ici est de créer de nouvelles images et de vérifier que le réseau entraîné est bien capables de détecter les faces des cubes en discriminant correctement les numéros écrits sur les faces des cubes.
 
 
 ## 7. Intégration
 
 Il est maintenant temps d'intégrer les deux parties du pipeline pour l'utilisation finale. Ouvrez le fichier `main.py` à la racine du projet.
-
-Pour que les deux parties du pipeline s'adaptent correctement, vous avez complété la fonction `preprocess_sprites` pour mettre les vignettes renvoyées par la partie détection dans un format compatible avec celui des images MNIST.
 
 Exécuter maintenant le programme `main.py` : donner le chemin d'un dossier qui contient les fichiers du réseau entraîné et vous devriez commencer à obtenir la reconnaissance des chiffres '1' et '2' dans les images fournies.
 
@@ -331,3 +441,4 @@ Il faudra certainement refaire plusieurs fois l'entraînement du réseau en joua
 Pour confirmer la qualité de votre réseau entraîné vous pouvez enregistrer vos propres fichiers PNG avec les images faites avec la caméra du robot en utilisant le service ROS `/get_image`. Aidez-vous des idications du paragraphe __2.4. Récupérer les images de la caméra en Python__ dans la section [Manipulation/Poppy Ergo Jr](https://learn.ros4.pro/fr/manipulation/ergo-jr/) : vous pouvez ajouter une instruction `cv2.imwrite(<file_name>, image)` pour écrire vos propres fichiers PNG dans le répertoire `data/ergo_cubes/perso` et modifier en conséquence la variable `img_dir` du fichier `main.py`.
 
 Lancer le programme et observer les performances de votre réseau opérant sur vos propres images.
+
