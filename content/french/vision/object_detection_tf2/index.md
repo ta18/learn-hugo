@@ -44,21 +44,23 @@ les indications du paragraphe suivant pour installer une version récente de ten
 
 ### 2.1 Clonage du dépôt `tensorflow/models`
 
-Créér un dossier spécifique pour le travail avec l'API TOD, par exemple tod_tf2 :
+Créé un dossier spécifique pour le travail avec l'API TOD en clonant le dépôt github `cjlux/tod_tf2.git` :
 
 ```bash
-(tf2) jlc@pikatchou~$ cd <quelque_part>   # choisis le répertoire où créer tod_tf2, par exemple : ~/catkin_ws/
-(tf2) jlc@pikatchou~$ mkdir tod_tf2
+(tf2) jlc@pikatchou~$ cd <quelque_part>   # choisis le répertoire où cloner `tod_tf2.git`, par exemple : ~/catkin_ws/
+(tf2) jlc@pikatchou~$ git clone https://github.com/cjlux/tod_tf2.git
 ```
-Va dans le dossier `tod_tf2`  et clone la branche master du dépôt github tensorflow/models :
+Le clonage créé le dossier `tod_tf2` contenant des scripts Python qui seront utilisés plus tard. Ce dossier est la racine du projet.<br>
+Dans le dossier `tod_tf2` clone le dépôt github `tensorflow/models` :
 ```bash
 (tf2) jlc@pikatchou~$ cd tod_tf2
 (tf2) jlc@pikatchou~$ git clone https://github.com/tensorflow/models.git
 ```
-Une fois téléchargé, tu obtiens un dossier racine `models` qui contient quatre dossiers : l’API TOD est dans le dossier `models/research/object_detection` :
+
+Tu obtiens un dossier `models` : l’API TOD est dans le dossier `models/research/object_detection` :
 ```bash	
-(tf2) jlc@pikatchou~$ cd .. && tree -d -L 2 tod_tf2
-tod_tf2
+(tf2) jlc@pikatchou~$ tree -d -L 2 .
+.
 └── models
     ├── community
     ├── official
@@ -69,7 +71,7 @@ tod_tf2
 Complète ton installation avec quelques paquets Python utiles pour le travail avec l'API TOD :
 ```bash
 (tf2) jlc@pikatchou $ conda install cython contextlib2 pillow lxml
-(tf2) jlc@pikatchou $ pip install labelimg
+(tf2) jlc@pikatchou $ pip install labelimg rospkg
 ```
 Mets à jour la variable d’environnement `PYTHONPATH` en ajoutant à la fin du fichier ~/.bashrc les deux lignes :
 ```bash
@@ -179,35 +181,34 @@ La suite du travail se décompose ainsi :
 L'arborescence générique de travail proposée pour cette activité est la suivante :
 
 	tod_tf2
-	├── workspace
-	│   ├── images
-	│   │   └──<project>
-	│   │       ├── test
-	│   │       │   └── *.jpg, *.png ... *.xml
-	│   │       ├── train
-	│   │       │   └── *.jpg, *.png ... *.xml
-	│   │       └── *.csv
-	│   ├── pre_trained
-	│   │	└── <pre_trained-network>
-	│   └── training
-	│       ├──<project>
-	│       │   └── <pre_trained-network>
-	│       ├── train.record
-	│       ├── test.record
-	│       └── label_map.txt
+	├── images
+	│   └──<project>
+	│       ├── test
+	│       │   └── *.jpg, *.png ... *.xml
+	│       ├── train
+	│       │   └── *.jpg, *.png ... *.xml
+	│       └── *.csv
+	├── pre_trained
+	│	└── <pre_trained-network>
+	├── training
+	│   ├──<project>
+	│   │   └── <pre_trained-network>
+	│   ├── train.record
+	│   ├── test.record
+	│   └── label_map.txt
 	└── models
 	    └── research
 	        └── object_detection
 	
 	
 
-* Le dossier `workspace/images/` contient un dossier pour chaque projet, avec dedans :
+* Le dossier `images/` contient un dossier pour chaque projet, avec dedans :
 	* les dossiers `test` et `train` qui contiennent chacun :
 		* les images (\*.png, \*.jpg) à analyser,
 		* les fichiers d'annotation (\*.xml) faits avec le logiciel `labelImg` : ils donnent, pour chacun des objets d'une image, les coordonnées de la boîte englobante et le label de l'objet.
 	* les fichiers d'annotation \*.cvs (convertis au format CSV), qui seront à leur tour convertis au format _tensorflow record_.
-* Le dossier `workspace/pre_trained/` contient un sous-dossier pour chacun des réseaux pré-entrainés utilisé.
-* le dossier `workspace/training/` contient  également un dossier pour chaque projet, avec dedans :
+* Le dossier `pre_trained/` contient un sous-dossier pour chacun des réseaux pré-entrainés utilisé.
+* le dossier `training/` contient  également un dossier pour chaque projet, avec dedans :
 	* un dossier pour chacun des réseaux pré-entrainés utilisé : c'est dans ce dossier que seront stockés les fichiers des poids du réseau entraîné,
 	* les fichiers `train.reccord`  et `test.reccord` : contiennent les données labelisées d'entraînement et de test converties du format CSV au format _tensorflow record_,
 	* le fichier `label_map.txt` : liste les labels correpondants aux objets à détecter.
@@ -215,51 +216,34 @@ L'arborescence générique de travail proposée pour cette activité est la suiv
 Pour la détection des faces des cubes dans les images faites par le robot Poppy Ergo Jr, le dossier `<project>` sera nommé `faces_cubes`, ce qui donne l'arborescence de travail :
 
 	tod_tf2
-	├── workspace
-	│   ├── images
-	│   │   └── faces_cubes
-	│   │       ├── test
-	│   │       │   └── *.jpg, *.png ... *.xml
-	│   │       ├── train
-	│   │       │   └── *.jpg, *.png ... *.xml
-	│   │       └── *.csv
-	│   ├── pre_trained
-	│   │	└── <pre_trained-network>
-	│   └── training
-	│       ├── faces_cubes
-	│       │   └── <pre_trained-network>
-	│       ├── train.record
-	│       ├── test.record
-	│       └── label_map.txt
+	├── images
+	│   └── faces_cubes
+	│       ├── test
+	│       │   └── *.jpg, *.png ... *.xml
+	│       ├── train
+	│       │   └── *.jpg, *.png ... *.xml
+	│       └── *.csv
+	├── pre_trained
+	│	└── <pre_trained-network>
+	├── training
+	│   ├── faces_cubes
+	│   │   └── <pre_trained-network>
+	│   ├── train.record
+	│   ├── test.record
+	│   └── label_map.txt
 	└── models
 	    └── research
 	        └── object_detection
-	
-	
-
 
 Quelques commandes shell suffisent pour créer les premiers niveaux de cette arborescence :
 
 ```bash	
 # From within tod_tf2
-(tf2) jlc@pikatchou $ mkdir -p workspace/images/faces_cubes/test
-(tf2) jlc@pikatchou $ mkdir -p workspace/images/faces_cubes/train
-(tf2) jlc@pikatchou $ mkdir -p workspace/pre_trained
-(tf2) jlc@pikatchou $ mkdir -p workspace/training/faces_cubes
+(tf2) jlc@pikatchou $ mkdir -p images/faces_cubes/test
+(tf2) jlc@pikatchou $ mkdir -p images/faces_cubes/train
+(tf2) jlc@pikatchou $ mkdir pre_trained
+(tf2) jlc@pikatchou $ mkdir -p training/faces_cubes
 ```
-On vérifie :
-
-	# From within tod_tf2
-	(tf2) jlc@pikatchou $ tree -d workspace
-	workspace/
-	├── images
-	│   └── faces_cubes
-	│       ├── test
-	│       └── train
-	├── pre_trained
-	└── training
-	    └── faces_cubes
-
 	 
 ## 4. Télécharger le réseau pré-entraîné
 
@@ -277,31 +261,29 @@ La différence entre Faster R-CNN et SSD est qu’avec R-CNN on réalise une cla
 Une fois téléchargé, il faut extraire l'archive TGZ au bon endroit de l'arborescence de travail :
 ```bash
 # From within tod_tf2
-(tf2) jlc@pikatchou $ tar xvzf ~/Téléchargements/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8.tar.gz -C workspace/pre_trained
+(tf2) jlc@pikatchou $ tar xvzf ~/Téléchargements/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8.tar.gz -C pre_trained
 ```
-puis créer le dossier `ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8` dans le dossier `workspace/training/faces_cubes` :
+puis créer le dossier `ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8` dans le dossier `training/faces_cubes` :
 ```bash	
-(tf2) jlc@pikatchou $ mkdir workspace/training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8
+(tf2) jlc@pikatchou $ mkdir training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8
 ```
 On vérifie :
 
-	(tf2) jlc@pikatchou $ tree -d workspace
-	workspace
-	├── images
-	│   └── faces_cubes
-	│       ├── test
-	│       └── train
-	├── pre_trained
-	│   └── ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8
-	│       ├── checkpoint
-	│       └── saved_model
-	│           └── variables
-	└── training
-	    └── faces_cubes
-		└── ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8
+	# From within tod_tf2
+	(tf2) jlc@pikatchou $ tree -d pre_trained
+	pre_trained
+	└── ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8
+	    ├── checkpoint
+	    └── saved_model
+	        └── variables
+	        
+	(tf2) jlc@pikatchou $ tree -d training
+	training
+	└── faces_cubes
+	    └── ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8
 
 
-## 4. Création des données d'entrée de l'apprentissage supervisé
+## 4. Création des données pour l'apprentissage supervisé
 
 Ce travail se décompose en plusieurs étapes
 
@@ -309,11 +291,12 @@ Ce travail se décompose en plusieurs étapes
 2. Annotation des images avec le logiciel labelImg -> fichiers \*.xml
 3. Conversion des fichiers annotés \*.xml au format CSV
 4. Conversion des fichiers annotés CSV au format _tensorflow record_
+5. Créer du fichier `label_map.pbtxt` qui contient les labels des objets à reconnaître.
 
 
 ### 4.1 Création des images avec la caméra du robot  
 
-Les images des faces des cubes peuvent être faites en utilisant le service ROS `get_image` proposé par le robot Poppy Ergo Jr.
+Les images des faces des cubes peuvent être faites en utilisant le service ROS `/get_image` proposé par le robot Poppy Ergo Jr.
 
 image001.png               |  image002.png
 :-------------------------:|:-------------------------:
@@ -368,17 +351,20 @@ si tu obtiens l'erreur : `ModuleNotFoundError: No module named 'rospkg'`, il fau
 
 Chaque équipe peut faire quelques dizaines d'images variant les faces des cubes visibles puis les images peuvent être déposées sur un serveur pour servir à toutes les équipes.
 
-Une fois collectées toutes les images, il faut mettre environ 90 % des images dans le dossier `workspace\images\faces_cubes\train` et le reste des images dans le dossier `workspace\images\faces_cubes\test`.
+Une fois collectées toutes les images, il faut mettre environ 90 % des images dans le dossier `images\faces_cubes\train` et le reste des images dans le dossier `images\faces_cubes\test`.
 
 ### 4.2 Annoter des images avec le logiciel labelImg
 
 L'annotation des images peut être faite de façon très simple avec le logiciel `labelImg`.
 C’est une étape du travail qui prend du temps et qui peut être réalisée à plusieurs en se répartissant les images.
 
-L'installation du module Python `labelImg` faite dans l'EVP `tf2` (cf section 2.) tu peux lancer le programme `labelImg` en tapant :
-(tf2) jlc@mike labelImg
+L'installation du module Python `labelImg` faite dans l'EVP `tf2` (cf section 2.) permet de lancer le logiciel `labelImg` en tapant :
+```bash
+(tf2) jlc@pikatchou:~ $ labelImg
+```
 
-Utilise les boutons [Open Dir] et [Change Save Dir] pour positionner `labelImg` dans le dossier `workspace/images/face_cubes/train/` : la première image est automatiquement chargée
+Utilise les boutons [Open Dir] et [Change Save Dir] pour te positionner dans le dossier `images/face_cubes/train/`.<br>
+La première image est automatiquement chargée dans l'interface graphique :
 
 ![labelImg_2.png](img/labelImg_2.png)
 
@@ -386,31 +372,110 @@ Pour chaque image, tu dois annoter les objets à reconnaître :
 * avec le bouton [Create RectBox], tu entoures une face de cube,
 * la boite des label s'ouvre alors et tu dois écrire le blabel `one` ou `two` en fonction de la face sélectionnée,
 * itère le processus pour chacune des faces de cubes présente dans l'image...
-* quand c'est fini, tu cliques sur le bouton [Save] et tu passes à l'image suivante avec le bouton [Next Image].
-* Une fois toutes les images annotées, utilise les boutons [Open Dir] et [Change Save Dir] pour travailler avec les images du dossier `workspace/images/face_cubes/test/` et annote toutes les images de test.
-
 
     première face          |  deuxième face            |  fin
 :-------------------------:|:-------------------------:|:-------------------------:
 ![1](img/labelImg_3.png)   |  ![2](img/labelImg_4.png) | ![3](img/labelImg_5.png)
 
+* quand c'est fini, tu cliques sur le bouton [Save] et tu passes à l'image suivante avec le bouton [Next Image].
+* Une fois toutes les images annotées, utilise les boutons [Open Dir] et [Change Save Dir] pour travailler avec les images du dossier `images/face_cubes/test/` et annote toutes les images de test.
 
-### 4.3 Convertir les fichiers annotés du format XML au format CSV
+### 4.3 Convertir les fichiers XML annotés au format CSV
 
-Utilise le programme Python `xml_to_csv_tt.py` pour convertir les fichiers \*.xml de l'étape précédente en fichiers au format CSV.
+Cette étape permet de synthétiser dans un fichier CSV unique les données d’apprentissage contenues dans les différents fichiers XML crées à l’étape d'annotation. 
+Le programme `tod_tf2/xml_to_csv_tt.py` permet de générer les deux fichiers CSV correspondant aux données d’apprentissage et de test. 
+Depuis le dossier `tod_tf2` tape la commande suivante :
+
+```bash
+# From within tod_tf2
+(tf2) jlc@pikatchou:~ $ python xml_to_csv_tt.py -p faces_cubes
+Successfully converted xml data in file <images/faces_cubes/train_labels.csv>.
+Successfully converted xml data in file <images/faces_cubes/test_labels.csv>.
+```
+Les fichiers `train_labels.csv` et `test_labels.csv` sont créés dans le dossier  `images/faces_cubes/` :
+
+### 4.4 Convertir des fichiers CSV annotés au format _tfrecord_
+
+Pour cette étape, on utilise le programme `tod_tf2/generate_tfrecord_tt.py`. Depuis le dossier `tod_tf2` tape la commande :
+```bash
+# From within tod_tf2
+(tf2) jlc@pikatchou:~ $ python generate_tfrecord_tt.py --project faces_cubes
+Successfully created the TFRecord file: ./training/faces_cubes/train.record
+Successfully created the TFRecord file: ./training/faces_cubes/test.record
+```
+Avec cette commande on vient de créer les 2 fichiers `train.record` et `test.record` dans le dossier `training/faces_cubes` : ce sont ces deux fichiers qui serviront pour l’entraînement du réseau.
+
+### 4.5 Créer le fichier label_map.pbtxt
+ 
+La dernière étape consiste a créer le fichier `label_map.pbtxt` dans le dossier `training/faces_cubes`. Ce fichier décrit la « carte des labels » (label map) nécessaire à l’entraînement du réseau. 
+La carte des labels permet de connaître l’ID (nombre entier) associé à chaque étiquette (_label_) identifiant les objets à reconnaître. La structure type du fichier est la suivante :
 
 
-### 4.4 Convertir des fichiers annotés du format CSV au format _tfrecord_
+	 item {
+	   id: 1
+	   name: ‘objet_1’
+	 }
+	 item {
+	   id: 2
+	   name: ‘objet_2’
+	 }
+	 ...
 
-Utilise le programme Python `generate_tfrecord_tt.py` pour convertir les fichiers \*.csv de l'étape précédente en fichiers au format _tensorflow record_.
+Pour le projet `face_cubes`, le contenu du fichier `training/faces_cubes/label_map.pbtxt` à créer est :
 
+	 item {
+	   id: 1
+	   name: ‘one’
+	 }
+	 item {
+	   id: 2
+	   name: ‘two’
+	 }
 
 ## 5. Entraînement supervisé du réseau pré-entraîné
 
-Ce travail se décompose en plusieurs étapes
+Ce travail se décompose en deux étapes
 
 1. Création du fichier de configuration de l'entraînement.
 2. Lancement de l'entraînement supervisé.
+
+
+### 5.1 Création du fichier de configuration de l'entraînement.
+
+C’est la dernière étape avant de pouvoir lancer l’entraînement…
+
+Le fichier de configuration `pipeline.config` présent dans le dossier du réseau pré-entraîné `pre_trained/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8` doit être copié dans le dossier `training/faces_cubes\ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8`. 
+
+Il faut ensuite modifier les paramètres pour l’entraînement et le test en fonction : 
+* ligne 3 -- remplacer `num_classes: 90` par `num_classes: 2`, puisqu'on n'a que deux classes pour le projet `faces_cubes`
+* ligne 131 -- remplacer `batch_size: 64` par `batch_size: 4` : c'est le nombre d'image traitée avant de mettre à jour les poids du réseau de neurones.<br>
+Si cette valeur est trop grande, le calcul risque de dépasser la capacité mémoire RAM de ta machine... à régler en focntion de la quantité de RAM de ta machine.
+* ligne 161 -- remplacer `fine_tune_checkpoint: "PATH_TO_BE_CONFIGURED"` par `fine_tune_checkpoint: "pre_trained/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/checkpoint/ckpt-0", c'est le chemin du dossier pré-entrainé qui contient les poids du réseau après le pré-entraînement.
+* ligne 162 -- remplacer `num_steps: 25000` par `num_steps: 1000`; c'est le nombre max d'itérations de l'entraînement, pour des machines avec un CPU peu puissant on n'ira peut être même pas jusqu'à 1000, ce serait trop long...
+* ligne 165 -- remplacer `max_number_of_boxes: 100` par `max_number_of_boxes: 5`; on n'a pas plus de 5 faces de cubes sur une images, ça économise de la RAM.
+* ligne 167 -- remplacer `fine_tune_checkpoint_type: "classification"` par `fine_tune_checkpoint_type: "detection"` pour activer l'algorithme de détection.
+* ligne 172 : remplacer `input_path: "PATH_TO_BE_CONFIGURED"` par `input_path: "./training/faces_cubes/"`, c'est le chemin du dossier contenant le fichier `train.record`.
+* ligne 181 -- remplacer `label_map_path: "PATH_TO_BE_CONFIGURED"` par `label_map_path: "./training/faces_cubes/"`, c'est le chemin du dossier contenant le fichier `label_map.pbtxt`.
+* ligne 185 -- remplacer `input_path: "PATH_TO_BE_CONFIGURED"` par `input_path: "./training/faces_cubes/"`, c'est le chemin du dossier contenant le fichier `test.record`.
+
+## 5.2 Lancer l'entraînement
+
+* copier le fichier `models\research\object_detection\model_main_tf2.py` dans la racine `tod_tf2`,
+* se placer à la racine du projet dans le dossier `tod_tf2`,
+* taper la commande :
+```bash
+(tf2) jlc@pikatchou:~ $ python model_main_tf2.py --model_dir=training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/  \
+                                                 --pipeline_config_path=training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/pipeline.config 
+```
+le programme Python lancé est très verbeux... <br>
+au bout d'un temps qui peut être assez long (plusieurs minutes avec un CPU ), les logs de l'entraîenement apparaissent à l'écran :
+
+
+
+En cas d'arrêt brutal du programme avec le message "Processus arrêté", ne pas hésiter à diminer la valeur du paramètre `batch_size` jusquà 2 si nécessaire.... <br>
+Même avec un `batch_size` de 2, le processus Python peut nécessiter jusqu'à 2 ou 3 Go de RAM pour lui tout seul, ce qui peut mettre certains portables en difficulté...
+
+
 
 
 ## 6. Évaluation des inférences du réseau
@@ -428,17 +493,9 @@ Exécuter maintenant le programme `main.py` : donner le chemin d'un dossier qui 
 
 Il faudra certainement refaire plusieurs fois l'entraînement du réseau en jouant sur plusieurs paramètres avant d'obtenir un réseau entraîné qui fonctionne correctement :
 
-* la valeur de la graine `SEED` peut conduire à un état initial des poids du réseau qui donne un entraînement meilleur ou pas...
-
 * augmenter/diminuer `BATCH_SIZE` peut modifier les temps de calcul et la qualité du réseau entraîné...
 
-* augmenter/diminuer le paramètre `patience` du callback `EarlyStopping`...
-
-* enfin, tous les paramètres qui définissent les couches de convolution et de __spooling__ du réseau convolutif sont autant de possibilités d'améliorer ou pas les performances du réseau entraîné....
-
-À vous de jouer pour obtenir un réseau entraîné classifiant le mieux possible les chiffres '1' et '2' dans les images fournies par la caméra du robot...
-
-Pour confirmer la qualité de votre réseau entraîné vous pouvez enregistrer vos propres fichiers PNG avec les images faites avec la caméra du robot en utilisant le service ROS `/get_image`. Aidez-vous des idications du paragraphe __2.4. Récupérer les images de la caméra en Python__ dans la section [Manipulation/Poppy Ergo Jr](https://learn.ros4.pro/fr/manipulation/ergo-jr/) : vous pouvez ajouter une instruction `cv2.imwrite(<file_name>, image)` pour écrire vos propres fichiers PNG dans le répertoire `data/ergo_cubes/perso` et modifier en conséquence la variable `img_dir` du fichier `main.py`.
+Pour confirmer la qualité de votre réseau entraîné vous pouvez enregistrer vos propres fichiers PNG avec les images faites avec la caméra du robot en utilisant le service ROS `/get_image`. 
 
 Lancer le programme et observer les performances de votre réseau opérant sur vos propres images.
 
