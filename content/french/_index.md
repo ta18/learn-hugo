@@ -19,18 +19,18 @@ ROS4PRO est un ensemble de ressources francophones pour l'apprentissage de la ro
 📀 Pour suivre tous les parcours sans avoir à installer ROS et les dépendances vous-même, vous pouvez télécharger [cette clé USB Live](https://files.ros4.pro/ubuntu.img.7z) et [suivre les instructions de flash](https://files.ros4.pro/boot.pdf).
 
 ## Parcours possibles
-### Parcours n° 1 : Poppy Ergo Jr + Keras + Turtlebot (possible partiellement en simulation)
+### Parcours n° 1 : Poppy Ergo Jr + tensorflow2 + Turtlebot (possible partiellement en simulation)
 1. [Introduction](introduction/)
 2. [Navigation](navigation/turtlebot/)
 3. [Manipulation](manipulation/ergo-jr/)
-4. [Perception](perception/keras/)
+4. [Vision](vision/classification_tf2/)
 5. [Intégration](integration/ergo-tb-keras/)
 
-### Parcours n° 2 : Sawyer + Keras + Turtlebot
+### Parcours n° 2 : Sawyer + tensorflow2 + Turtlebot
 1. [Introduction](introduction/)
 2. [Navigation](navigation/turtlebot/)
 3. [Manipulation](manipulation/sawyer/)
-4. [Perception](perception/keras/)
+4. [Vision](vision/classification_tf2/)
 5. [Intégration](integration/sawyer-tb-keras/)
 
 ## Légende

@@ -1,8 +1,9 @@
 ---
-title: "Foire aux Questions"
+title: "FAQ Python 3"
 menu:
   main:
-    name: "Foire aux Questions"
-    weight: 9
-    identifier: "faq"
+    name: "FAQ Python 3"
+    weight: 2
+    identifier: "python3"
+    parent: "faq"
 ---

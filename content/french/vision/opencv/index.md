@@ -4,7 +4,7 @@ menu:
   main:
     name: "OpenCV"
     weight: 1
-    parent: "perception"
+    parent: "vision"
 ---
 
 Le domaine de "Computer Vision" (CV, ou vision par ordinateur) est une branche de l'intelligence artificielle, qui traite des techniques permettant d'extraire des informations de "haut niveau" utiles à partir d'images. Donc ce domaine développé depuis les années 60, on retrouve généralement des techniques provenant des mathématiques, du traitement d'images, des neurosciences, de l'apprentissage artificiel&#x2026; Nous allons ici effleurer ce domaine en nous familiarisant avec [OpenCV](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html).
