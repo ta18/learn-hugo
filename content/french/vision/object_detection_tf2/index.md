@@ -436,8 +436,10 @@ Pour le projet `face_cubes`, le contenu du fichier `training/faces_cubes/label_m
 
 Ce travail se décompose en deux étapes
 
-1. Création du fichier de configuration de l'entraînement.
-2. Lancement de l'entraînement supervisé.
+1. Créer le fichier de configuration de l'entraînement.
+2. Lancer l'entraînement supervisé.
+3. Exporter les poids du réseau entrainé dans un format utilisable.
+
 
 
 ### 5.1 Création du fichier de configuration de l'entraînement.
@@ -447,51 +449,116 @@ C’est la dernière étape avant de pouvoir lancer l’entraînement…
 Le fichier de configuration `pipeline.config` présent dans le dossier du réseau pré-entraîné `pre_trained/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8` doit être copié dans le dossier `training/faces_cubes\ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8`. 
 
 Il faut ensuite modifier les paramètres pour l’entraînement et le test en fonction : 
-* ligne 3 -- remplacer `num_classes: 90` par `num_classes: 2`, puisqu'on n'a que deux classes pour le projet `faces_cubes`
+* ligne 003 -- remplacer `num_classes: 90` par `num_classes: 2`, puisqu'on n'a que deux classes pour le projet `faces_cubes`
+* ligne 103 -- remplacer `max_detections_per_class: 100` par `max_detections_per_class: 5:set nu
+`
+* ligne 104 -- remplacer `max_total_detections: 100` par `max_total_detections: 5`
+
 * ligne 131 -- remplacer `batch_size: 64` par `batch_size: 4` : c'est le nombre d'image traitée avant de mettre à jour les poids du réseau de neurones.<br>
 Si cette valeur est trop grande, le calcul risque de dépasser la capacité mémoire RAM de ta machine... à régler en focntion de la quantité de RAM de ta machine.
 * ligne 161 -- remplacer `fine_tune_checkpoint: "PATH_TO_BE_CONFIGURED"` par `fine_tune_checkpoint: "pre_trained/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/checkpoint/ckpt-0", c'est le chemin du dossier pré-entrainé qui contient les poids du réseau après le pré-entraînement.
 * ligne 162 -- remplacer `num_steps: 25000` par `num_steps: 1000`; c'est le nombre max d'itérations de l'entraînement, pour des machines avec un CPU peu puissant on n'ira peut être même pas jusqu'à 1000, ce serait trop long...
 * ligne 165 -- remplacer `max_number_of_boxes: 100` par `max_number_of_boxes: 5`; on n'a pas plus de 5 faces de cubes sur une images, ça économise de la RAM.
 * ligne 167 -- remplacer `fine_tune_checkpoint_type: "classification"` par `fine_tune_checkpoint_type: "detection"` pour activer l'algorithme de détection.
-* ligne 172 : remplacer `input_path: "PATH_TO_BE_CONFIGURED"` par `input_path: "./training/faces_cubes/"`, c'est le chemin du dossier contenant le fichier `train.record`.
+* ligne 172 -- remplacer `input_path: "PATH_TO_BE_CONFIGURED"` par `input_path: "./training/faces_cubes/"`, c'est le chemin du dossier contenant le fichier `train.record`.
 * ligne 181 -- remplacer `label_map_path: "PATH_TO_BE_CONFIGURED"` par `label_map_path: "./training/faces_cubes/"`, c'est le chemin du dossier contenant le fichier `label_map.pbtxt`.
 * ligne 185 -- remplacer `input_path: "PATH_TO_BE_CONFIGURED"` par `input_path: "./training/faces_cubes/"`, c'est le chemin du dossier contenant le fichier `test.record`.
 
 ## 5.2 Lancer l'entraînement
 
-* copier le fichier `models\research\object_detection\model_main_tf2.py` dans la racine `tod_tf2`,
-* se placer à la racine du projet dans le dossier `tod_tf2`,
-* taper la commande :
+* Copie le fichier `models\research\object_detection\model_main_tf2.py` dans la racine `tod_tf2`.
+* Place toi à la racine du projet dans le dossier `tod_tf2`.
+* Tape la commande :
 ```bash
-(tf2) jlc@pikatchou:~ $ python model_main_tf2.py --model_dir=training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/  \
-                                                 --pipeline_config_path=training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/pipeline.config 
+# From within tod_tf2
+(tf2) jlc@pikatchou:~ $ python model_main_tf2.py --model_dir=training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/checkpoint1  --pipeline_config_path=training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/pipeline.config 
 ```
-le programme Python lancé est très verbeux... <br>
-au bout d'un temps qui peut être assez long (plusieurs minutes avec un CPU ), les logs de l'entraîenement apparaissent à l'écran :
+Les fichiers des poids entraînés seront écrits dans le dossier `.../ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/checkpoint1` : si tu relances l'entraînement, tu peux utiliser `.../checkpoint2`, `.../checkpoint3` pour séparés des essais successifs.
 
+Le programme Python lancé est très verbeux... <br>
+au bout d'un temps qui peut être assez long (plusieurs minutes avec un petit CPU), les logs de l'entraînement apparaissent à l'écran :
 
+	...
+	...
+	W0507 00:24:41.010936 140206908888832 deprecation.py:531] From /home/jlc/miniconda3/envs/tf2/lib/python3.8/site-packages/tensorflow/python/util/deprecation.py:605: calling map_fn_v2 (from tensorflow.python.ops.map_fn) with dtype is deprecated and will be removed in a future version.
+	Instructions for updating:
+	Use fn_output_signature instead
+	INFO:tensorflow:Step 100 per-step time 22.002s loss=0.825
+	I0507 01:01:11.942076 140208909420352 model_lib_v2.py:676] Step 100 per-step time 22.002s loss=0.825
+	INFO:tensorflow:Step 200 per-step time 20.926s loss=0.813
+	I0507 01:36:04.090147 140208909420352 model_lib_v2.py:676] Step 200 per-step time 20.926s loss=0.813
+	INFO:tensorflow:Step 300 per-step time 20.803s loss=0.801
+	I0507 02:10:44.351419 140208909420352 model_lib_v2.py:676] Step 300 per-step time 20.803s loss=0.801
+	INFO:tensorflow:Step 400 per-step time 20.946s loss=0.812
+	I0507 02:45:38.927271 140208909420352 model_lib_v2.py:676] Step 400 per-step time 20.946s loss=0.812
+	INFO:tensorflow:Step 500 per-step time 20.960s loss=0.794
+	I0507 03:20:34.990385 140208909420352 model_lib_v2.py:676] Step 500 per-step time 20.960s loss=0.794
+	INFO:tensorflow:Step 600 per-step time 21.045s loss=0.802
+	I0507 03:55:39.516442 140208909420352 model_lib_v2.py:676] Step 600 per-step time 21.045s loss=0.802
+	INFO:tensorflow:Step 700 per-step time 20.863s loss=0.786
+	I0507 04:30:25.868283 140208909420352 model_lib_v2.py:676] Step 700 per-step time 20.863s loss=0.786
+	INFO:tensorflow:Step 800 per-step time 20.744s loss=0.799
+	I0507 05:05:00.163027 140208909420352 model_lib_v2.py:676] Step 800 per-step time 20.744s loss=0.799
+	INFO:tensorflow:Step 900 per-step time 20.825s loss=0.837
+	I0507 05:39:42.691898 140208909420352 model_lib_v2.py:676] Step 900 per-step time 20.825s loss=0.837
+	INFO:tensorflow:Step 1000 per-step time 20.789s loss=0.778
+	I0507 06:14:21.503472 140208909420352 model_lib_v2.py:676] Step 1000 per-step time 20.789s loss=0.778
+
+Dans l'exemple ci-dessus, on voit des logs tous les 100 pas, avec environ 20 secondes par pas, soit environ 35 minutes entre chaque affichage et environ 6h de calcul pour les 1000 pas.
 
 En cas d'arrêt brutal du programme avec le message "Processus arrêté", ne pas hésiter à diminer la valeur du paramètre `batch_size` jusquà 2 si nécessaire.... <br>
 Même avec un `batch_size` de 2, le processus Python peut nécessiter jusqu'à 2 ou 3 Go de RAM pour lui tout seul, ce qui peut mettre certains portables en difficulté...
 
+Une fois l'entraînement terminé tu peux analyser les statistiques d'entraînement avec `tensorflow` en tapant la commande :
+```bash
+# From within tod_tf2
+(tf2) jlc@pikatchou:~ $ tensorflow --log_dir=training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/checkpoint1/train
+```
+`tensorflow` lance un serveur HHTP en local sur ta machine, et tu peux ouvrir la page `http://` avec un navigateur pour voir les courbes d'analyse :
+
+![tensorflow]()
+
+### 5.3 Exporter les poids du réseau entraîné
+
+On utilise le script Python `exporter_main_v2.py` du dossier `models/reasearch/object_detection/` pour extraire le __graph d'inférence__ entraîné et le sauvegarder dans un fichier `saved_model.pb` qui pourra être rechargé ultérieurement pour exploiter le réseau entraîneé :
+```bash
+# From within tod_tf2
+p(tf2) jlc@pikatchou:~ $ python models/research/object_detection/exporter_main_v2.py --input_type image_tensor --pipeline_config_path training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/pipeline.config --trained_checkpoint_dir training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/checkpoint1 --output_directory training/faces_cubes/ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/saved1
+
+```
+Le script Python créé le fichier `saved_model.pb` dans le dossier `.../ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8/saves1/saved_model` :
 
 
 
-## 6. Évaluation des inférences du réseau
 
-Une fois le rédeau entraîné avec les données d'entraînement et de test, on peut évaluer qualitativement la qualité du réseau entraîné en utilisant de nouvelles images.
 
-L'idée ici est de créer de nouvelles images et de vérifier que le réseau entraîné est bien capables de détecter les faces des cubes en discriminant correctement les numéros écrits sur les faces des cubes.
+## 6. Évaluation du réseau entraîné
+
+On va vérifier que le réseau entraîné est bien capables de détecter les faces des cubes en discriminant correctement les numéros écrits sur les faces.
+
+Le script Python `plot_object_detection_saved_model.py` permet d'exploiter le réseau entraîné sur des images, les arguments supportés sont :
+* `-p` : le nom du projet
+* `-m` : le nom du modèle du réseau
+* `-i` : le chemin du fichier image à analyser
+* `-n` : optionnel, le nombre de classes d'objets à détecter (valeur par défaut : )
+
+```bash
+# From within tod_tf2
+p(tf2) jlc@pikatchou:~ $ python plot_object_detection_saved_model.py -p faces_cubes -m ssd_mobilenet_v1_fpn_640x640_coco17_tpu-8 -i images/faces_cubes/test/image017.png -n 2
+```
 
 
 ## 7. Intégration
 
-Il est maintenant temps d'intégrer les deux parties du pipeline pour l'utilisation finale. Ouvrez le fichier `main.py` à la racine du projet.
+Une fois le réseau entraîné et évalué, si les résultats sont bon, il ne reste plus qu'à modifier le fichier `xxx.py` pour réliser les traitements suivants :
 
-Exécuter maintenant le programme `main.py` : donner le chemin d'un dossier qui contient les fichiers du réseau entraîné et vous devriez commencer à obtenir la reconnaissance des chiffres '1' et '2' dans les images fournies.
+## 7.1 
 
-Il faudra certainement refaire plusieurs fois l'entraînement du réseau en jouant sur plusieurs paramètres avant d'obtenir un réseau entraîné qui fonctionne correctement :
+1. Instancier un réseau en chargeant les poids du réseau entraîné. 
+2. Utiliser le service ROS `/get_image` pour obtenir l'image faite par la caméra du robot Ergo Jr,
+2. Détecter avec le réseau entraîné les faces des cubes avec leur numéro
+3. Faire afficher le résulat de la détection
+
 
 * augmenter/diminuer `BATCH_SIZE` peut modifier les temps de calcul et la qualité du réseau entraîné...
 
