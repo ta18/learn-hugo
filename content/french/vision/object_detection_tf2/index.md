@@ -268,29 +268,25 @@ Quelques commandes shell suffisent pour créer les premiers niveaux de cette arb
 Plusieurs familles de réseaux dédiés à la détection d’objets sont proposés sur Le dépôt git [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md), parmi lesquelles :
 
 * Les réseaux __R-CNN__ (_Region-based Convolutional Neural Network_) : basés sur le concept de __recherche ciblée__ (_selective search_). 
-            <div style="width:490px">property</div>    |  
-:------------------------------------------------|:-------------------------
-<img src="img/R-CNN.png" width="500" >(source: https://arxiv.org/pdf/1311.2524.pdf)]  | Au lieu d’appliquer une fenêtre d'analyser à toutes les positions possibles dans l’image, l’algorithme de recherche ciblée génère 2000 propositions de régions d’intérêts où il est le plus probable de trouver des objets à détecter. Cet algorithme se base sur des éléments tels que la texture, l’intensité et la couleur des objets qu’il a appris à détecter pour proposer des régions d’intérêt. Une fois les 2000 régions choisies, la dernière partie du réseau produit la probabilité que l’objet dans la région appartienne à chaque classe. Les versions __Fast R-CNN__ et __Faster R-CNN__ rendent l’entraînement plus efficace et plus rapide |
+![R-CNN](img/R-CNN.png)(source: https://arxiv.org/pdf/1311.2524.pdf)<br>
+Au lieu d’appliquer une fenêtre d'analyser à toutes les positions possibles dans l’image, l’algorithme de recherche ciblée génère 2000 propositions de régions d’intérêts où il est le plus probable de trouver des objets à détecter. Cet algorithme se base sur des éléments tels que la texture, l’intensité et la couleur des objets qu’il a appris à détecter pour proposer des régions d’intérêt. Une fois les 2000 régions choisies, la dernière partie du réseau produit la probabilité que l’objet dans la région appartienne à chaque classe. Les versions __Fast R-CNN__ et __Faster R-CNN__ rendent l’entraînement plus efficace et plus rapide.
 
 * Les réseaux __SSD__ (_Single Shot Detector_) : font partie des détecteurs considérant la détection d’objets comme un problème de régression. L'algorithme __SSD__ utilise d’abord un réseau de neurones convolutif pour produire une carte des points clés dans l’image puis, comme __Faster R-CNN__, utilise des cadres de différentes tailles pour traiter les échelles et les ratios d’aspect.
 
 La différence entre "Faster R-CNN" et SSD est qu’avec R-CNN on réalise une classification sur chacune des 2000 fenêtres générées par l’algorithme de recherche ciblée, alors qu’avec SSD on cherche à prédire la classe ET la fenêtre de l’objet, en même temps. Cela rend SSD plus rapide que "Faster R-CNN", mais également moins précis.
 
-Dans le tableau du dépôt git dépôt git [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md), les performances des différents réseaux sont exprimées en __COCO mAP (Mean Average Precision)__. Le __COCO mAP__ est une métrique couramment utilisée pour mesurer
-la précision d’un modèle de détection d’objets. Elle consiste à mesurer la proportion de détections réussies sur des images déjà annotées du dataset COCO (Common Object in CONtext)
-qui contient 200 000 images annotées avec 80 objets différents. Cette mesure sert de référence pour comparer la précision de différentes architectures de détection d’objets.
-
-Pour plus d’informations sur comment la mAP est calculée, voir la lecture [2].
+Dans le tableau du dépôt git dépôt git [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md), les performances des différents réseaux sont exprimées en _COCO mAP (Mean Average Precision)_, métrique couramment utilisée pour mesurer la précision d’un modèle de détection d’objets. Elle consiste à mesurer la proportion de détections réussies sur des images déjà annotées du dataset COCO (Common Object in CONtext)
+qui contient 200 000 images annotées avec 80 objets différents. Cette mesure sert de référence pour comparer la précision de différentes architectures de détection d’objets (plus d’informations la mAP dans le lecture [2]).
 
 
-📥 Pour le travail de reconnaissance des faces des cubes dans les images fournies par la caméra du robot Ergo Jr tu peux télécharger le réseau `SSD MobileNet V1 FPN 640x640` sur le site [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md).
+📥 Pour le travail de détection des faces des cubes dans les images fournies par la caméra du robot Ergo Jr tu peux télécharger le réseau `Faster R-CNN ResNet50 V1 640x640` sur le site [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md).
 
 Une fois téléchargé, il faut extraire l'archive TGZ au bon endroit de l'arborescence de travail :
 ```bash
 # From within tod_tf2
 (tf2) jlc@pikatchou $ tar xvzf ~/Téléchargements/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz -C pre_trained
 ```
-puis créer le dossier `faster_rcnn_resnet50_v1_640x640_coco17_tpu-8` dans le dossier `training/faces_cubes` :
+puis créer le dossier correspondant `faster_rcnn_resnet50_v1_640x640_coco17_tpu-8` dans le dossier `training/faces_cubes` :
 ```bash	
 (tf2) jlc@pikatchou $ mkdir training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
 ```
@@ -310,20 +306,20 @@ On vérifie :
 	    └── faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
 
 
-## 4. Création des données pour l'apprentissage supervisé
+## 5. Créer les données pour l'apprentissage supervisé
 
-Ce travail se décompose en plusieurs étapes
+Ce travail se décompose en cinq étapes
 
-1. Création des images avec la caméra du robot -> fichiers \*.jpg, \*.png
-2. Annotation des images avec le logiciel labelImg -> fichiers \*.xml
-3. Conversion des fichiers annotés \*.xml au format CSV
-4. Conversion des fichiers annotés CSV au format _tensorflow record_
-5. Créer du fichier `label_map.pbtxt` qui contient les labels des objets à reconnaître.
+1. Créer des images avec la caméra du robot -> fichiers \*.jpg, \*.png
+2. Annoter les images avec le logiciel `labelImg` -> fichiers \*.xml
+3. Convertir les fichiers annotés XML au format CSV
+4. Convertir les fichiers annotés CSV au format _tensorflow record_
+5. Créer le fichier `label_map.pbtxt` qui contient les labels des objets à reconnaître.
 
 
-### 4.1 Création des images avec la caméra du robot  
+### 5.1 Créer les images avec la caméra du robot  
 
-Les images des faces des cubes peuvent être faites en utilisant le service ROS `/get_image` proposé par le robot Poppy Ergo Jr.
+Les images des faces des cubes peuvent être obtenues en utilisant le service ROS `/get_image` proposé par le robot Poppy Ergo Jr.
 
 image001.png               |  image002.png
 :-------------------------:|:-------------------------:
@@ -339,7 +335,7 @@ image001.png               |  image002.png
 pi@poppy:~ $ env|grep ROS_MASTER
 ROS_MASTER_URI=http://poppy.local:11311
 ```	
-* si `ROS_MASTER_URI` n'est pas bon, édite le fichier `~/.bahrc` du robot et mets la bonne valeur...
+* si `ROS_MASTER_URI` n'est pas bon, édite le fichier `~/.bahrc` du robot, mets la bonne valeur et tape `source ~\.bashrc`...
 * Lance le ROS Master et les services ROS sur le robot avec la commande : `roslaunch poppy_controllers control.launch`
 
 💻 Et maintenant dans un terminal sur ton PC :
@@ -348,7 +344,7 @@ ROS_MASTER_URI=http://poppy.local:11311
 (tf2) jlc@pikatchou:~ $ env|grep ROS_MASTER
 ROS_MASTER_URI=http://poppy.local:11311
 ```	
-* si `ROS_MASTER_URI` n'est pas bon, édite ton fchier `~/.bahrc` entmets la bonne valeur...
+* si `ROS_MASTER_URI` n'est pas bon, édite le fchier `~/.bahrc`, mets la bonne valeur et tape `source ~\.bashrc`...
 
 
 🐍 Tu peux maintenant utiliser le programme Python `get_image_from_ergo.py` pour créer des images nommées `imagesxxx.png` (`xxx` = `001`, `002`...) avec l'appui sur la touche Enter pour passer d'une prise d'image à l'autre :
@@ -375,14 +371,14 @@ si tu obtiens l'erreur : `ModuleNotFoundError: No module named 'rospkg'`, il fau
 ```
 
 
-Chaque équipe peut faire quelques dizaines d'images variant les faces des cubes visibles puis les images peuvent être déposées sur un serveur pour servir à toutes les équipes.
+Chaque équipe peut faire quelques dizaines d'images variant les faces des cubes visibles, puis les images peuvent être partagées sur un serveur pour servir à toutes les équipes.
 
-Une fois collectées toutes les images, il faut mettre environ 90 % des images dans le dossier `images\faces_cubes\train` et le reste des images dans le dossier `images\faces_cubes\test`.
+Une fois collectées toutes les images, il faut mettre environ 90 % des images dans le dossier `images\faces_cubes\train` et le reste dans le dossier `images\faces_cubes\test`.
 
-### 4.2 Annoter des images avec le logiciel labelImg
+### 5.2 Annoter les images avec le logiciel labelImg
 
 L'annotation des images peut être faite de façon très simple avec le logiciel `labelImg`.
-C’est une étape du travail qui prend du temps et qui peut être réalisée à plusieurs en se répartissant les images.
+C’est une étape du travail qui prend du temps et qui peut être réalisée à plusieurs en se répartissant les images à annoter...
 
 L'installation du module Python `labelImg` faite dans l'EVP `tf2` (cf section 2.) permet de lancer le logiciel `labelImg` en tapant :
 ```bash
@@ -395,8 +391,8 @@ La première image est automatiquement chargée dans l'interface graphique :
 ![labelImg_2.png](img/labelImg_2.png)
 
 Pour chaque image, tu dois annoter les objets à reconnaître :
-* avec le bouton [Create RectBox], tu entoures une face de cube,
-* la boite des label s'ouvre alors et tu dois écrire le blabel `one` ou `two` en fonction de la face sélectionnée,
+* avec le bouton [Create RectBox], tu entoures une face d'un cube,
+* la boîte des labels s'ouvre alors et tu dois écrire le blabel `one` ou `two` en fonction de la face entourée,
 * itère le processus pour chacune des faces de cubes présente dans l'image...
 
     première face          |  deuxième face            |  fin
@@ -404,9 +400,9 @@ Pour chaque image, tu dois annoter les objets à reconnaître :
 ![1](img/labelImg_3.png)   |  ![2](img/labelImg_4.png) | ![3](img/labelImg_5.png)
 
 * quand c'est fini, tu cliques sur le bouton [Save] et tu passes à l'image suivante avec le bouton [Next Image].
-* Une fois toutes les images annotées, utilise les boutons [Open Dir] et [Change Save Dir] pour travailler avec les images du dossier `images/face_cubes/test/` et annote toutes les images de test.
+* Une fois toutes les images annotées, utilise les boutons [Open Dir] et [Change Save Dir] pour annoter les images de test du dossier `images/face_cubes/test/`.
 
-### 4.3 Convertir les fichiers XML annotés au format CSV
+### 5.3 Convertir les fichiers XML annotés au format CSV
 
 Cette étape permet de synthétiser dans un fichier CSV unique les données d’apprentissage contenues dans les différents fichiers XML crées à l’étape d'annotation. 
 Le programme `tod_tf2/xml_to_csv_tt.py` permet de générer les deux fichiers CSV correspondant aux données d’apprentissage et de test. 
@@ -418,9 +414,9 @@ Depuis le dossier `tod_tf2` tape la commande suivante :
 Successfully converted xml data in file <images/faces_cubes/train_labels.csv>.
 Successfully converted xml data in file <images/faces_cubes/test_labels.csv>.
 ```
-Les fichiers `train_labels.csv` et `test_labels.csv` sont créés dans le dossier  `images/faces_cubes/` :
+Les fichiers `train_labels.csv` et `test_labels.csv` sont créés dans le dossier  `images/faces_cubes/`.
 
-### 4.4 Convertir des fichiers CSV annotés au format _tfrecord_
+### 5.4 Convertir les fichiers CSV annotés au format _tfrecord_
 
 Pour cette étape, on utilise le programme `tod_tf2/generate_tfrecord_tt.py`. Depuis le dossier `tod_tf2` tape la commande :
 ```bash
@@ -429,11 +425,13 @@ Pour cette étape, on utilise le programme `tod_tf2/generate_tfrecord_tt.py`. De
 Successfully created the TFRecord file: ./training/faces_cubes/train.record
 Successfully created the TFRecord file: ./training/faces_cubes/test.record
 ```
-Avec cette commande on vient de créer les 2 fichiers `train.record` et `test.record` dans le dossier `training/faces_cubes` : ce sont ces deux fichiers qui serviront pour l’entraînement du réseau.
+Avec cette commande tu viens de créer les 2 fichiers `train.record` et `test.record` dans le dossier `training/faces_cubes` : ce sont les fichiers qui serviront pour l’entraînement et l'évaluation du réseau.
 
-### 4.5 Créer le fichier label_map.pbtxt
+### 5.5 Créer le fichier label_map.pbtxt
  
-La dernière étape consiste a créer le fichier `label_map.pbtxt` dans le dossier `training/faces_cubes`. Ce fichier décrit la « carte des labels » (label map) nécessaire à l’entraînement du réseau. 
+La dernière étape consiste a créer le fichier `label_map.pbtxt` dans le dossier `training/faces_cubes`. 
+
+Ce fichier décrit la « carte des labels » (_label map_) nécessaire à l’entraînement du réseau. 
 La carte des labels permet de connaître l’ID (nombre entier) associé à chaque étiquette (_label_) identifiant les objets à reconnaître. La structure type du fichier est la suivante :
 
 
@@ -458,7 +456,7 @@ Pour le projet `face_cubes`, le contenu du fichier `training/faces_cubes/label_m
 	   name: 'two'
 	 }
 
-## 5. Entraînement supervisé du réseau pré-entraîné
+## 6. Lancer l'entraînement supervisé du réseau pré-entraîné
 
 Ce travail se décompose en deux étapes :
 
@@ -466,13 +464,13 @@ Ce travail se décompose en deux étapes :
 2. Lancer l'entraînement supervisé.
 3. Exporter les poids du réseau entrainé dans un format utilisable.
 
-### 5.1 Modifier le fichier de configuration
+### 6.1 Modifier le fichier de configuration
 
 C’est la dernière étape avant de pouvoir lancer l’entraînement…
 
 * Le fichier de configuration `pipeline.config` présent dans le dossier `pre_trained/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8` doit être copié dans le dossier cible `training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8`. 
 
-* Il faut ensuite modifier les paramètres du fichier `training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8` qui configurent l'entraînement :
+* Il faut ensuite modifier les paramètres du fichier `training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8` pour les adpater à l'entraînement :
 
 |n° | paramètre                     | Description                                                            | Valeur initiale  | valeur à donner |  explication                    |
 |:--|:------------------------------|:-----------------------------------------------------------------------|:----------------:|:---------------:|:--------------------------------|
@@ -480,7 +478,7 @@ C’est la dernière étape avant de pouvoir lancer l’entraînement…
 |077| `max_detections_per_class`    | nombre max de détecction par classe                                    | 100              | 4               | on met au plus 4 cubes          | 
 |078| `max_total_detections`        | nombre max total de détections                                         | 100              | 4               | on met au plus 4 cubes          | 
 |093| `batch_size`                  | nombre d'images à traiter en lot avant mise à jour des poids du réseau | 64               | 1, 2,....       | une valeur trop élevée risque de faire dépasser la capacité mémoire RAM de ta machine... à régler en fonction de la quantité de RAM de ta machine.  |
-|097| `num_steps`                   | Nombre max d'itérations d'entraînement                                 | 25000             | 500             | une valeur trop grande donne des temsp de caculs prohibitifs et un risque de sur-entraînement |
+|097| `num_steps`                   | Nombre max d'itérations d'entraînement                                 | 25000             | 1000           | une valeur trop grande donne des temsp de caculs prohibitifs et un risque de sur-entraînement |
 |113| `fine_tune_checkpoint`        | chemin des fichiers de sauvegarde des poids du réseau pré-entraîné     | "PATH_TO_BE_<br>CONFIGURED" | "pre_trained/faster_rcnn_resnet50_v1_<br>640x640_coco17_tpu-8/checkpoint/ckpt-0" | se termine par `/ckpt-0` qui est le préfixe des fichiers dans le dossier `.../checkpoint/` |
 |114| `fine_tune_checkpoint_type`   | Choix de l'algorithme : "classification" ou "detection"                | "classification"| "detection"  | on veut faire de la detection d'objets |
 |120| `max_number_of_boxes`         | Nombre max de boîtes englobantes  dans chaque image                    | 100               | 4               | pas plus de 4 faces de cubes sur une images |
@@ -490,7 +488,7 @@ C’est la dernière étape avant de pouvoir lancer l’entraînement…
 |139| `label_map_path`              | chemin du fichier des labels                                           | "PATH_TO_BE_<br>CONFIGURED" | "training/faces_cubes/label_map.pbtxt" | utilisé pour l'évaluation|
 |128| `input_path`                  | fichier des données d'entrée de test au format `tfrecord`              | "PATH_TO_BE_<br>CONFIGURED" | "training/faces_cubes/train.record"    | utilisé pour l'évaluation|
 
-## 5.2 Lancer l'entraînement
+## 6.2 Lancer l'entraînement
 
 * Copie le fichier `models\research\object_detection\model_main_tf2.py` dans la racine `tod_tf2`.
 * Tape la commande :
@@ -543,7 +541,7 @@ Une fois l'entraînement terminé tu peux analyser les statistiques d'entraînem
 
 ![tensorflow]()
 
-### 5.3 Exporter les poids du réseau entraîné
+### 6.3 Exporter les poids du réseau entraîné
 
 On utilise le script Python `exporter_main_v2.py` du dossier `models/reasearch/object_detection/` pour extraire le __graph d'inférence__ entraîné et le sauvegarder dans un fichier `saved_model.pb` qui pourra être rechargé ultérieurement pour exploiter le réseau entraîneé :
 ```bash
@@ -557,7 +555,7 @@ Le script Python créé le fichier `saved_model.pb` dans le dossier `.../faster_
 
 
 
-## 6. Évaluation du réseau entraîné
+## 7. Évaluation du réseau entraîné
 
 On va vérifier que le réseau entraîné est bien capables de détecter les faces des cubes en discriminant correctement les numéros écrits sur les faces.
 
@@ -573,11 +571,11 @@ Le script Python `plot_object_detection_saved_model.py` permet d'exploiter le r�
 ```
 
 
-## 7. Intégration
+## 8. Intégration
 
 Une fois le réseau entraîné et évalué, si les résultats sont bon, il ne reste plus qu'à modifier le fichier `xxx.py` pour réliser les traitements suivants :
 
-## 7.1 
+## 8.1 
 
 1. Instancier un réseau en chargeant les poids du réseau entraîné. 
 2. Utiliser le service ROS `/get_image` pour obtenir l'image faite par la caméra du robot Ergo Jr,
