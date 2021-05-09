@@ -27,10 +27,11 @@ Un avantage attendu de l'approcje __Object Detection__ est de fournir directemen
 * Bonne compréhension de Python et numpy
 * Une première expérience des réseaux de neurones est souhaitable.
 
-L'entraînement des réseaux de neurones avec le module `tensorflow` se fera de préférence dans un environnement virtuel Python (EVP) qui permet de travailler dans un nevironnement Python  séparé de celui existant pour le travail sous ROS.
+L'entraînement des réseaux de neurones avec le module `tensorflow` se fera de préférence dans un environnement virtuel Python (EVP) qui permet de travailler dans un environnement Python  séparé de celui existant pour le travail sous ROS.
 
-Pour la compréhension et la création de ton EVP tu peux suivre la [FAQ Python : environnement virtuel](https://learn.e.ros4.pro/fr/faq/python_venv/) 
-
+💻 Utilise la [FAQ Python : environnement virtuel](https://learn.e.ros4.pro/fr/faq/python_venv/)  pour créer un EVP :
+* nommé `tf2`, 
+* avec une version de Python égale à `3.8`.
 ## 1. Documentation
 
 1. Documentation générale sur numpy :
@@ -56,7 +57,7 @@ L'installation de l'API TOD se déroule en 5 étapes :
 4. Installer l'API COCO
 5. Installer le package `object_detection` 
 
-Dans tout ce qui suit le _prompt_ du terminal sera noté `(tf2) jlc@pikatchou $` : le préfixe `(tf2)` est là pour bien rappeler que le travail Python pour l'API TOD se fait 
+Dans tout le document le _prompt_ du terminal sera noté `(tf2) jlc@pikatchou $` : le préfixe `(tf2)` est là pour bien rappeler que le travail Python pour l'API TOD se fait 
 dans l'__Environnement Virtuel Python tf2__ que tu auras créé au préalable (cf les Prérequis).
 
 
@@ -377,28 +378,33 @@ ROS_MASTER_URI=http://poppy.local:11311
 * si `ROS_MASTER_URI` n'est pas bon, édite le fchier `~/.bahrc`, mets la bonne valeur et tape `source ~\.bashrc`...
 
 
-🐍 Tu peux maintenant utiliser le programme Python `get_image_from_ergo.py` pour créer des images des quatre cubes nommées `imagesxxx.png` (`xxx` = `001`, `002`...) avec un appui sur la touche ENTER pour passer d'une prise d'image à l'autre :
+🐍 Le programme `get_image.py` permet de visualiser l'image obtenue avec le service ROS `/getimage` du robot :
+
 ```python
 import cv2, rospy
+import matplotlib.pyplot as plt
+import matplotlib
 from poppy_controllers.srv import GetImage
 from cv_bridge import CvBridge
+matplotlib.use('TkAgg')
 
-i=1
-while True:
-    get_image = rospy.ServiceProxy("get_image", GetImage)
-    response  = get_image()
-    bridge    = CvBridge()
-    image     = bridge.imgmsg_to_cv2(response.image)
-    cv2.imwrite(f"image{i:03d}.png", image)
-    cv2.imshow("Poppy camera", image)
-    cv2.waitKey(0)
-    i += 1
+get_image = rospy.ServiceProxy("get_image", GetImage)
+response  = get_image()
+bridge    = CvBridge()
+image     = bridge.imgmsg_to_cv2(response.image)
+plt.figure()
+plt.imshow(image)
+plt.axis('off')
+plt.show()
+cv2.imwrite("image.png", image)
 ```
 
 si tu obtiens l'erreur : `ModuleNotFoundError: No module named 'rospkg'`, il faut simplement ajouter le module Python `rospkg` à ton EVP `tf2` :
 ```bash
 (tf2) jlc@pikatchou:~ $ pip install rospkg
 ```
+
+🐍 Tu peux maintenant utiliser le programme Python `write_image_file.py` pour créer des images des quatre cubes nommées `imagesxxx.png` (`xxx` = `001`, `002`...) avec un appui sur la touche ENTER pour passer d'une prise d'image à l'autre.
 
 
 Chaque équipe peut faire quelques dizaines d'images en variant les faces des cubes visibles, puis les images peuvent être partagées sur un serveur pour servir à toutes les équipes.
@@ -512,7 +518,7 @@ C’est la dernière étape avant de pouvoir lancer l’entraînement…
 |113| `fine_tune_checkpoint`        | chemin des fichiers de sauvegarde des poids du réseau pré-entraîné     | "PATH_TO_BE_<br>CONFIGURED" | "pre_trained/faster_rcnn_resnet50_v1_<br>640x640_coco17_tpu-8/checkpoint/ckpt-0" | se termine par `/ckpt-0` qui est le préfixe des fichiers dans le dossier `.../checkpoint/` |
 |114| `fine_tune_checkpoint_type`   | Choix de l'algorithme : "classification" ou "detection"                | "classification"| "detection"  | on veut faire de la detection d'objets |
 |120| `max_number_of_boxes`         | Nombre max de boîtes englobantes  dans chaque image                    | 100               | 4               | pas plus de 4 faces de cubes sur une images |
-|122| `use_bfloat16`                | `true` pour les architectures TPU, `false` pour CPU                    | true              | fasle           | |
+|122| `use_bfloat16`                | `true` pour les architectures TPU, `false` pour CPU                    | true              | false           | |
 |126| `label_map_path`              | chemin du fichier des labels                                           | "PATH_TO_BE_<br>CONFIGURED" | "training/faces_cubes/label_map.pbtxt" | utilisé pour l'entraînement |
 |128| `input_path`                  | fichier des données d'entrée d'entraînement au format `tfrecord`       | "PATH_TO_BE_<br>CONFIGURED" | "training/faces_cubes/train.record"    | utilisé pour l'entraînement |
 |139| `label_map_path`              | chemin du fichier des labels                                           | "PATH_TO_BE_<br>CONFIGURED" | "training/faces_cubes/label_map.pbtxt" | utilisé pour l'évaluation|
@@ -582,9 +588,6 @@ On utilise le script Python `exporter_main_v2.py` du dossier `models/reasearch/o
 Le script Python créé le fichier `saved_model.pb` dans le dossier `.../faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/saves1/saved_model` :
 
 
-
-
-
 ## 7. Évaluation du réseau entraîné
 
 On va vérifier que le réseau entraîné est bien capables de détecter les faces des cubes en discriminant correctement les numéros écrits sur les faces.
@@ -612,10 +615,5 @@ Une fois le réseau entraîné et évalué, si les résultats sont bon, il ne re
 2. Détecter avec le réseau entraîné les faces des cubes avec leur numéro
 3. Faire afficher le résulat de la détection
 
-
-* augmenter/diminuer `BATCH_SIZE` peut modifier les temps de calcul et la qualité du réseau entraîné...
-
-Pour confirmer la qualité de votre réseau entraîné vous pouvez enregistrer vos propres fichiers PNG avec les images faites avec la caméra du robot en utilisant le service ROS `/get_image`. 
-
-Lancer le programme et observer les performances de votre réseau opérant sur vos propres images.
+Lancele programme et observe les performances de ton réseau opérant sur tes propres images.
 
