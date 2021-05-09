@@ -50,30 +50,38 @@ les indications du document présent pour installer et utiliser rapidement une v
 ## 2. Installer l'API TOD
 
 L'installation de l'API TOD se déroule en 5 étapes :
-1. Créer ton espace de travail
+1. Créer et initialiser ton espace de travail
 2. Cloner le dépôt `tensorflow/models`
 3. Installer les outils `protobuf`
 4. Installer l'API COCO
-5. Installer `models/research/`
+5. Installer le package `object_detection` 
 
-Dans tout ce qui suit le _prompt_ du terminal sera noté `(tf2) jlc@pikatchou $` : le préfixe `(tf2)` est là pour bien rapeller que le travail Python se fait 
+Dans tout ce qui suit le _prompt_ du terminal sera noté `(tf2) jlc@pikatchou $` : le préfixe `(tf2)` est là pour bien rappeler que le travail Python pour l'API TOD se fait 
 dans l'__Environnement Virtuel Python tf2__ que tu auras créé au préalable (cf les Prérequis).
 
 
-### 2.1 Créer ton espace de travail
+### 2.1 Créer et initialiser ton espace de travail
 
-La première étape consiste à cloner le dépôt github `cjlux/tod_tf2.git` : 
+La première étape consiste à créer le répertoire de travail `tod_tf2`, dans lequel seront créés tous les fichiers, et de te positionner dans ce répertoire qui sera __le dossier racine du projet__.
+:
 ```bash
-(tf2) jlc@pikatchou $ cd <quelque_part>   # choisis le répertoire où cloner `tod_tf2.git`, par exemple "cd " pour te positionner dans ton home directory
-(tf2) jlc@pikatchou $ git clone https://github.com/cjlux/tod_tf2.git
+(tf2) jlc@pikatchou $ cd <quelque_part>   # choisis le répertoire où créer `tod_tf2`, par exemple "cd ~/catkins_ws"
+(tf2) jlc@pikatchou $ mkdir tod_tf2
+(tf2) jlc@pikatchou $ cd tod_tf2/
 ```
-le clonage télécharger et installe le dossier de travail `tod_tf2` contenant des scripts Python qui seront utilisés plus tard. Ce dossier est la racine du projet.
+Ensuite, tu clones le dépôt github `cjlux/tod_tf2_tools.git` et tu copies les fichiers `*.py` et `*.ipynb` du dossier `tod_tf2_tools` dans le dossier `tod_tf2` : 
+```bash
+# From tod_tf2/
+(tf2) jlc@pikatchou $ git clone https://github.com/cjlux/tod_tf2_tools.git
+(tf2) jlc@pikatchou $ cp tod_tf2_tools/*.py .
+(tf2) jlc@pikatchou $ cp tod_tf2_tools/*.ipynb .
+```
 
 ### 2.2 Cloner le dépôt `tensorflow/models`
 
-Vas dans le dossier de travail `tod_tf2` et clone le dépôt github `tensorflow/models` :
+Dans le dossier de travail `tod_tf2` clone le dépôt github `tensorflow/models` (~ 635 Mo) :
 ```bash
-(tf2) jlc@pikatchou $ cd tod_tf2
+# From tod_tf2/
 (tf2) jlc@pikatchou $ git clone https://github.com/tensorflow/models.git
 ```
 
@@ -101,18 +109,23 @@ export PYTHONPATH=$TOD_ROOT/models:$TOD_ROOT/models/research:$PYTHONPATH
 ```
 remplace `"<chemin absolu du dossier tod_tf2>"` par le chemin absolu du dossier `tod_tf2` sur ta machine.
 
-Lance un nouveau terminal pour activer le nouvel environnement shell ; tout ce qui suit sera fait dans ce nouveau terminal.
+* Lance un nouveau terminal pour activer le nouvel environnement shell : tout ce qui suit sera fait dans ce nouveau terminal.
+* ⚠️ n'oublie pas d'activer l'EVP `tf2` dans ce nouveau terminal :
+```bash
+jlc@pikatchou $ conda activate tf2
+(tf2) jlc@pikatchou $
+ ```
 
 ### 2.3 Installer les outils `protobuf`
 
 L’API native TOD utilise des fichiers `*.proto` pour la configuration des modèles et le stockage des paramètres d’entraînement. 
-Ces fichiers doivent être traduits en fichiers `*.py` afin que l’API Python puisse fonctionner correctement : le travail est fait en deux étapes. 
+Ces fichiers doivent être traduits en fichiers `*.py` afin que l’API Python puisse fonctionner correctement : 
 
-Du dois d'abord installer la commande `protoc` :
+* Installe d'abord le paquet debian `protobuf-compile` qui donne accès à la commande `protoc` :
 ```bash
 (tf2) jlc@pikatchou $ sudo apt install protobuf-compiler
 ```
-Tu peux ensuite te positionner dans le dossier `tod_tf2/models/research` et taper :
+* Tu peux ensuite te positionner dans le dossier `tod_tf2/models/research` et taper :
 ```bash
 # From tod_tf2/models/research/
 (tf2) jlc@pikatchou $ protoc object_detection/protos/*.proto  --python_out=.
@@ -124,7 +137,7 @@ Cette commande travaille de façon muette.
 COCO est une banque de données destinée à alimenter les algorithmes de détection d’objets, de segmentation… <br>
 Voir [cocodataset.org](https://cocodataset.org) pour les tutoriels, publications… 
 
-Pour installer l’API Python de COCO, clone le site `cocoapi.git` dans le dossier `/tmp`, tape la commande `make` dans le dossier `cocoapi/PythonAPI`, puis recopie le dossier `pycococtools` dans `models/research/` :
+Pour installer l’API Python de COCO, clone le site `cocoapi.git` (~ 15 Mo) dans le dossier `/tmp`, tape la commande `make` dans le dossier `cocoapi/PythonAPI`, puis recopie le dossier `pycococtools` dans ton dossier `.../models/research/` :
 ```bash
 (tf2) jlc@pikatchou $ cd /tmp
 (tf2) jlc@pikatchou $ git clone  https://github.com/cocodataset/cocoapi.git
@@ -132,7 +145,9 @@ Pour installer l’API Python de COCO, clone le site `cocoapi.git` dans le dossi
 (tf2) jlc@pikatchou $ make
 (tf2) jlc@pikatchou $ cp -r pycocotools/ <chemin absolu du dossier tod_tf2>/models/research/
 ```
-### 2.5 Installer `models/research/` 
+remplace `"<chemin absolu du dossier tod_tf2>"` par le chemin absolu du dossier `tod_tf2` sur ta machine (par exemple `~/catkins_ws/tod_tf2`).
+
+### 2.5 Installer le package `object_detection` 
 
 Pour finir l'installation, place-toi dans le dossier  `models/research/` et tape les commandes :
 ```bash
@@ -144,12 +159,12 @@ Pour finir l'installation, place-toi dans le dossier  `models/research/` et tape
 
 ### 2.6 Tester l'installation de l'API TOD
 
-Pour tester ton installation de l’API TOD, place-toi maintenant dans le dossier `models/research/` et tape la commande :
+Pour tester ton installation de l’API TOD, place-toi dans le dossier `models/research/` et tape la commande :
 ```bash	
 # From within tod_tf2/models/research/
 (tf2) jlc@pikatchou $ python object_detection/builders/model_builder_tf2_test.py
 ```
-Le programme déroule toute une série de tests et doit se terminer par un OK :
+Le programme déroule toute une série de tests et doit se terminer par un OK sans fiare apparaître d'erreur :
 
 	...
 	[       OK ] ModelBuilderTF2Test.test_invalid_second_stage_batch_size
@@ -173,17 +188,18 @@ Le programme déroule toute une série de tests et doit se terminer par un OK :
 	OK (skipped=1)
 
 Pour finir, tu peux vérifier l’installation en utilisant le notebook IPython `object_detection_tutorial.ipynb` présent dans le dossier `tod_tf2`.<br>
-(note : c'est une copie du notebook `tod_tf2/models/research/object_detection/colab_tutorials/object_detection_tutorial.ipynb` dans laquelle on a enlevé les cellules d'installation de l'API_TOD et quelques autres cellules qui génèrent des erreurs...).
+(note : c'est une copie du notebook `tod_tf2/models/research/object_detection/colab_tutorials/object_detection_tutorial.ipynb` dans laquelle on a enlevé les cellules d'installation de l'API_TOD et quelques autres cellules qui peuvent générer des erreurs...).
 
 * ⚠️ Avant d'exécuter les cellules du notebook, il faut corriger une erreur dans le fichier `.../miniconda3/envs/tf2/lib/python3.8/site-packages/object_detection/utils/ops.py`, ligne 825 :
 remplace `tf.uint8` par `tf.uint8.as_numpy_dtype`
 
+* Dans le dossier `tod_tf2` lance la commande `jupyter notebook` et charge le notebook `object_detection_tutorial.ipynb`.
 * Exécute les cellules une à une, tu ne dois pas avoir d’erreur :
 
 	* La partie "__Detection__" (qui dure quelques secondes ou plusieurs minutes suivant ton CPU…) utilise le réseau pré-entraîné `ssd_mobilenet_v1_coco_2017_11_17` pour détecter des objets dans les   images de test :	
 ![notebook_test_TOD_image1et2.png](img/notebook_test_TOD_image1et2.png)
 
-	* La partie "__Instance Segmentation__" est plus gormande en ressources (dure de quelques dizaines de secondes à plusieurs minutes suivant ton CPU…) utilise le réseau pré-entraîné `mask_rcnn_inception_resnet_v2_atrous_coco_2018_01_28` pour détecter les objets et leurs masques, par exemple :
+	* La partie "__Instance Segmentation__" est plus gourmande en ressources (dure de quelques dizaines de secondes à plusieurs minutes suivant ton CPU…) utilise le réseau pré-entraîné `mask_rcnn_inception_resnet_v2_atrous_coco_2018_01_28` pour détecter les objets et leurs masques, par exemple :
 ![notebook_test_TOD_image-mask1.png](img/notebook_test_TOD_image-mask1.png)
 
 La suite du travail se décompose ainsi :
@@ -223,7 +239,7 @@ L'arborescence générique proposée est la suivante :
 * Le dossier `images/<project>` contient pour chaque projet :
 	* les dossiers `test` et `train` qui contiennent chacun :
 		* les images PNG, JPG... à analyser,
-		* les fichiers d'annotation XML créés avec le logiciel `labelImg` : ils donnent, pour chacun des objets d'une image, les coordonnées de la boîte englobante et le label de l'objet.
+		* les fichiers d'annotation XML créés avec le logiciel `labelImg` : ils donnent, pour chacun des objets d'une image, les coordonnées de la boîte englobant l'objet et le label de l'objet.
 	* les fichiers d'annotation CSV (contenu des fichiers XML converti au format CSV), qui seront à leur tour convertis au format _tensorflow record_.
 * Le dossier `pre_trained/` contient un sous-dossier pour chacun des réseaux pré-entrainés utilisé.
 * le dossier `training/<project>` contient pour chaque projet :
@@ -231,7 +247,7 @@ L'arborescence générique proposée est la suivante :
 	* les fichiers `train.reccord`  et `test.reccord` : contiennent les données labelisées d'entraînement et de test converties du format CSV au format _tensorflow record_,
 	* le fichier `label_map.txt` : liste les labels correspondants aux objets à détecter.
 	
-Pour la détection des faces des cubes dans les images faites par le robot Poppy Ergo Jr, le dossier `<project>` sera nommé `faces_cubes`, ce qui donne l'arborescence de travail :
+Pour la détection des faces des cubes dans les images de la caméra du robot, le dossier `<project>` sera nommé `faces_cubes`, ce qui donne l'arborescence de travail :
 
 	tod_tf2
 	├── images
@@ -262,28 +278,42 @@ Quelques commandes shell suffisent pour créer les premiers niveaux de cette arb
 (tf2) jlc@pikatchou $ mkdir pre_trained
 (tf2) jlc@pikatchou $ mkdir -p training/faces_cubes
 ```
+Vérifions :
+```bash	
+# From within tod_tf2
+(tf2) jlc@pikatchou $ tree -d . -I models -I tod*
+.
+├── images
+│   └── faces_cubes
+│       ├── test
+│       └── train
+├── pre_trained
+├── tod_tf2_tools
+└── training
+    └── faces_cubes
+```
 	 
 ## 4. Télécharger le réseau pré-entraîné
 
-Plusieurs familles de réseaux dédiés à la détection d’objets sont proposés sur Le dépôt git [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md), parmi lesquelles :
+Plusieurs familles de réseaux dédiés à la détection d’objets sont proposés sur le site  [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md), parmi lesquelles :
 
 * Les réseaux __R-CNN__ (_Region-based Convolutional Neural Network_) : basés sur le concept de __recherche ciblée__ (_selective search_). 
 ![R-CNN](img/R-CNN.png)(source: https://arxiv.org/pdf/1311.2524.pdf)<br>
-Au lieu d’appliquer une fenêtre d'analyser à toutes les positions possibles dans l’image, l’algorithme de recherche ciblée génère 2000 propositions de régions d’intérêts où il est le plus probable de trouver des objets à détecter. Cet algorithme se base sur des éléments tels que la texture, l’intensité et la couleur des objets qu’il a appris à détecter pour proposer des régions d’intérêt. Une fois les 2000 régions choisies, la dernière partie du réseau produit la probabilité que l’objet dans la région appartienne à chaque classe. Les versions __Fast R-CNN__ et __Faster R-CNN__ rendent l’entraînement plus efficace et plus rapide.
+Au lieu d’appliquer la sous-fenêtre d'analyse à toutes les positions possibles dans l’image, l’algorithme de recherche ciblée génère 2000 propositions de régions d’intérêts où il est le plus probable de trouver des objets à détecter. Cet algorithme se base sur des éléments tels que la texture, l’intensité et la couleur des objets qu’il a appris à détecter pour proposer des régions d’intérêt. Une fois les 2000 régions choisies, la dernière partie du réseau calcule la probabilité que l’objet dans la région appartienne à chaque classe. Les versions __Fast R-CNN__ et __Faster R-CNN__ rendent l’entraînement plus efficace et plus rapide.
 
 * Les réseaux __SSD__ (_Single Shot Detector_) : font partie des détecteurs considérant la détection d’objets comme un problème de régression. L'algorithme __SSD__ utilise d’abord un réseau de neurones convolutif pour produire une carte des points clés dans l’image puis, comme __Faster R-CNN__, utilise des cadres de différentes tailles pour traiter les échelles et les ratios d’aspect.
 
-La différence entre "Faster R-CNN" et SSD est qu’avec R-CNN on réalise une classification sur chacune des 2000 fenêtres générées par l’algorithme de recherche ciblée, alors qu’avec SSD on cherche à prédire la classe ET la fenêtre de l’objet, en même temps. Cela rend SSD plus rapide que "Faster R-CNN", mais également moins précis.
+La différence entre "Faster R-CNN" et SSD est qu’avec R-CNN on réalise une classification sur chacune des 2000 fenêtres générées par l’algorithme de recherche ciblée, alors qu’avec SSD on cherche à prédire la classe ET la fenêtre de l’objet en même temps. Cela rend SSD plus rapide que "Faster R-CNN", mais également moins précis.
 
-Dans le tableau du dépôt git dépôt git [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md), les performances des différents réseaux sont exprimées en _COCO mAP (Mean Average Precision)_, métrique couramment utilisée pour mesurer la précision d’un modèle de détection d’objets. Elle consiste à mesurer la proportion de détections réussies sur des images déjà annotées du dataset COCO (Common Object in CONtext)
-qui contient 200 000 images annotées avec 80 objets différents. Cette mesure sert de référence pour comparer la précision de différentes architectures de détection d’objets (plus d’informations la mAP dans le lecture [2]).
+Dans le tableau du site [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md), les performances des différents réseaux sont exprimées en _COCO mAP (Mean Average Precision)_, métrique couramment utilisée pour mesurer la précision d’un modèle de détection d’objets. Elle consiste à mesurer la proportion de détections réussies sur des images déjà annotées du dataset COCO (Common Object in CONtext)
+qui contient 200 000 images annotées avec 80 objets différents. Cette mesure sert de référence pour comparer la précision de différentes architectures de détection d’objets (plus d’informations sur _mAP_ dans la lecture [2]).
 
 
-📥 Pour le travail de détection des faces des cubes dans les images fournies par la caméra du robot Ergo Jr tu peux télécharger le réseau `Faster R-CNN ResNet50 V1 640x640` sur le site [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md).
+📥 Pour le travail de détection des faces des cubes dans les images fournies par la caméra du robot Ergo Jr tu peux télécharger le réseau `Faster R-CNN ResNet50 V1 640x640` sur le site [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md) (~203 Mo).
 
-Une fois téléchargé, il faut extraire l'archive TGZ au bon endroit de l'arborescence de travail :
+Une fois téléchargée, il faut extraire l'archive TGZ au bon endroit dans l'arborescence de travail :
 ```bash
-# From within tod_tf2
+# From within tod_tf2/
 (tf2) jlc@pikatchou $ tar xvzf ~/Téléchargements/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz -C pre_trained
 ```
 puis créer le dossier correspondant `faster_rcnn_resnet50_v1_640x640_coco17_tpu-8` dans le dossier `training/faces_cubes` :
@@ -291,24 +321,24 @@ puis créer le dossier correspondant `faster_rcnn_resnet50_v1_640x640_coco17_tpu
 (tf2) jlc@pikatchou $ mkdir training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
 ```
 On vérifie :
-
-	# From within tod_tf2
-	(tf2) jlc@pikatchou $ tree -d pre_trained
-	pre_trained
-	└── faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
-	    ├── checkpoint
-	    └── saved_model
-	        └── variables
-	        
-	(tf2) jlc@pikatchou $ tree -d training
-	training
-	└── faces_cubes
-	    └── faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
-
+```bash
+# From within tod_tf2/
+(tf2) jlc@pikatchou $ tree -d pre_trained
+pre_trained
+└── faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
+    ├── checkpoint
+    └── saved_model
+        └── variables
+        
+(tf2) jlc@pikatchou $ tree -d training
+training
+└── faces_cubes
+    └── faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
+```
 
 ## 5. Créer les données pour l'apprentissage supervisé
 
-Ce travail se décompose en cinq étapes
+Cette étape du travail comporte cinq tâches :
 
 1. Créer des images avec la caméra du robot -> fichiers \*.jpg, \*.png
 2. Annoter les images avec le logiciel `labelImg` -> fichiers \*.xml
@@ -347,7 +377,7 @@ ROS_MASTER_URI=http://poppy.local:11311
 * si `ROS_MASTER_URI` n'est pas bon, édite le fchier `~/.bahrc`, mets la bonne valeur et tape `source ~\.bashrc`...
 
 
-🐍 Tu peux maintenant utiliser le programme Python `get_image_from_ergo.py` pour créer des images nommées `imagesxxx.png` (`xxx` = `001`, `002`...) avec l'appui sur la touche Enter pour passer d'une prise d'image à l'autre :
+🐍 Tu peux maintenant utiliser le programme Python `get_image_from_ergo.py` pour créer des images des quatre cubes nommées `imagesxxx.png` (`xxx` = `001`, `002`...) avec un appui sur la touche ENTER pour passer d'une prise d'image à l'autre :
 ```python
 import cv2, rospy
 from poppy_controllers.srv import GetImage
@@ -371,7 +401,7 @@ si tu obtiens l'erreur : `ModuleNotFoundError: No module named 'rospkg'`, il fau
 ```
 
 
-Chaque équipe peut faire quelques dizaines d'images variant les faces des cubes visibles, puis les images peuvent être partagées sur un serveur pour servir à toutes les équipes.
+Chaque équipe peut faire quelques dizaines d'images en variant les faces des cubes visibles, puis les images peuvent être partagées sur un serveur pour servir à toutes les équipes.
 
 Une fois collectées toutes les images, il faut mettre environ 90 % des images dans le dossier `images\faces_cubes\train` et le reste dans le dossier `images\faces_cubes\test`.
 
