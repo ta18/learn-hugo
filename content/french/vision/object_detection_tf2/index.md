@@ -356,6 +356,7 @@ image001.png               |  image002.png
 :-------------------------:|:-------------------------:
 ![image1](img/image.png)   |  ![image2](img/image001.png)
 
+⚠️ Pour utiliser les scripts Python qui font appel à ROS il vaut mieux désactiver l'EVP `tf2` : par exemple en lançant un nouveau terminal le prompt n'est pas préfixé par `(tf2)`.
 
 🤖 Rappels : lancement du ROS Master et des services ROS sur le robot :
  
@@ -363,48 +364,47 @@ image001.png               |  image002.png
 * se connecter sur la carte RPi du robot : `ssh pi@poppy.local` (mdp: `raspberry`) 
 * ✅ vérifier que `ROS_MASTER_URI` pointe bien vers `poppy.local:11311` :
 ```
+jlc@pikatchou: $ ssh pi@poppy.local
+i@poppy.local's password:
+...
 pi@poppy:~ $ env|grep ROS_MASTER
 ROS_MASTER_URI=http://poppy.local:11311
 ```	
-* si `ROS_MASTER_URI` n'est pas bon, édite le fichier `~/.bahrc` du robot, mets la bonne valeur et tape `source ~\.bashrc`...
+* si `ROS_MASTER_URI` n'est pas bon, édite le fichier `~/.bashrc` du robot, mets la bonne valeur et tape `source ~\.bashrc`...
 * Lance le ROS Master et les services ROS sur le robot avec la commande : `roslaunch poppy_controllers control.launch`
 
 💻 Et maintenant dans un terminal sur ton PC :
 * ✅ vérifie que `ROS_MASTER_URI` pointe bien vers `poppy.local:11311` :
 ```bash
-(tf2) jlc@pikatchou:~ $ env|grep ROS_MASTER
+jlc@pikatchou: $ env|grep ROS_MASTER
 ROS_MASTER_URI=http://poppy.local:11311
 ```	
-* si `ROS_MASTER_URI` n'est pas bon, édite le fchier `~/.bahrc`, mets la bonne valeur et tape `source ~\.bashrc`...
+* si `ROS_MASTER_URI` n'est pas bon, édite le fchier `~/.bashrc`, mets la bonne valeur et tape `source ~\.bashrc`...
 
 
-🐍 Le programme `get_image.py` permet de visualiser l'image obtenue avec le service ROS `/getimage` du robot :
+🐍 Le programme `get_image_from_robot.py` permet de visualiser l'image obtenue avec le service ROS `/getimage` du robot :
 
 ```python
 import cv2, rospy
-import matplotlib.pyplot as plt
-import matplotlib
 from poppy_controllers.srv import GetImage
 from cv_bridge import CvBridge
-matplotlib.use('TkAgg')
 
-get_image = rospy.ServiceProxy("get_image", GetImage)
-response  = get_image()
-bridge    = CvBridge()
-image     = bridge.imgmsg_to_cv2(response.image)
-plt.figure()
-plt.imshow(image)
-plt.axis('off')
-plt.show()
-cv2.imwrite("image.png", image)
+i=1
+while True:
+    get_image = rospy.ServiceProxy("get_image", GetImage)
+    response  = get_image()
+    bridge    = CvBridge()
+    image     = bridge.imgmsg_to_cv2(response.image)
+    cv2.imwrite(f"image{i:03d}.png", image)
+    cv2.imshow("Poppy camera", image)
+    key = cv2.waitKey(0)
+    if key==ord('q') or key==ord("Q"): break
+    cv2.destroyAllWindows()
+    i += 1
+cv2.destroyAllWindows()
 ```
 
-si tu obtiens l'erreur : `ModuleNotFoundError: No module named 'rospkg'`, il faut simplement ajouter le module Python `rospkg` à ton EVP `tf2` :
-```bash
-(tf2) jlc@pikatchou:~ $ pip install rospkg
-```
-
-🐍 Tu peux maintenant utiliser le programme Python `write_image_file.py` pour créer des images des quatre cubes nommées `imagesxxx.png` (`xxx` = `001`, `002`...) avec un appui sur la touche ENTER pour passer d'une prise d'image à l'autre.
+🐍 Tu peux utiliser le programme Python `get_image_from_robot.py` pour créer des images des quatre cubes nommées `imagesxxx.png` (`xxx` = `001`, `002`...) avec un appui sur une touche clavier pour passer d'une prise d'image à l'autre, et un appui sur la touche `Q` pour quitter le programme.
 
 
 Chaque équipe peut faire quelques dizaines d'images en variant les faces des cubes visibles, puis les images peuvent être partagées sur un serveur pour servir à toutes les équipes.
