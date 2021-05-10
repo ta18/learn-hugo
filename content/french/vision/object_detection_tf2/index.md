@@ -47,6 +47,7 @@ les indications du document présent pour installer et utiliser rapidement une v
 3. Lectures complémentaires :
 	* [1] [Zero to Hero: Guide to Object Detection using Deep Learning: Faster R-CNN,YOLO,SSD](https://cv-tricks.com/object-detection/faster-r-cnn-yolo-ssd/)
 	* [2] [mAP (mean Average Precision) for Object Detection](https://jonathan-hui.medium.com/map-mean-average-precision-for-object-detection-45c121a31173)
+	* [3] [Understanding SSD MultiBox — Real-Time Object Detection In Deep Learning](https://towardsdatascience.com/understanding-ssd-multibox-real-time-object-detection-in-deep-learning-495ef744fab)
 
 ## 2. Installer l'API TOD
 
@@ -191,16 +192,16 @@ Le programme déroule toute une série de tests et doit se terminer par un OK s
 Pour finir, tu peux vérifier l’installation en utilisant le notebook IPython `object_detection_tutorial.ipynb` présent dans le dossier `tod_tf2`.<br>
 (note : c'est une copie du notebook `tod_tf2/models/research/object_detection/colab_tutorials/object_detection_tutorial.ipynb` dans laquelle on a enlevé les cellules d'installation de l'API_TOD et quelques autres cellules qui peuvent générer des erreurs...).
 
-* ⚠️ Avant d'exécuter les cellules du notebook, il faut corriger une erreur dans le fichier `.../miniconda3/envs/tf2/lib/python3.8/site-packages/object_detection/utils/ops.py`, ligne 825 :
+* ⚠️ Avant d'exécuter les cellules du notebook, il faut corriger une erreur dans le fichier `.../tod_tf2/models/research/object_detection/utils/ops.py`, ligne 825 :
 remplace `tf.uint8` par `tf.uint8.as_numpy_dtype`
 
 * Dans le dossier `tod_tf2` lance la commande `jupyter notebook` et charge le notebook `object_detection_tutorial.ipynb`.
 * Exécute les cellules une à une, tu ne dois pas avoir d’erreur :
 
-	* La partie "__Detection__" (qui dure quelques secondes ou plusieurs minutes suivant ton CPU…) utilise le réseau pré-entraîné `ssd_mobilenet_v1_coco_2017_11_17` pour détecter des objets dans les   images de test :	
+	* La partie "__Detection__" (qui dure de quelques secondes à  plusieurs minutes suivant ton CPU…) utilise le réseau pré-entraîné `ssd_mobilenet_v1_coco_2017_11_17` pour détecter des objets dans les   images de test :	
 ![notebook_test_TOD_image1et2.png](img/notebook_test_TOD_image1et2.png)
 
-	* La partie "__Instance Segmentation__" est plus gourmande en ressources (dure de quelques dizaines de secondes à plusieurs minutes suivant ton CPU…) utilise le réseau pré-entraîné `mask_rcnn_inception_resnet_v2_atrous_coco_2018_01_28` pour détecter les objets et leurs masques, par exemple :
+	* La partie "__Instance Segmentation__" est plus gourmande en ressources (jusqu'à 8 Go de RAM) et dure de quelques dizaines de secondes à plusieurs dizaines de minutes suivant ton CPU ; elle utilise le réseau pré-entraîné `mask_rcnn_inception_resnet_v2_atrous_coco_2018_01_28` pour détecter les objets et leurs masques, par exemple :
 ![notebook_test_TOD_image-mask1.png](img/notebook_test_TOD_image-mask1.png)
 
 La suite du travail se décompose ainsi :
@@ -244,7 +245,7 @@ L'arborescence générique proposée est la suivante :
 	* les fichiers d'annotation CSV (contenu des fichiers XML converti au format CSV), qui seront à leur tour convertis au format _tensorflow record_.
 * Le dossier `pre_trained/` contient un sous-dossier pour chacun des réseaux pré-entrainés utilisé.
 * le dossier `training/<project>` contient pour chaque projet :
-	* un dossier pour chaque réseau pré-entrainé utilisé : c'est dans ce dossier que sont stockés les fichiers des poids du réseau entraîné,
+	* un dossier pour réseau pré-entrainé utilisé : c'est dans ce dossier que sont stockés les fichiers des poids du réseau entraîné,
 	* les fichiers `train.reccord`  et `test.reccord` : contiennent les données labelisées d'entraînement et de test converties du format CSV au format _tensorflow record_,
 	* le fichier `label_map.txt` : liste les labels correspondants aux objets à détecter.
 	
@@ -282,7 +283,7 @@ Quelques commandes shell suffisent pour créer les premiers niveaux de cette arb
 Vérifions :
 ```bash	
 # From within tod_tf2
-(tf2) jlc@pikatchou $ tree -d . -I models -I tod*
+(tf2) jlc@pikatchou $ tree -d . -I models
 .
 ├── images
 │   └── faces_cubes
@@ -319,6 +320,7 @@ Une fois téléchargée, il faut extraire l'archive TGZ au bon endroit dans l'ar
 ```
 puis créer le dossier correspondant `faster_rcnn_resnet50_v1_640x640_coco17_tpu-8` dans le dossier `training/faces_cubes` :
 ```bash	
+# From within tod_tf2/
 (tf2) jlc@pikatchou $ mkdir training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
 ```
 On vérifie :
@@ -354,26 +356,31 @@ Les images des faces des cubes peuvent être obtenues en utilisant le service RO
 
 image001.png               |  image002.png
 :-------------------------:|:-------------------------:
-![image1](img/image.png)   |  ![image2](img/image001.png)
+![image1](img/image000.png)   |  ![image2](img/image001.png)
 
-⚠️ Pour utiliser les scripts Python qui font appel à ROS il vaut mieux désactiver l'EVP `tf2` : par exemple en lançant un nouveau terminal le prompt n'est pas préfixé par `(tf2)`.
+⚠️ Pour utiliser les scripts Python qui font appel à ROS il vaut mieux désactiver l'EVP `tf2` : par exemple en lançant un nouveau terminal (le prompt n'est pas préfixé par `(tf2)`).
 
 🤖 Rappels : lancement du ROS Master et des services ROS sur le robot :
  
 * allumer le robot Poppy Ergo Jr,
 * se connecter sur la carte RPi du robot : `ssh pi@poppy.local` (mdp: `raspberry`) 
 * ✅ vérifier que `ROS_MASTER_URI` pointe bien vers `poppy.local:11311` :
-```
+```bash
 jlc@pikatchou: $ ssh pi@poppy.local
-i@poppy.local's password:
+pi@poppy.local password:
 ...
+
 pi@poppy:~ $ env|grep ROS_MASTER
 ROS_MASTER_URI=http://poppy.local:11311
 ```	
 * si `ROS_MASTER_URI` n'est pas bon, édite le fichier `~/.bashrc` du robot, mets la bonne valeur et tape `source ~\.bashrc`...
-* Lance le ROS Master et les services ROS sur le robot avec la commande : `roslaunch poppy_controllers control.launch`
+* Lance le ROS Master et les services ROS sur le robot avec la commande : 
+```bash
+pi@poppy:~ $ roslaunch poppy_controllers control.launch
+...
+```
 
-💻 Et maintenant dans un terminal sur ton PC :
+💻 Et maintenant dans un terminal sur ton PC, avec l'EVP `(tf2)` désactivé :
 * ✅ vérifie que `ROS_MASTER_URI` pointe bien vers `poppy.local:11311` :
 ```bash
 jlc@pikatchou: $ env|grep ROS_MASTER
@@ -382,7 +389,8 @@ ROS_MASTER_URI=http://poppy.local:11311
 * si `ROS_MASTER_URI` n'est pas bon, édite le fchier `~/.bashrc`, mets la bonne valeur et tape `source ~\.bashrc`...
 
 
-🐍 Le programme `get_image_from_robot.py` permet de visualiser l'image obtenue avec le service ROS `/getimage` du robot :
+🐍 Tu peux utiliser le programme Python `get_image_from_robot.py` du dossier `tod_tf2` pour enregistrer les images des cubes dans des fichiers nommées `imagesxxx.png` (`xxx` = `001`, `002`...). 
+Un appui sur une touche clavier permet de passer d'une image à l'autre, un appui sur la touche `Q` permet de quitter le programme :
 
 ```python
 import cv2, rospy
@@ -404,14 +412,20 @@ while True:
 cv2.destroyAllWindows()
 ```
 
-🐍 Tu peux utiliser le programme Python `get_image_from_robot.py` pour créer des images des quatre cubes nommées `imagesxxx.png` (`xxx` = `001`, `002`...) avec un appui sur une touche clavier pour passer d'une prise d'image à l'autre, et un appui sur la touche `Q` pour quitter le programme.
 
 
-Chaque équipe peut faire quelques dizaines d'images en variant les faces des cubes visibles, puis les images peuvent être partagées sur un serveur pour servir à toutes les équipes.
+
+Chaque équipe peut faire une dizaine d'images en variant les faces des cubes visibles, puis les images pourront être partagées sur un serveur pour servir à toutes les équipes.
 
 Une fois collectées toutes les images, il faut mettre environ 90 % des images dans le dossier `images\faces_cubes\train` et le reste dans le dossier `images\faces_cubes\test`.
 
 ### 5.2 Annoter les images avec le logiciel labelImg
+
+⚠️ Ce travail se fait dans l'EVP `tf2` :
+```bash
+jlc@pikatchou: $ conda activate tf2
+(tf2) jlc@pikatchou: $
+```
 
 L'annotation des images peut être faite de façon très simple avec le logiciel `labelImg`.
 C’est une étape du travail qui prend du temps et qui peut être réalisée à plusieurs en se répartissant les images à annoter...
@@ -421,7 +435,7 @@ L'installation du module Python `labelImg` faite dans l'EVP `tf2` (cf section 2.
 (tf2) jlc@pikatchou:~ $ labelImg
 ```
 
-Utilise les boutons [Open Dir] et [Change Save Dir] pour te positionner dans le dossier `images/face_cubes/train/`.<br>
+Utilise les boutons [Open Dir] et [Change Save Dir] pour te positionner la lecture ET l'écriture des fichiers dans le dossier `images/face_cubes/train/`.<br>
 La première image est automatiquement chargée dans l'interface graphique :
 
 ![labelImg_2.png](img/labelImg_2.png)
@@ -436,12 +450,12 @@ Pour chaque image, tu dois annoter les objets à reconnaître :
 ![1](img/labelImg_3.png)   |  ![2](img/labelImg_4.png) | ![3](img/labelImg_5.png)
 
 * quand c'est fini, tu cliques sur le bouton [Save] et tu passes à l'image suivante avec le bouton [Next Image].
-* Une fois toutes les images annotées, utilise les boutons [Open Dir] et [Change Save Dir] pour annoter les images de test du dossier `images/face_cubes/test/`.
+* Une fois toutes les images annotées, utilise les boutons [Open Dir] et [Change Save Dir] pour annoter de la même façon les images de test du dossier `images/face_cubes/test/`.
 
 ### 5.3 Convertir les fichiers XML annotés au format CSV
 
 Cette étape permet de synthétiser dans un fichier CSV unique les données d’apprentissage contenues dans les différents fichiers XML crées à l’étape d'annotation. 
-Le programme `tod_tf2/xml_to_csv_tt.py` permet de générer les deux fichiers CSV correspondant aux données d’apprentissage et de test. 
+Le programme `xml_to_csv_tt.py` permet de générer les deux fichiers CSV correspondant aux données d’apprentissage et de test. <br>
 Depuis le dossier `tod_tf2` tape la commande suivante :
 
 ```bash
@@ -454,7 +468,8 @@ Les fichiers `train_labels.csv` et `test_labels.csv` sont créés dans le dossie
 
 ### 5.4 Convertir les fichiers CSV annotés au format _tfrecord_
 
-Pour cette étape, on utilise le programme `tod_tf2/generate_tfrecord_tt.py`. Depuis le dossier `tod_tf2` tape la commande :
+Pour cette étape, on utilise le programme `generate_tfrecord_tt.py`.<br>
+Depuis le dossier `tod_tf2` tape la commande :
 ```bash
 # From within tod_tf2
 (tf2) jlc@pikatchou:~ $ python generate_tfrecord_tt.py --project faces_cubes
@@ -494,7 +509,7 @@ Pour le projet `face_cubes`, le contenu du fichier `training/faces_cubes/label_m
 
 ## 6. Lancer l'entraînement supervisé du réseau pré-entraîné
 
-Ce travail se décompose en deux étapes :
+Ce travail se décompose en plusieurs étapes :
 
 1. Modifier le fichier de configuration du réseau pré-entraîné pour décrire la configuration d'entraînement.
 2. Lancer l'entraînement supervisé.
@@ -502,7 +517,7 @@ Ce travail se décompose en deux étapes :
 
 ### 6.1 Modifier le fichier de configuration
 
-C’est la dernière étape avant de pouvoir lancer l’entraînement…
+C’est la dernière étape avant de lancer l’entraînement…
 
 * Le fichier de configuration `pipeline.config` présent dans le dossier `pre_trained/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8` doit être copié dans le dossier cible `training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8`. 
 
@@ -511,13 +526,13 @@ C’est la dernière étape avant de pouvoir lancer l’entraînement…
 |n° | paramètre                     | Description                                                            | Valeur initiale  | valeur à donner |  explication                    |
 |:--|:------------------------------|:-----------------------------------------------------------------------|:----------------:|:---------------:|:--------------------------------|
 |010| `num_classes`                 | nombre de classe d'objets                                              | 90               | 2               | les deux classes 'one' et 'two' |
-|077| `max_detections_per_class`    | nombre max de détecction par classe                                    | 100              | 4               | on met au plus 4 cubes          | 
-|078| `max_total_detections`        | nombre max total de détections                                         | 100              | 4               | on met au plus 4 cubes          | 
-|093| `batch_size`                  | nombre d'images à traiter en lot avant mise à jour des poids du réseau | 64               | 1, 2,....       | une valeur trop élevée risque de faire dépasser la capacité mémoire RAM de ta machine... à régler en fonction de la quantité de RAM de ta machine.  |
-|097| `num_steps`                   | Nombre max d'itérations d'entraînement                                 | 25000             | 1000           | une valeur trop grande donne des temsp de caculs prohibitifs et un risque de sur-entraînement |
+|077| `max_detections_per_class`    | nombre max de détection par classe                                     | 100              | 4               | 4 cubes          | 
+|078| `max_total_detections`        | nombre max total de détections                                         | 100              | 4               | 4 cubes          | 
+|093| `batch_size`                  | nombre d'images à traiter en lot avant mise à jour des poids du réseau | 64               | 1, 2,...        | une valeur trop élevée risque de faire dépasser la capacité mémoire RAM de ta machine... à régler en fonction de la quantité de RAM de ta machine.  |
+|097| `num_steps`                   | Nombre max d'itérations d'entraînement                                 | 25000             | 1000           | une valeur trop grande donne des temps de calcul prohibitifs et un risque de sur-entraînement 
 |113| `fine_tune_checkpoint`        | chemin des fichiers de sauvegarde des poids du réseau pré-entraîné     | "PATH_TO_BE_<br>CONFIGURED" | "pre_trained/faster_rcnn_resnet50_v1_<br>640x640_coco17_tpu-8/checkpoint/ckpt-0" | se termine par `/ckpt-0` qui est le préfixe des fichiers dans le dossier `.../checkpoint/` |
 |114| `fine_tune_checkpoint_type`   | Choix de l'algorithme : "classification" ou "detection"                | "classification"| "detection"  | on veut faire de la detection d'objets |
-|120| `max_number_of_boxes`         | Nombre max de boîtes englobantes  dans chaque image                    | 100               | 4               | pas plus de 4 faces de cubes sur une images |
+|120| `max_number_of_boxes`         | Nombre max de boîtes englobantes  dans chaque image                    | 100               | 4               | les faces des cubes sur une image |
 |122| `use_bfloat16`                | `true` pour les architectures TPU, `false` pour CPU                    | true              | false           | |
 |126| `label_map_path`              | chemin du fichier des labels                                           | "PATH_TO_BE_<br>CONFIGURED" | "training/faces_cubes/label_map.pbtxt" | utilisé pour l'entraînement |
 |128| `input_path`                  | fichier des données d'entrée d'entraînement au format `tfrecord`       | "PATH_TO_BE_<br>CONFIGURED" | "training/faces_cubes/train.record"    | utilisé pour l'entraînement |
@@ -532,9 +547,9 @@ C’est la dernière étape avant de pouvoir lancer l’entraînement…
 # From within tod_tf2
 (tf2) jlc@pikatchou $ python model_main_tf2.py --model_dir=training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/checkpoint1  --pipeline_config_path=training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/pipeline.config
 ```
-Les fichiers des poids entraînés seront écrits dans le dossier `.../faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/checkpoint1` : si tu relances l'entraînement, tu peux utiliser `.../checkpoint2`, `.../checkpoint3` pour séparés des essais successifs.
+Les fichiers des poids entraînés seront écrits dans le dossier `.../faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/checkpoint1` : si tu relances l'entraînement, tu peux utiliser `.../checkpoint2`, `.../checkpoint3` pour séparer des essais successifs.
 
-Le programme Python lancé est très verbeux... <br>
+Le programme Python lancé est très verbeux...<br>
 au bout d'un temps qui peut être assez long (plusieurs minutes avec un petit CPU), les logs de l'entraînement apparaissent à l'écran :
 
 	...
@@ -565,55 +580,131 @@ au bout d'un temps qui peut être assez long (plusieurs minutes avec un petit CP
 
 Dans l'exemple ci-dessus, on voit des logs tous les 100 pas, avec environ 20 secondes par pas, soit environ 35 minutes entre chaque affichage et environ 6h de calcul pour les 1000 pas.
 
-En cas d'arrêt brutal du programme avec le message "Processus arrêté", ne pas hésiter à diminer la valeur du paramètre `batch_size` jusquà 2 si nécessaire.... <br>
+En cas d'arrêt brutal du programme avec le message "Processus arrêté", ne pas hésiter à diminer la valeur du paramètre `batch_size` jusquà 2 voire 1 si nécessaire.... <br>
 Même avec un `batch_size` de 2, le processus Python peut nécessiter jusqu'à 2 ou 3 Go de RAM pour lui tout seul, ce qui peut mettre certains portables en difficulté...
 
-Une fois l'entraînement terminé tu peux analyser les statistiques d'entraînement avec `tensorflow` en tapant la commande :
+Une fois l'entraînement terminé tu peux analyser les statistiques d'entraînement avec `tensorboard` en tapant la commande :
 ```bash
 # From within tod_tf2
 (tf2) jlc@pikatchou:~ $ tensorflow --log_dir=training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/checkpoint1/train
+Serving TensorBoard on localhost; to expose to the network, use a proxy or pass --bind_all
+TensorBoard 2.4.0 at http://localhost:6006/ (Press CTRL+C to quit)
+...
 ```
-`tensorflow` lance un serveur HHTP en local sur ta machine, et tu peux ouvrir la page `http://` avec un navigateur pour voir les courbes d'analyse :
+`tensorflow` lance un serveur HHTP en local sur ta machine, et tu peux ouvrir la page `http://` avec un navigateur pour voir les courbes d'analyse en faisant CTRL + clic avec le curseur de la souris positionné sur le mot `http://localhost:6006/` :
 
-![tensorflow]()
+![tensorflow](img/tensorboard.png)
+
+Le logiciel tensorboard permet d'examiner l'évolution de statistiques caractéristiques de l'apprentissage.
 
 ### 6.3 Exporter les poids du réseau entraîné
 
 On utilise le script Python `exporter_main_v2.py` du dossier `models/reasearch/object_detection/` pour extraire le __graph d'inférence__ entraîné et le sauvegarder dans un fichier `saved_model.pb` qui pourra être rechargé ultérieurement pour exploiter le réseau entraîneé :
 ```bash
 # From within tod_tf2
-(tf2) jlc@pikatchou $ cp models\research\object_detection\exporter_main_v2.py .
-(tf2) jlc@pikatchou $ python exporter_main_v2.py --input_type image_tensor --pipeline_config_path training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/pipeline.config --trained_checkpoint_dir training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/checkpoint1 --output_directory ./training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/saved_model1
+(tf2) jlc@pikatchou $ cp models/research/object_detection/exporter_main_v2.py .
+(tf2) jlc@pikatchou $ python exporter_main_v2.py --input_type image_tensor --pipeline_config_path training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/pipeline.config --trained_checkpoint_dir training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/checkpoint1 --output_directory training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/saved_model1
 ```
-Le script Python créé le fichier `saved_model.pb` dans le dossier `.../faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/saves1/saved_model` :
+Le script Python créé le fichier `saved_model.pb` dans le dossier `.../faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/saved_model1/saved_model` :
+
+```bash
+# From within tod_tf2
+(tf2) jlc@pikatchou:~ $ tree training/
+training/
+└── faces_cubes
+    └── faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
+        ├── checkpoint1
+        │   ├── checkpoint
+        │   ├── ckpt-1.data-00000-of-00001
+        │   ├── ckpt-1.index
+        │   └── train
+        │       └── events.out.tfevents.1620391994.pikatchou.30554.1504.v2
+        ├── pipeline.config
+        ├── saved_model1
+        │   ├── checkpoint
+        │   │   ├── checkpoint
+        │   │   ├── ckpt-0.data-00000-of-00001
+        │   │   └── ckpt-0.index
+        │   ├── pipeline.config
+        │   └── saved_model
+        │       ├── assets
+        │       ├── saved_model.pb
+        │       └── variables
+        │           ├── variables.data-00000-of-00001
+        │           └── variables.index
+```
 
 
 ## 7. Évaluation du réseau entraîné
 
-On va vérifier que le réseau entraîné est bien capables de détecter les faces des cubes en discriminant correctement les numéros écrits sur les faces.
+On va vérifier que le réseau entraîné est bien capable de détecter les faces des cubes en discriminant correctement les numéros écrits sur les faces.
 
-Le script Python `plot_object_detection_saved_model.py` permet d'exploiter le réseau entraîné sur des images, les arguments supportés sont :
+Le script Python `plot_object_detection_saved_model.py` permet d'exploiter le réseau entraîné sur des images, les arguments sont :
 * `-p` : le nom du projet
-* `-m` : le nom du modèle du réseau
-* `-i` : le chemin du fichier image à analyser
-* `-n` : optionnel, le nombre de classes d'objets à détecter (valeur par défaut : )
+* `-m` : le chemin du dossier `.../saved/` contenant les fichiers des poids du réseau entraîné
+* `-i` : le chemin du dossier des images ou le chemin du fichier image à analyser
+* `-n` : le nombre max d'objets à détecter
+* `-t` : le seuil (_threshold_) de détection exprimé en % (optionnel, valeur par défaut : 50 %).
+
+Par exemple pour faire la détection des cubes des images de test avec le réseau qu'on vient d'entraîner :
 
 ```bash
 # From within tod_tf2
-(tf2) jlc@pikatchou $ python plot_object_detection_saved_model.py -p faces_cubes -s training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/saved_model1/saved_model/ -i images/faces_cubes/test/ -n 2
-```
+(tf2) jlc@pikatchou: $ python plot_object_detection_saved_model.py -p faces_cubes -s training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/saved_model1/saved_model -i images/faces_cubes/test/ -n 4
 
+Loading model...Done! Took 11.77 seconds
+
+Running inference for images/faces_cubes/test/image016.png... [2 1 1 2]
+[0.999408   0.99929774 0.9985869  0.99794155]
+[[0.4046488  0.13016616 0.6338345  0.31058723]
+ [0.40798646 0.56277716 0.63340956 0.7373474 ]
+ [0.40612057 0.3360289  0.63908    0.5120028 ]
+ [0.40730068 0.7692113  0.6340802  0.9632611 ]]
+
+Running inference for images/faces_cubes/test/image018.png... [2 2 1 1]
+[0.9995958  0.99956626 0.99756575 0.9960402 ]
+[[0.4140944  0.62948036 0.6388739  0.7997428 ]
+ [0.41462958 0.40451866 0.6399791  0.5834095 ]
+ [0.41448513 0.19922832 0.63370967 0.36855492]
+ [0.40865567 0.         0.63875306 0.16509269]]
+
+Running inference for images/faces_cubes/test/image019.png... [2 2 1 1]
+[0.99956614 0.99939644 0.9977343  0.99497354]
+[[0.41152024 0.43164197 0.6439534  0.6055011 ]
+ [0.41524586 0.65218127 0.6408151  0.8317957 ]
+ [0.40619218 0.20989983 0.6326463  0.40074167]
+ [0.40634462 0.         0.6389088  0.18785618]]
+
+Running inference for images/faces_cubes/test/image017.png... [2 2 1 1]
+[0.999482   0.99903905 0.9982924  0.99810815]
+[[0.4101084  0.70229053 0.63589627 0.8758344 ]
+ [0.4053984  0.05132582 0.6378698  0.23081933]
+ [0.41257906 0.49104023 0.63610333 0.66249573]
+ [0.40499112 0.29253355 0.63419634 0.46947986]]
+```
+Pour chaque image traitée on affiche ici :
+* la liste des 4 labels des objets trouvé (1 ou 2)
+* la liste des 4 probabilités de détection des objets
+* la liste des 4 jeux de coordonnées normalisées des boîtes englobantes [ y x coin haut gauche puis y x coin bas droit]. 
+
+Les images produites sont :
+
+|   image016.png           |   image018.png               |            image019.png    |    image017.png
+:-------------------------:|:----------------------------:|:--------------------------:|:------------------------------:
+![1](img/infere_img01.png) |  ![2](img/infere_img02.png)  | ![3](img/infere_img03.png) | ![4](img/infere_img04.png)
+ 
 
 ## 8. Intégration
 
-Une fois le réseau entraîné et évalué, si les résultats sont bon, il ne reste plus qu'à modifier le fichier `xxx.py` pour réliser les traitements suivants :
+Une fois le réseau entraîné et évalué, si les résultats sont bons, "il ne reste plus qu'à" créer le fichier `nn.py` pour réaliser les traitements nécessaires à l'exploitation du réseau entraîné pour ton projet : le but est d'intégrer le réseau de neurones `nn`  dans le contexte ROS :
 
-## 8.1 
+![intégration ROS](../../integration/ergo-tb-keras/img/UML_integration.png)
 
-1. Instancier un réseau en chargeant les poids du réseau entraîné. 
-2. Utiliser le service ROS `/get_image` pour obtenir l'image faite par la caméra du robot Ergo Jr,
-2. Détecter avec le réseau entraîné les faces des cubes avec leur numéro
-3. Faire afficher le résulat de la détection
 
-Lancele programme et observe les performances de ton réseau opérant sur tes propres images.
+ 
+1. Attendre que le paramètre ROS  `takeImage` passe à `True` et le remettre à `False`
+3. Obtenir le fichier de l'image prise par la caméra du robot grâce au service ROS `/get_image`
+4. Traiter l'image pour obtenir les labels et les boîtes englobantes des faces des cubes (penser à remettre les cubes dans le bon ordre...)
+5. Et pour chaque cube : donner au paramètre ROS`label` la valeur du label du cube, mettre le paramètre ROS `RobotReady` à `False` et attendre que le paramètre rOS `RobotReady` repasse à True
+
 
