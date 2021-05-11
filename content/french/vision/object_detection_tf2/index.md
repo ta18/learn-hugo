@@ -227,11 +227,11 @@ L'arborescence générique proposée est la suivante :
 	├── pre_trained
 	│	└── <pre_trained-network>
 	├── training
-	│   ├──<project>
-	│   │   └── <pre_trained-network>
-	│   ├── train.record
-	│   ├── test.record
-	│   └── label_map.txt
+	│   └──<project>
+	│       ├── <pre_trained-network>
+	│       ├── train.record
+	│       ├── test.record
+	│       └── label_map.txt
 	└── models
 	    └── research
 	        └── object_detection
@@ -262,11 +262,11 @@ Pour la détection des faces des cubes dans les images de la caméra du robot, l
 	├── pre_trained
 	│	└── <pre_trained-network>
 	├── training
-	│   ├── faces_cubes
-	│   │   └── <pre_trained-network>
-	│   ├── train.record
-	│   ├── test.record
-	│   └── label_map.txt
+	│   └── faces_cubes
+	│       ├─── <pre_trained-network>
+	│       ├── train.record
+	│       ├── test.record
+	│       └── label_map.txt
 	└── models
 	    └── research
 	        └── object_detection
