@@ -71,7 +71,7 @@ La première étape consiste à créer le répertoire de travail `tod_tf2`, dans
 (tf2) jlc@pikatchou $ mkdir tod_tf2
 (tf2) jlc@pikatchou $ cd tod_tf2/
 ```
-Ensuite, tu clones le dépôt github `cjlux/tod_tf2_tools.git` et tu copies les fichiers `*.py` et `*.ipynb` du dossier `tod_tf2_tools` dans le dossier `tod_tf2` : 
+📥 Ensuite, tu clones le dépôt github `cjlux/tod_tf2_tools.git` et tu copies les fichiers `*.py` et `*.ipynb` du dossier `tod_tf2_tools` dans le dossier `tod_tf2` : 
 ```bash
 # From tod_tf2/
 (tf2) jlc@pikatchou $ git clone https://github.com/cjlux/tod_tf2_tools.git
@@ -81,7 +81,7 @@ Ensuite, tu clones le dépôt github `cjlux/tod_tf2_tools.git` et tu copies les 
 
 ### 2.2 Cloner le dépôt `tensorflow/models`
 
-Dans le dossier de travail `tod_tf2` clone le dépôt github `tensorflow/models` (~ 635 Mo) :
+📥 Dans le dossier de travail `tod_tf2` clone le dépôt github `tensorflow/models` (~ 635 Mo) :
 ```bash
 # From tod_tf2/
 (tf2) jlc@pikatchou $ git clone https://github.com/tensorflow/models.git
@@ -98,7 +98,7 @@ Tu obtiens un dossier `models`. L’API TOD est dans le dossier `models/research
     └── research
 ```	
 
-Complète ton installation avec quelques paquets Python utiles pour le travail avec l'API TOD :
+📥 Complète ton installation avec quelques paquets Python utiles pour le travail avec l'API TOD :
 
 ```bash
 (tf2) jlc@pikatchou $ conda install cython contextlib2 pillow lxml
@@ -139,7 +139,7 @@ Cette commande travaille de façon muette.
 COCO est une banque de données destinée à alimenter les algorithmes de détection d’objets, de segmentation… <br>
 Voir [cocodataset.org](https://cocodataset.org) pour les tutoriels, publications… 
 
-Pour installer l’API Python de COCO, clone le site `cocoapi.git` (~ 15 Mo) dans le dossier `/tmp`, tape la commande `make` dans le dossier `cocoapi/PythonAPI`, puis recopie le dossier `pycococtools` dans ton dossier `.../models/research/` :
+📥 Pour installer l’API Python de COCO, clone le site `cocoapi.git` (~ 15 Mo) dans le dossier `/tmp`, tape la commande `make` dans le dossier `cocoapi/PythonAPI`, puis recopie le dossier `pycococtools` dans ton dossier `.../models/research/` :
 ```bash
 (tf2) jlc@pikatchou $ cd /tmp
 (tf2) jlc@pikatchou $ git clone  https://github.com/cocodataset/cocoapi.git
@@ -358,7 +358,6 @@ image001.png               |  image002.png
 :-------------------------:|:-------------------------:
 ![image1](img/image000.png)   |  ![image2](img/image001.png)
 
-⚠️ Pour utiliser les scripts Python qui font appel à ROS il vaut mieux désactiver l'EVP `tf2` : par exemple en lançant un nouveau terminal (le prompt n'est pas préfixé par `(tf2)`).
 
 🤖 Rappels : lancement du ROS Master et des services ROS sur le robot :
  
@@ -366,7 +365,7 @@ image001.png               |  image002.png
 * se connecter sur la carte RPi du robot : `ssh pi@poppy.local` (mdp: `raspberry`) 
 * ✅ vérifier que `ROS_MASTER_URI` pointe bien vers `poppy.local:11311` :
 ```bash
-jlc@pikatchou: $ ssh pi@poppy.local
+(tf2) jlc@pikatchou: $ ssh pi@poppy.local
 pi@poppy.local password:
 ...
 
@@ -383,7 +382,7 @@ pi@poppy:~ $ roslaunch poppy_controllers control.launch
 💻 Et maintenant dans un terminal sur ton PC, avec l'EVP `(tf2)` désactivé :
 * ✅ vérifie que `ROS_MASTER_URI` pointe bien vers `poppy.local:11311` :
 ```bash
-jlc@pikatchou: $ env|grep ROS_MASTER
+(tf2) jlc@pikatchou: $ env|grep ROS_MASTER
 ROS_MASTER_URI=http://poppy.local:11311
 ```	
 * si `ROS_MASTER_URI` n'est pas bon, édite le fchier `~/.bashrc`, mets la bonne valeur et tape `source ~\.bashrc`...
@@ -412,20 +411,16 @@ while True:
 cv2.destroyAllWindows()
 ```
 
+📍  En cas de conflit grave "ROS / EVP tf2 / PyQT" en utilisant le programme `get_image_from_robot.py` tu peux désactiver temporairement l'EVP tf2 :
+* soit en lançant un nouveau terminal,
+* soit en tapant la commande `conda deactivate`
 
 
-
-Chaque équipe peut faire une dizaine d'images en variant les faces des cubes visibles, puis les images pourront être partagées sur un serveur pour servir à toutes les équipes.
+Chaque équipe doit faire une dizaine d'images en variant les faces des cubes visibles, puis les images pourront être partagées sur un serveur pour servir à toutes les équipes.
 
 Une fois collectées toutes les images, il faut mettre environ 90 % des images dans le dossier `images\faces_cubes\train` et le reste dans le dossier `images\faces_cubes\test`.
 
 ### 5.2 Annoter les images avec le logiciel labelImg
-
-⚠️ Ce travail se fait dans l'EVP `tf2` :
-```bash
-jlc@pikatchou: $ conda activate tf2
-(tf2) jlc@pikatchou: $
-```
 
 L'annotation des images peut être faite de façon très simple avec le logiciel `labelImg`.
 C’est une étape du travail qui prend du temps et qui peut être réalisée à plusieurs en se répartissant les images à annoter...
@@ -699,8 +694,6 @@ Les images produites sont :
 Une fois le réseau entraîné et évalué, si les résultats sont bons, "il ne reste plus qu'à" créer le fichier `nn.py` pour réaliser les traitements nécessaires à l'exploitation du réseau entraîné pour ton projet : le but est d'intégrer le réseau de neurones `nn`  dans le contexte ROS :
 
 ![intégration ROS](../../integration/ergo-tb-keras/img/UML_integration.png)
-
-
  
 1. Attendre que le paramètre ROS  `takeImage` passe à `True` et le remettre à `False`
 3. Obtenir le fichier de l'image prise par la caméra du robot grâce au service ROS `/get_image`
