@@ -581,7 +581,7 @@ Même avec un `batch_size` de 2, le processus Python peut nécessiter jusqu'à 2
 Une fois l'entraînement terminé tu peux analyser les statistiques d'entraînement avec `tensorboard` en tapant la commande :
 ```bash
 # From within tod_tf2
-(tf2) jlc@pikatchou:~ $ tensorflow --log_dir=training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/checkpoint1/train
+(tf2) jlc@pikatchou:~ $ tensorboard --logdir=training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/checkpoint1/train
 Serving TensorBoard on localhost; to expose to the network, use a proxy or pass --bind_all
 TensorBoard 2.4.0 at http://localhost:6006/ (Press CTRL+C to quit)
 ...
