@@ -532,7 +532,7 @@ C’est la dernière étape avant de lancer l’entraînement…
 |126| `label_map_path`              | chemin du fichier des labels                                           | "PATH_TO_BE_<br>CONFIGURED" | "training/faces_cubes/label_map.pbtxt" | utilisé pour l'entraînement |
 |128| `input_path`                  | fichier des données d'entrée d'entraînement au format `tfrecord`       | "PATH_TO_BE_<br>CONFIGURED" | "training/faces_cubes/train.record"    | utilisé pour l'entraînement |
 |139| `label_map_path`              | chemin du fichier des labels                                           | "PATH_TO_BE_<br>CONFIGURED" | "training/faces_cubes/label_map.pbtxt" | utilisé pour l'évaluation|
-|128| `input_path`                  | fichier des données d'entrée de test au format `tfrecord`              | "PATH_TO_BE_<br>CONFIGURED" | "training/faces_cubes/train.record"    | utilisé pour l'évaluation|
+|128| `input_path`                  | fichier des données d'entrée de test au format `tfrecord`              | "PATH_TO_BE_<br>CONFIGURED" | "training/faces_cubes/test.record"    | utilisé pour l'évaluation|
 
 ## 6.2 Lancer l'entraînement
 
