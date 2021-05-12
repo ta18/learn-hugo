@@ -216,7 +216,26 @@ Votre noeud doit afficher un message toutes les secondes, vous pouvez le tuer av
 
 Le `MoveGroupCommander` est le commandeur de robot de MoveIt, il suffit de lui indiquer quel est le nom du groupe à commander puis donner une cible et appeler la fonction `go()` pour l'atteindre en évitant les obstacles. Cette cible peut être dans l'espace cartésien ou dans l'espace des joints :
 
-##### 2.3.2.a. 🐍 Cible dans l'espace cartésien
+##### 2.3.2.a. 🐍 Cible dans l'espace des joints (sans évitement de collision)
+
+Il est possible de définir une cible dans l'espace des joints en fournissant une liste des 6 angles moteurs en radians. Dans ce cas il n'y a pas d'évitement de collision. Par exemple, mettre tous les moteurs en position zéro radian :
+
+```python
+commander.set_joint_value_target([0, 0, 0, 0, 0, 0])
+commander.go()
+```
+
+Utiliser une cible dans l'espace des joints ne peut échouer que si les valeurs demandées sont en dehors de l'intervalle angulaire autorisé par les moteurs.
+
+##### 2.3.2.b. 🐍 Cible dans l'espace cartésien
+
+MoveIt accepte également des cibles dans l'espace cartésien grâce à deux méthodes `set_pose_target` ou `set_joint_value_target`.
+
+Donner une cible cartésienne à un robot fait appel à l'IK qui peut échouer si cette cible ne peut être atteinte, ou même de façon aléatoire du fait que les algorithmes d'IK sont généralement randomisés, ceci se traduit par une erreur **[ABORTED] No motion plan found** dans le temrinal MoveIt. Assurez-vous de la faisabilité de votre cible avant de demander au robot de l'atteindre.
+
+**Méthode 1** : Ci-après, nous demandons au groupe **arm_and_finger** comprenant 6 moteurs de déplacer son effecteur (`moving_tip`) :
+* à 0.25m sur l'axe `z ` de la base du robot ;
+* avec une orientation de 180° autour de l'axe `x` de la base du robot (ce qui donne le quaternion `[1, 0, 0, 0]`) ;
 
 ```python
 from moveit_commander.move_group import MoveGroupCommander
@@ -225,23 +244,47 @@ commander.set_pose_target([0, 0, 0.25] + [1, 0, 0, 0])
 commander.go()
 ```
 
-Les coordonnées cartésiennes de la cible sont les coordonnées de l'effecteur (càd `moving_tip` pour le groupe `arm_and_finger` ou bien `fixed_tip` pour le groupe `arm`) dans le repère `base_link`, exprimées sous la forme `x, y, z, qx, qy, qz, qw`.
+Si on sélectionne le groupe `arm` comprenant 5 moteurs au lieu de `arm_and_finger` qui en comprend 6, l'effecteur dont on fournit les coordonnées cibles est `fixed_tip`. Dans les 2 cas, ces coordonnées sont exprimées dans la base du robot `base_link`.
 
-##### 2.3.2.b. 🐍 Cible dans l'espace des joints (sans évitement de collision)
+⚠️ Hormis certains quaternions remarquables comme l'identité `[0, 0, 0, 1]` ou les rotations de 180°, n'essayez pas de modifier les valeurs d'un quaternion au hasard, votre quaternion résultant serait invalide à coup sûr : pour le modifier il vaut mieux le faire par le calcul mathématique ou par la mesure en direct avec `rosrun tf2 echo.py`.
 
-Il est également possible de définir une cible dans l'espace des joints en fournissant une liste des 6 angles moteurs  dans ce cas il n'y a pas d'évitement de collision:
+**Méthode 2** : Une autre méthode pour la définition de cible est de passer un objet `Pose` à `set_joint_value_target` :
 
 ```python
-commander.set_joint_value_target([0, 0, 0, 0, 0, 0])
+from geometry_msgs.msg import Pose
+pose = Pose()
+pose.position.x = 0.032
+pose.position.y = -0.161
+pose.position.z =   0.161
+pose.orientation.x = 0.787
+pose.orientation.y = 0.118
+pose.orientation.z = -0.084
+pose.orientation.w = -0.600
+
+commander.set_joint_value_target(pose)
 commander.go()
 ```
 
 ##### 2.3.2.c. ✍ Mise en pratique
 
-* A l'aide des fonctions et commandes vues en 2.2.4. et 2.3.2.a., vérifiez que vous savez prendre les coordonnées cartésiennes courante et les définir comme cible puis l'atteindre
-* A l'aide des fonctions et commandes vues en 2.1.2.a. et 2.3.2.b., vérifiez que vous savez prendre les positions des joints courantes et les définir comme cible puis l'atteindre
-* A l'aide du mode compliant, prendre les coordonnées cartésiennes de l'effecteur et et les positions des joints pour deux configurations différentes du robot A et B (e.g. effecteur vers le haut et effecteur vers le bas)
-* Faîtes bouger le robot infiniement entre les cibles cartésiennes A et B, nous y ajouterons des obstacles plus tard
+**Mise en pratique n°1** : A l'aide des fonctions et commandes vues en 2.2.4. et 2.3.2.a., vérifiez que vous savez prendre les coordonnées cartésiennes courantes et les définir comme cible puis l'atteindre, càd :
+  1. Passer votre robot en compliant
+  2. Le bouger dans une configuration cible
+  3. Utiliser `echo.py` pour obtenir les coordonnées cartésiennes courantes de l'effecteur
+  4. Indiquer ces coordonnées comme cible cartésienne dans votre script Python
+  5. Bouger votre robot dans une nouvelle configuration quelconque puis repasser en non-compliant 
+  6. Exécuter votre script : observez que l'effecteur est dans la même position et orientation que demandée, sauf que les angles moteurs peuvent être différents
+
+**Mise en pratique n°2** : A l'aide des fonctions et commandes vues en 2.1.2.a. et 2.3.2.b., vérifiez que vous savez prendre les positions des joints courantes et les définir comme cible puis l'atteindre, càd :
+  1. Passer votre robot en compliant
+  2. Le bouger dans une configuration cible
+  3. Lire le topic `/joint_states` pour obtenir les angles moteurs courants
+  4. Indiquer ces angles comme cible dans l'espace des joints dans votre script Python
+  5. Bouger votre robot dans une nouvelle configuration quelconque puis repasser en non-compliant 
+  6. Exécuter votre script : observez que l'effecteur est dans la même position et orientation que demandée, et également les angles moteurs
+
+**Mise en pratique n°3** :
+A l'aide du mode compliant, prendre les coordonnées cartésiennes de l'effecteur et et les positions des joints pour deux configurations différentes du robot : points A et point B (par exemple A = effecteur vers le haut et B = effecteur vers le bas). Faîtes bouger le robot infiniement entre les cibles cartésiennes A et B.
 
 #### 2.3.3. Déclarer des obstacles
 
