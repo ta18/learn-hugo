@@ -128,6 +128,7 @@ Si et seulement si vous ne pouvez pas utiliser de robot réel foncitonnel, une p
 
 ```bash
 sudo apt install ros-noetic-moveit
+cd ~/catkin_ws/src
 git clone https://github.com/poppy-project/poppy_ergo_jr_moveit_config.git
 ```
 
@@ -205,7 +206,7 @@ while not rospy.is_shutdown():
 💻 Compilez votre workspace puis sourcez votre `.bashrc`. Exécutez votre noeud avec rosrun :
 
 ```bash
-cd ~/ros_ws
+cd ~/catkin_ws/src
 catkin_make
 rosrun ros4pro_custom manipulate.py
 ```
