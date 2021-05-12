@@ -229,29 +229,17 @@ Utiliser une cible dans l'espace des joints ne peut échouer que si les valeurs 
 
 ##### 2.3.2.b. 🐍 Cible dans l'espace cartésien
 
-MoveIt accepte également des cibles dans l'espace cartésien grâce à deux méthodes `set_pose_target` ou `set_joint_value_target`.
+MoveIt accepte également des cibles dans l'espace cartésien. Donner une cible cartésienne à un robot fait appel à l'IK qui peut échouer si cette cible ne peut être atteinte, ou même de façon aléatoire du fait que les algorithmes d'IK sont généralement randomisés, ceci se traduit par une erreur **[ABORTED] No motion plan found** dans le temrinal MoveIt. Assurez-vous de la faisabilité de votre cible avant de demander au robot de l'atteindre.
 
-Donner une cible cartésienne à un robot fait appel à l'IK qui peut échouer si cette cible ne peut être atteinte, ou même de façon aléatoire du fait que les algorithmes d'IK sont généralement randomisés, ceci se traduit par une erreur **[ABORTED] No motion plan found** dans le temrinal MoveIt. Assurez-vous de la faisabilité de votre cible avant de demander au robot de l'atteindre.
 
-**Méthode 1** : Ci-après, nous demandons au groupe **arm_and_finger** comprenant 6 moteurs de déplacer son effecteur (`moving_tip`) :
-* à 0.25m sur l'axe `z ` de la base du robot ;
-* avec une orientation de 180° autour de l'axe `x` de la base du robot (ce qui donne le quaternion `[1, 0, 0, 0]`) ;
-
-```python
-from moveit_commander.move_group import MoveGroupCommander
-commander = MoveGroupCommander("arm_and_finger", wait_for_servers=20)
-commander.set_pose_target([0, 0, 0.25] + [1, 0, 0, 0])
-commander.go()
-```
-
-Si on sélectionne le groupe `arm` comprenant 5 moteurs au lieu de `arm_and_finger` qui en comprend 6, l'effecteur dont on fournit les coordonnées cibles est `fixed_tip`. Dans les 2 cas, ces coordonnées sont exprimées dans la base du robot `base_link`.
-
-⚠️ Hormis certains quaternions remarquables comme l'identité `[0, 0, 0, 1]` ou les rotations de 180°, n'essayez pas de modifier les valeurs d'un quaternion au hasard, votre quaternion résultant serait invalide à coup sûr : pour le modifier il vaut mieux le faire par le calcul mathématique ou par la mesure en direct avec `rosrun tf2 echo.py`.
-
-**Méthode 2** : Une autre méthode pour la définition de cible est de passer un objet `Pose` à `set_joint_value_target` :
+Définir une cible cartésienne consiste à passer un objet `Pose` (= position + orientation) à `set_joint_value_target`. Ci-après, nous demandons au groupe **arm_and_finger** comprenant 6 moteurs de déplacer son effecteur (`moving_tip`) à la pose cible spécifiée en coordonnées.
 
 ```python
 from geometry_msgs.msg import Pose
+from moveit_commander.move_group import MoveGroupCommander
+
+commander = MoveGroupCommander("arm_and_finger", wait_for_servers=20)
+
 pose = Pose()
 pose.position.x = 0.032
 pose.position.y = -0.161
@@ -264,6 +252,10 @@ pose.orientation.w = -0.600
 commander.set_joint_value_target(pose)
 commander.go()
 ```
+
+Si on sélectionne le groupe `arm` comprenant 5 moteurs au lieu de `arm_and_finger` qui en comprend 6, l'effecteur dont on fournit les coordonnées cibles est `fixed_tip`. Dans les 2 cas, ces coordonnées sont exprimées dans la base du robot `base_link`.
+
+⚠️ Hormis certains quaternions remarquables comme l'identité `[0, 0, 0, 1]` ou les rotations de 180°, n'essayez pas de modifier les valeurs d'un quaternion au hasard, votre quaternion résultant serait invalide à coup sûr : pour le modifier il vaut mieux le faire par le calcul mathématique ou par la mesure en direct avec `rosrun tf2 echo.py`.
 
 ##### 2.3.2.c. ✍ Mise en pratique
 
