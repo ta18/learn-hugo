@@ -221,6 +221,8 @@ Le `MoveGroupCommander` est le commandeur de robot de MoveIt, il suffit de lui i
 
 ```python
 from moveit_commander.move_group import MoveGroupCommander
+from geometry_msgs.msg import Pose
+
 commander = MoveGroupCommander("arm_and_finger", wait_for_servers=20)
 pose = Pose()
 pose.position.x = 0.0
