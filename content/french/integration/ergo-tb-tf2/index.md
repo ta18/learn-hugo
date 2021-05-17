@@ -96,14 +96,14 @@ while not rospy.is_shutdown():
     rate.sleep()
 ```
 
-Placez une attente active dans chacun de vos 3 noeuds à chaque fois qu'il est nécessaire d'attendre qu'un paramètre change de valeur avant de passer à la suite du code Python.
+🐍 Placez une attente active dans chacun de vos 3 noeuds à chaque fois qu'il est nécessaire d'attendre qu'un paramètre change de valeur avant de passer à la suite du code Python.
 
 ### 2.4. Gérer le cas particulier de l'initialisation
 
 Au tout début du démarrage du système de tri, aucun paramètre utilisé ne possède de valeur, la lecture de l'un d'eux va donc déclencher une erreur.
 Pour résoudre ce problème, nous proposons que le contrôleur (`manipulation.py`) initialise tous les paramètres à une valeur remarquable, par exemple `-1` pour signifier que nous en sommes au démarrage.
 
-Ajoutez les intiialisations de tous vos paramètres dans votre code.
+🐍 Ajoutez les intiialisations de tous vos paramètres dans votre code.
 
 ### 2.5. (Optionnel) Créer des launchfiles pour démarrer le système
 
@@ -123,24 +123,40 @@ Poppy étant le ROS master, son launchfile doit démarrer en premier. Préparez 
 Un jalon important, avant le tri de tous les cubes, est le tri d'un seul cube : assurez-vous que le tri fonctionne pour 1 cube avant d'étendre votre code pour fonctionner avec tous les cubes.
 
 ### 3.2 Critères de succès du scenario final
-Pour être considéré comme un succès, votre cellule doit permettre de trier au moins 3 cubes de manière complètement autonome une fois que vous avez démarré les `roslaunch` et `rosrun` nécessaires.
+Pour être considéré comme un succès, votre système doit permettre de trier au moins 3 cubes de manière complètement autonome une fois que vous avez démarré les `roslaunch` et `rosrun` nécessaires.
 
-L'objectif est que ce scenario de tri puisse fonctionner dans une cellule en production. Cependant vous constaterez de nombreux défauts.
+L'objectif est que ce scenario de tri puisse fonctionner dans un système en production. Cependant vous constaterez de nombreux défauts.
 
-Relevez et adressez un à un ces défauts pour améliorer le taux de succès de votre cellule de tri.
+Relevez et adressez un à un ces défauts pour améliorer le taux de succès de votre système de tri.
 
 
 ## 4. (Optionnel) Challenges additionnels
-### 4.1. Transformer les noeuds en machines à états
+### 4.1. Utiliser des machines à états
 
-Utiliser [smach](http://wiki.ros.org/smach) pour que chaque noeud représente son état (par exemple **Etat 1 : en attente de cube**, **Etat 2 : en cours de navigation**, ...) par une machine à états.
+🐍 Utiliser [smach](http://wiki.ros.org/smach) pour que chaque noeud représente son état (par exemple **Etat 1 : en attente de cube**, **Etat 2 : en cours de navigation**, ...) par une machine à états.
 La machine à état facilite les futures améliorations logicielles apportées au système robotique.
 
-### 4.2. Trier tous les cubes à tout emplacement
+
+### 4.2. Utiliser les services ROS pour la communication
+
+Nous utilisons ici le serveur de paramètres pour échanger des informations entre noeuds et l'attente active pour gérer leur synchronisation.
+Le serveur de paramètre est simple à mettre en place, mais nous avons détourné son usage : l'utilisation de services ROS est bien plus adaptées car :
+* un service est adapté à la communication entre un client et un serveur sous la forme **requête/réponse** 
+* un service est **synchrone** : l'exécution de la requête est ne se produit que sur demande et elle est **bloquante** jusqu'à l'obtention de la réponse. 
+
+Dans notre situation, les services ROS remplacera le rôle qu'avaient à eux trois l'attente active + les paramètres + la machine à états, bien qu'une machine puisse toutefois être conservée pour le noeud de manipulation qui ne sera pas un service car il est le contrôleur.
+
+🐍 Transformez `nn.py` et `navigate.py` chacun en un service ROS respectivement `/ros4pro/take_image` et `/ros4pro/navigate_to_target`. Vous aurez besoin de :
+a. supprimer l'attente active et les get/set de paramètres
+b. transformer ces 2 noeuds en serveurs et `manipulate.py` en client en vous inspirant du tutoriel [Ecrire un service client et serveur](http://wiki.ros.org/ROS/Tutorials/WritingServiceClient%28python%29)
+c. définir vos propres types de service `TakeImage.srv` et `NavigateToTarget.srv` en vous inspirant du tutoriel [Définir des types de messages personnalisés](http://wiki.ros.org/ROS/Tutorials/DefiningCustomMessages) (n'oubliez pas de compiler votre workspace, sourcer le `.bashrc` puis d'importer vos types personnalisés)
+
+
+### 4.3. Trier tous les cubes à tout emplacement
 
 Nous souhaitons que les cubes n'aient pas à être pré-positionnés dans 3 emplacements A, B, C mais que le système puisse trier tout cube qui se trouve à la fois dans son champs de caméra et à la fois à la portée du robot.
 Ce nouveau problème nécessite de remplacer les 3 trajectoires de saisie par une planification dans l'espace cartésien avec MoveIt, laquelle nécessite également que les coordonnées 2D `x, y` des cubes de l'image puissent être transposées en coordonnées 3D `x, y, z` dans l'arbre des transformations `tf`. Une solution possible est d'utilisation le package de [calibration extrinsèque de caméra](http://wiki.ros.org/camera_calibration).
 
-### 4.3. Ajouter un Poppy Ergo Jr pour la dépose des cubes dans le bac de tri
+### 4.4. Ajouter un Poppy Ergo Jr pour la dépose des cubes dans le bac de tri
 
 Le second Poppy doit être isolé dans un espace de nom pour ne pas créer de conflit avec le premier Poppy.
