@@ -8,3 +8,5 @@ github.com/ros4pro/template-hugo v0.0.0-20210428173200-a9232bf29310 h1:mpleGdE98
 github.com/ros4pro/template-hugo v0.0.0-20210428173200-a9232bf29310/go.mod h1:1b7/tuT07WhHwCama5eZRhUSXm4wecjMO9gOQqS6kH8=
 github.com/ros4pro/template-hugo v0.0.0-20210502192401-f45cac808e53 h1:FdA9NqP7I3PTLRyrNrkWaESeQp1+GtB6HTEzcA4wE40=
 github.com/ros4pro/template-hugo v0.0.0-20210502192401-f45cac808e53/go.mod h1:1b7/tuT07WhHwCama5eZRhUSXm4wecjMO9gOQqS6kH8=
+github.com/ros4pro/template-hugo v0.0.0-20210523190144-1a8b7dd0875a h1:k031cSm2u+nMwjyFAmtLlmOCWLa1IM4KcUd512IZA2I=
+github.com/ros4pro/template-hugo v0.0.0-20210523190144-1a8b7dd0875a/go.mod h1:1b7/tuT07WhHwCama5eZRhUSXm4wecjMO9gOQqS6kH8=
