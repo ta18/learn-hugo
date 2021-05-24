@@ -1,0 +1,25 @@
+<nav>
+    <ul>
+        {{ $currentPage := . }}
+        {{ range .Site.Menus.main }}
+        {{ partial "submenu" (dict "context" . "current" $currentPage) }}
+        {{ end }}
+    </ul>
+</nav>
+</aside>
+
+{{ define "partials/submenu" }}
+{{ $context := .context }}
+{{ $currentPage := .current }}
+<li class="{{ if $currentPage.IsMenuCurrent "main" $context }}active{{ end }}">
+    <a href="{{ $context.URL }}">{{$context.Name}}</a>
+    {{ if $context.HasChildren }}
+    <ul class="{{ if $currentPage.HasMenuCurrent "main" $context }}nested-active{{ end }}">
+        {{ range $context.Children }}
+        {{ partial "partials/submenu" (dict "context" . "current" $currentPage) }}
+        {{ end }}
+    </ul>
+    {{ end }}
+</li>
+
+{{ end }}
