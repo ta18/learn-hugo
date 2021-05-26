@@ -26,13 +26,13 @@ La robotique de manipulation regroupe la manipulation d'objets avec des robots. 
 
 ### 1.1. Préparer la carte SD
 
-📥 Pour éviter tout problème lié à une précédente utilisation du robot, commencez par flasher la carte SD fournie avec l'image ROS en utilisant [la procédure vue lors de l'introduction](https://github.com/ros4pro/ros4pro/blob/poppy_tb3_keras/tp/1_INTRODUCTION.md#1-images-des-cartes-sd). Pendant cette étape, assemblez votre robot en parrallèle.
+📥 Pour éviter tout problème lié à une précédente utilisation du robot, commencez par flasher la carte SD fournie avec l'image ROS en utilisant [la procédure de la FAQ](/fr/faq/pi/). 
 
 ### 1.2. Assembler Poppy Ergo Jr
 
 🔧 Pour assembler votre robot, veuillez suivre [le guide d'assemblage](https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/), en suivant les étapes faîtes pour ROS le cas échéant ; et en comparant minutieusement chaque pièce aux photos pour vérifier leur orientation car il est très facile d'assembler ce robot à l'envers même s'il a au final la même allure. Si votre robot était pré-assemblé, recommencez à minima toutes les [configurations des moteurs](https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/motor-configuration.html#32ter-configurer-les-moteurs-un-par-un-si-vous-utilisez-une-image-ros) qui pourraient être incorrectes.
 
-✅ **Vérification :** Pour vérifier que votre assemblage est correct, connectez-vous en SSH au robot (si ce n'est pas déjà fait) puis exécutez :
+✅ **Vérification :** Pour vérifier que tous vos moteurs sont configurés, connectez-vous en SSH au robot (si ce n'est pas déjà fait) puis exécutez :
 
 ```bash
 ssh pi@poppy.local      # password raspberry
@@ -40,7 +40,7 @@ ssh pi@poppy.local      # password raspberry
 roslaunch poppy_controllers control.launch
 ```
 
-Vous devriez voir apparaître `Connection successful`. Si l'erreur `"Connection to the robot can't be established"` est affichée, alors votre robot n'a pas été monté correctement. La suite de ce message d'erreur indique quel(s) moteur(s) pose(nt) problème pour vous aider à le résoudre. Fermez avec Ctrl+C puis utilisez de nouveau Poppy Configure si un moteur est mal configuré.
+Vous devriez voir apparaître `Connection successful`. La caméra est automatiquement désactivée si elle ne fonctionne pas ⚠️ Ne jamais (dé)brancher la caméra lorsque l'alimentation secteur est branchée : **risques de dommages**. Si l'erreur `"Connection to the robot can't be established"` est affichée, alors vos moteurs n'ont pas été configurés correctement. La suite de ce message d'erreur indique quel(s) moteur(s) pose(nt) problème pour vous aider à le résoudre. Fermez avec Ctrl+C puis utilisez de nouveau Poppy Configure si un moteur est mal configuré.
 
 **Remarque :** Si vos moteurs clignotent en rouge : votre code a créé une collision et ils se sont mis en alarme. Pour désactiver l'alarme il faut débrancher et rebrancher l'alimentation, ce qui fera aussi redémarrer le robot
 
@@ -217,32 +217,67 @@ Votre noeud doit afficher un message toutes les secondes, vous pouvez le tuer av
 
 Le `MoveGroupCommander` est le commandeur de robot de MoveIt, il suffit de lui indiquer quel est le nom du groupe à commander puis donner une cible et appeler la fonction `go()` pour l'atteindre en évitant les obstacles. Cette cible peut être dans l'espace cartésien ou dans l'espace des joints :
 
-##### 2.3.2.a. 🐍 Cible dans l'espace cartésien
+##### 2.3.2.a. 🐍 Cible dans l'espace des joints (sans évitement de collision)
 
-```python
-from moveit_commander.move_group import MoveGroupCommander
-commander = MoveGroupCommander("arm_and_finger", wait_for_servers=20)
-commander.set_pose_target([0, 0, 0.25] + [1, 0, 0, 0])
-commander.go()
-```
-
-Les coordonnées cartésiennes de la cible sont les coordonnées de l'effecteur (càd `moving_tip` pour le groupe `arm_and_finger` ou bien `fixed_tip` pour le groupe `arm`) dans le repère `base_link`, exprimées sous la forme `x, y, z, qx, qy, qz, qw`.
-
-##### 2.3.2.b. 🐍 Cible dans l'espace des joints (sans évitement de collision)
-
-Il est également possible de définir une cible dans l'espace des joints en fournissant une liste des 6 angles moteurs  dans ce cas il n'y a pas d'évitement de collision:
+Il est possible de définir une cible dans l'espace des joints en fournissant une liste des 6 angles moteurs en radians. Dans ce cas il n'y a pas d'évitement de collision. Par exemple, mettre tous les moteurs en position zéro radian :
 
 ```python
 commander.set_joint_value_target([0, 0, 0, 0, 0, 0])
 commander.go()
 ```
 
+Utiliser une cible dans l'espace des joints ne peut échouer que si les valeurs demandées sont en dehors de l'intervalle angulaire autorisé par les moteurs.
+
+##### 2.3.2.b. 🐍 Cible dans l'espace cartésien
+
+MoveIt accepte également des cibles dans l'espace cartésien. Donner une cible cartésienne à un robot fait appel à l'IK qui peut échouer si cette cible ne peut être atteinte, ou même de façon aléatoire du fait que les algorithmes d'IK sont généralement randomisés, ceci se traduit par une erreur **[ABORTED] No motion plan found** dans le temrinal MoveIt. Assurez-vous de la faisabilité de votre cible avant de demander au robot de l'atteindre.
+
+
+Définir une cible cartésienne consiste à passer un objet `Pose` (= position + orientation) à `set_joint_value_target`. Ci-après, nous demandons au groupe **arm_and_finger** comprenant 6 moteurs de déplacer son effecteur (`moving_tip`) à la pose cible spécifiée en coordonnées.
+
+```python
+from geometry_msgs.msg import Pose
+from moveit_commander.move_group import MoveGroupCommander
+
+commander = MoveGroupCommander("arm_and_finger", wait_for_servers=20)
+
+pose = Pose()
+pose.position.x = 0.032
+pose.position.y = -0.161
+pose.position.z =   0.161
+pose.orientation.x = 0.787
+pose.orientation.y = 0.118
+pose.orientation.z = -0.084
+pose.orientation.w = -0.600
+
+commander.set_joint_value_target(pose)
+commander.go()
+```
+
+Si on sélectionne le groupe `arm` comprenant 5 moteurs au lieu de `arm_and_finger` qui en comprend 6, l'effecteur dont on fournit les coordonnées cibles est `fixed_tip`. Dans les 2 cas, ces coordonnées sont exprimées dans la base du robot `base_link`.
+
+⚠️ Hormis certains quaternions remarquables comme l'identité `[0, 0, 0, 1]` ou les rotations de 180°, n'essayez pas de modifier les valeurs d'un quaternion au hasard, votre quaternion résultant serait invalide à coup sûr : pour le modifier il vaut mieux le faire par le calcul mathématique ou par la mesure en direct avec `rosrun tf2 echo.py`.
+
 ##### 2.3.2.c. ✍ Mise en pratique
 
-* A l'aide des fonctions et commandes vues en 2.2.4. et 2.3.2.a., vérifiez que vous savez prendre les coordonnées cartésiennes courante et les définir comme cible puis l'atteindre
-* A l'aide des fonctions et commandes vues en 2.1.2.a. et 2.3.2.b., vérifiez que vous savez prendre les positions des joints courantes et les définir comme cible puis l'atteindre
-* A l'aide du mode compliant, prendre les coordonnées cartésiennes de l'effecteur et et les positions des joints pour deux configurations différentes du robot A et B (e.g. effecteur vers le haut et effecteur vers le bas)
-* Faîtes bouger le robot infiniement entre les cibles cartésiennes A et B, nous y ajouterons des obstacles plus tard
+**Mise en pratique n°1** : A l'aide des fonctions et commandes vues en 2.2.4. et 2.3.2.a., vérifiez que vous savez prendre les coordonnées cartésiennes courantes et les définir comme cible puis l'atteindre, càd :
+  1. Passer votre robot en compliant
+  2. Le bouger dans une configuration cible
+  3. Utiliser `echo.py` pour obtenir les coordonnées cartésiennes courantes de l'effecteur
+  4. Indiquer ces coordonnées comme cible cartésienne dans votre script Python
+  5. Bouger votre robot dans une nouvelle configuration quelconque puis repasser en non-compliant 
+  6. Exécuter votre script : observez que l'effecteur est dans la même position et orientation que demandée, sauf que les angles moteurs peuvent être différents
+
+**Mise en pratique n°2** : A l'aide des fonctions et commandes vues en 2.1.2.a. et 2.3.2.b., vérifiez que vous savez prendre les positions des joints courantes et les définir comme cible puis l'atteindre, càd :
+  1. Passer votre robot en compliant
+  2. Le bouger dans une configuration cible
+  3. Lire le topic `/joint_states` pour obtenir les angles moteurs courants
+  4. Indiquer ces angles comme cible dans l'espace des joints dans votre script Python
+  5. Bouger votre robot dans une nouvelle configuration quelconque puis repasser en non-compliant 
+  6. Exécuter votre script : observez que l'effecteur est dans la même position et orientation que demandée, et également les angles moteurs
+
+**Mise en pratique n°3** :
+A l'aide du mode compliant, prendre les coordonnées cartésiennes de l'effecteur et et les positions des joints pour deux configurations différentes du robot : points A et point B (par exemple A = effecteur vers le haut et B = effecteur vers le bas). Faîtes bouger le robot infiniement entre les cibles cartésiennes A et B.
 
 #### 2.3.3. Déclarer des obstacles
 
