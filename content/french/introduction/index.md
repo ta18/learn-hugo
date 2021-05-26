@@ -120,3 +120,5 @@ Abandon
 ```
 
 Alors les fichiers spécifiés ne peuvent pas être mis à jour car cela détruirait les modifications que vous avez apportées à la liste des fichiers indiquée. Il est recommandé de demander conseil avant d'essayer une autre action pour récupérer la mise à jour.
+
+{{<quiz name="introduction" >}}

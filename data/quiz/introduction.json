@@ -1,4 +1,5 @@
 {
+    "name" : "introduction",
     "questions": [
         {
             "text": "Which of these ROS tools is best suited to display a LIDAR scan ?",
