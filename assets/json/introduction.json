@@ -1,0 +1,24 @@
+{
+    "questions": [
+        {
+            "text": "Which of these ROS tools is best suited to display a LIDAR scan ?",
+            "type": "choice",
+            "answers": [
+                "rqt_plot",
+                "rviz",
+                "rqt_graph"
+            ],
+            "answer_index": 1
+        },
+        {
+            "text": "Which of these commands will NEVER start a ROS master ?",
+            "type": "choice",
+            "answers": [
+                "roscore",
+                "roslaunch",
+                "rosrun"
+            ],
+            "answer_index": 3
+        }
+    ]
+}
