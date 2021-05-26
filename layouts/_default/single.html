@@ -1,0 +1,9 @@
+{{ define "main_body" }}
+  {{ partial "menu" . }}
+  <main>
+    <h1>{{.Title}}</h1>
+    {{ .Content }}
+  </main>
+
+  {{ partial "footer" . }}
+{{ end }}

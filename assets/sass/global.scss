@@ -1,0 +1,39 @@
+body {
+  background-color: $body-bg;
+  font-family: "Roboto", sans-serif;
+  color: $text;
+}
+
+a {
+  color: $link;
+
+  &:hover {
+    color: $link-hover;
+  }
+}
+
+img {
+  max-width: 100%;
+  margin: 2%;
+}
+
+// Header
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: $color-header;
+}
+
+h1 {
+  text-align: center;
+}
+
+// Code 
+// TODO : Needs to be improved with it's own css files 
+pre {
+  padding: 1% 0% 1% 1%;
+  border-radius: 10px;
+}

@@ -7,7 +7,7 @@ menu:
     parent: "faq"
 ---
 
-### 🔔 Mon Turtlebot bipe
+## 🔔 Mon Turtlebot bipe
 
 🔋 **Il s'agit du signal de batterie faible et il ne doit pas être ignoré.**
 

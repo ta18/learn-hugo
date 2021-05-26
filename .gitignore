@@ -3,3 +3,5 @@
 
 # hugo
 public
+_vendor
+resources
