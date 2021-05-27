@@ -1,8 +1,13 @@
 <p>Works !</p>
-<form>
+<form id="quiz">
     {{ range .questions }}
     {{ if eq "choice" .type }}
         {{ partial "quiz/choice" . }}
     {{ end }}
     {{ end }}
+
+    <!-- TODO : Traduire -->
+    <input type="submit" id="submit_quiz" value="Envoyer le formulaire">
+    {{ $js := resources.Get "js/main.js" | js.Build (dict "params" .) }}
+    <script defer src="{{ $js.Permalink }}"></script>
 </form>
