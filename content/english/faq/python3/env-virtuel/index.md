@@ -1,5 +1,5 @@
 ---
-title: "🔨 Créer et utiliser un Environnement Virtuel Python (EVP)"
+title: "🔨 Create and use a Python Virtual Environment"
 menu:
   main:
     name: "Python Virtual Environment"
@@ -73,12 +73,13 @@ When the PVE `<pve_name>` is activated:
 
 Taking the example of an EVP named `(tf2)` created with the option `python=3.8`, the installation of Python modules essential to working with __tensorflow2__ is done as shown below:
 
-`` bash
+```bash
 (tf2) user@host $ conda update -n base -c defaults conda
 (tf2) user@host $ conda install tensorflow == 2.4.1
 (tf2) user@host $ conda install numpy scipy matplotlib jupyter pandas
 (tf2) user@host $ pip install scikit-learn scikit-image seaborn pydot rospkg pyyaml
 (tf2) user@host $ pip install opencv-python == 4.5.1.48 
+```
 
 ## 🔨 PVE: useful commands
 
