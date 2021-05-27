@@ -1,3 +1,8 @@
-<p>
-    Put the form here, we have access at all data ! 
-</p>
+<p>Works !</p>
+<form>
+    {{ range .questions }}
+    {{ if eq "choice" .type }}
+        {{ partial "quiz/choice" . }}
+    {{ end }}
+    {{ end }}
+</form>

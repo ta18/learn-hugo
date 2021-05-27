@@ -1,7 +1,8 @@
 {
     "name" : "introduction",
     "questions": [
-        {
+        {   
+            "id" : "rostools",
             "text": "Which of these ROS tools is best suited to display a LIDAR scan ?",
             "type": "choice",
             "answers": [
@@ -12,6 +13,7 @@
             "answer_index": 1
         },
         {
+            "id" : "roscore",
             "text": "Which of these commands will NEVER start a ROS master ?",
             "type": "choice",
             "answers": [

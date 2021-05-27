@@ -1,0 +1,11 @@
+{{ $id := .id }}
+{{ $i := 0}}
+<div>
+    <p>{{ .text }}</p>
+    {{ range $index,  $element := .answers }}
+    <div>
+        <input type="radio" id="{{ $id }}-{{ $index }}" name="{{ $id }}" value="{{ $element }}">
+        <label for="{{ $id }}-{{ $index }}">{{ . }}</label>
+    </div>
+    {{ end }}
+</div>
