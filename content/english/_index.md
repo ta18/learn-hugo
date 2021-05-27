@@ -24,7 +24,7 @@ ROS4PRO is a set of resources for learning open-source robotics with the [ROS] f
 1. [Introduction]  (introduction/)
 2. [Navigation] (navigation/turtlebot/)
 3. [Manipulation] (manipulation/ergo-jr/)
-4. [Vision](vision/classification_tf2/)
+4. [Vision](vision/)
 5. [Intégration] (integration/ergo-tb-keras/)
 
 ### Path #2 : Sawyer + tensorflow2 + Turtlebot
