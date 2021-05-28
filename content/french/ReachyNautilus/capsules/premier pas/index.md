@@ -39,7 +39,7 @@ Dans Jupyter, tu trouvera un fichier *premier pas.ipynb* dans le dossier *Nautil
 
 Regardons en détail le code :
 
-`from reachy import Reachy, parts`
+`from reachy import Reachy, parts`  
 On import l'objet reachy de l'API Reachy. 
 
 On spécifie les pièces du robot sur lesquels on va travailler :
@@ -51,9 +51,6 @@ reachy = Reachy(
 ```
 Ici, nous spécifions que nous voulons ajouter une partie bras droit et une partie tête. Ces pièces doivent être trouvées sur des ports séries USB de type «/ dev / ttyUSB \*». 
 Pour le bras, nous définissons la main comme «force_gripper» (main en forme de pince).
-
-On peut, si on le souhaite, spécifier une seule pièce par exemple la tête :
-`reachy = Reachy'( head=parts.Head(io='/dev/ttyUSB*), )`
 
 Si tu ne vois aucune erreur au lancement de ces lignes de code, bonne nouvelle, tu es maintenant connecté au Robot et tous les systèmes ont bien été trouvés !
 
@@ -103,7 +100,7 @@ reachy.goto({
 On peut utiliser cette méthode pour une seule partie du bras. Par exemple, pour le coude :
 `reachy.right_arm.elbow_pitch.goto( goal_position=90, duration=2, wait=True, )`
 
-💡 Le `wait=True` permet d'attendre que le déplacement soit fini avant d'effectuer un autre déplacement. Si tu souhaite bouger le bras en même temps que la tête par exemple il faut mettre `wait=False`
+💡 Le `wait=True` permet d'attendre que le déplacement soit fini avant d'effectuer un autre déplacement. Si tu souhaite, par exemple, bouger le bras en même temps que la tête il faut mettre `wait=False`
 
 ⚠️ **Attention à ne pas avoir deux trajectoires tournant sur le même moteur en parallèle ! Cela peut entraîner un comportement imprévu.**
 
