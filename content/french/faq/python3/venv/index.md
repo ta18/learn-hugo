@@ -1,5 +1,5 @@
 ---
-title: "🔨 Créer et utiliser un Environnement Virtuel Python (EVP)"
+title: "🔨 FAQ Créer et utiliser un Environnement Virtuel Python (EVP)"
 menu:
   main:
     name: "Env. virtuel"

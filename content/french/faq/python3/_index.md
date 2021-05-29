@@ -7,3 +7,7 @@ menu:
     identifier: "python3"
     parent: "faq"
 ---
+
+[venv](venv/) Comment créer et utiliser un Environnement Virtuel Python
+
+[numpy](pi/) Trucs & astuces sur les ndarray de numpy
