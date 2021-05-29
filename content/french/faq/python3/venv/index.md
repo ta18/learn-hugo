@@ -1,12 +1,11 @@
 ---
-title: "# 🔨 Créer et utiliser un Environnement Virtuel Python (EVP)"
+title: "🔨 Créer et utiliser un Environnement Virtuel Python (EVP)"
 menu:
   main:
-    name: "Environnement virtuel"
+    name: "Env. virtuel"
     weight: 1
     parent: "python3"
 ---
-
 
 ## Intérêt
 

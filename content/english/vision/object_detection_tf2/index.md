@@ -396,7 +396,7 @@ image001.png               |  image002.png
 
 
 ```bash
-(tf2) jlc@pikatchou: $ ssh pi@poppy.local
+(tf2) user@host: $ ssh pi@poppy.local
 pi@poppy.local password:
 ...
 
@@ -416,7 +416,7 @@ pi@poppy:~ $ roslaunch poppy_controllers control.launch
 * ✅ check that `ROS_MASTER_URI` points to`poppy.local:11311`: 
 
 ```bash
-(tf2) jlc@pikatchou: $ env|grep ROS_MASTER
+(tf2) user@host: $ env|grep ROS_MASTER
 ROS_MASTER_URI=http://poppy.local:11311
 ```
 
@@ -464,7 +464,7 @@ This is a time-consuming step in the work that can be carried out as a group by 
 The installation of the Python module `labelImg` made in the PVE` tf2` (see section 2.) allows to launch the software by typing: 
 
 ```bash
-(tf2) jlc@pikatchou:~ $ labelImg
+(tf2) user@host:~ $ labelImg
 ```
 
 Use the [Open Dir] and [Change Save Dir] buttons to position the read AND write files in the `images/face_cubes/train/` folder. <br>
@@ -494,7 +494,7 @@ From the `tod_tf2` folder type the following command:
 
 ```bash
 # From within tod_tf2
-(tf2) jlc@pikatchou:~ $ python xml_to_csv_tt.py -p faces_cubes
+(tf2) user@host:~ $ python xml_to_csv_tt.py -p faces_cubes
 Successfully converted xml data in file <images/faces_cubes/train_labels.csv>.
 Successfully converted xml data in file <images/faces_cubes/test_labels.csv>.
 ```
@@ -508,7 +508,7 @@ From the `tod_tf2` folder type the command:
 
 ```bash
 # From within tod_tf2
-(tf2) jlc@pikatchou:~ $ python generate_tfrecord_tt.py --project faces_cubes
+(tf2) user@host:~ $ python generate_tfrecord_tt.py --project faces_cubes
 Successfully created the TFRecord file: ./training/faces_cubes/train.record
 Successfully created the TFRecord file: ./training/faces_cubes/test.record
 ```
@@ -634,7 +634,7 @@ Once the training is finished you can analyze the training statistics with `tens
 
 ```bash
 # From within tod_tf2
-(tf2) jlc@pikatchou:~ $ tensorboard --logdir=training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/checkpoint1/train
+(tf2) user@host:~ $ tensorboard --logdir=training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/checkpoint1/train
 Serving TensorBoard on localhost; to expose to the network, use a proxy or pass --bind_all
 TensorBoard 2.4.0 at http://localhost:6006/ (Press CTRL+C to quit)
 ...
@@ -660,7 +660,7 @@ We use the Python script `exporter_main_v2.py` from the `models/reasearch/object
 The Python script creates the file `saved_model.pb` in the folder ` .../faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/saved_model1/saved_model`: 
 ```bash
 # From within tod_tf2
-(tf2) jlc@pikatchou:~ $ tree training/
+(tf2) user@host:~ $ tree training/
 training/
 └── faces_cubes
     └── faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
@@ -669,7 +669,7 @@ training/
         │   ├── ckpt-1.data-00000-of-00001
         │   ├── ckpt-1.index
         │   └── train
-        │       └── events.out.tfevents.1620391994.pikatchou.30554.1504.v2
+        │       └── events.out.tfevents....v2
         ├── pipeline.config
         ├── saved_model1
         │   ├── checkpoint
@@ -701,7 +701,7 @@ For example, to detect the cubes of the test images with the network that we hav
 
 ```bash
 # From within tod_tf2
-(tf2) jlc@pikatchou: $ python plot_object_detection_saved_model.py -p faces_cubes -s training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/saved_model1/saved_model -i images/faces_cubes/test/ -n 4
+(tf2) user@host: $ python plot_object_detection_saved_model.py -p faces_cubes -s training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/saved_model1/saved_model -i images/faces_cubes/test/ -n 4
 
 Loading model...Done! Took 11.77 seconds
 

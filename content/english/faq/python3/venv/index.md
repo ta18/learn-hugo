@@ -2,7 +2,7 @@
 title: "🔨 Create and use a Python Virtual Environment"
 menu:
   main:
-    name: "Python Virtual Environment"
+    name: "virt. env"
     weight: 1
     parent: "python3"
 ---

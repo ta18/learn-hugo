@@ -8,7 +8,7 @@ menu:
 
 # Robotics course and practical work
 
-ROS4PRO is a set of resources for learning open-source robotics with the [ROS](http://ros.org) framework which will equip more than half of the robots sold in 2024. You can freely follow them, duplicate them and enrich them [share your improvements](https://github.com/ros4pro/learn).
+ROS4PRO is a set of resources for learning open-source robotics with the [ROS](http://ros.org) framework which will equip more than half of the robots sold in 2024. You can freely follow them, duplicate them and enrich them [share your improvements](https://github.com/ros4pro/learn-hugo).
 
 ## How to follow the practical work ?
 

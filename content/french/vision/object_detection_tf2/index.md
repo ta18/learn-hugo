@@ -29,7 +29,7 @@ Un avantage attendu de l'approcje __Object Detection__ est de fournir directemen
 
 L'entraînement des réseaux de neurones avec le module `tensorflow` se fera de préférence dans un environnement virtuel Python (EVP) qui permet de travailler dans un environnement Python  séparé de celui existant pour le travail sous ROS.
 
-💻 Utilise la [FAQ Python : environnement virtuel](https://learn.e.ros4.pro/fr/faq/python_venv/)  pour créer un EVP :
+💻 Utilise la [FAQ Python : environnement virtuel](https://learn.e.ros4.pro/fr/faq/venv/)  pour créer un EVP :
 * nommé `tf2`, 
 * avec une version de Python égale à `3.8`.
 ## 1. Documentation
