@@ -1,7 +1,7 @@
 /* Fixed Display */
 menu {
   height: 100vh;
-  width: 15%;
+  width: 360px;
   position: fixed;
   top: 0;
   left: 0;
@@ -10,7 +10,7 @@ menu {
 }
 
 main {
-  margin-left: 15%;
+  margin-left: 360px;
   margin-top: 3rem;
 }
 
@@ -54,6 +54,7 @@ main {
 .active {
   & > a {
     color: $nav-title-active;
+    background-color: $nav-title-bg-active;
   }
 }
 
@@ -101,7 +102,7 @@ nav ul li ul {
     border: 0;
     border-radius: 5px;
     height: 34px;
-    background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right
+    background: url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right
       #ddd;
     -webkit-appearance: none;
     background-position-x: 95%;
