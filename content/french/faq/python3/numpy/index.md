@@ -43,7 +43,7 @@ array([[  1,   2,   3],
 ### indexation
 
 
-[top](#motclefs)
+[top](#mot_clefs)
 
 
 ### shape
