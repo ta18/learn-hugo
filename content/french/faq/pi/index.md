@@ -2,7 +2,7 @@
 title: "FAQ robots basés sur Raspberry Pi"
 menu:
   main:
-    name: "FAQ robots basés sur Raspberry Pi"
+    name: "Robots basés sur Raspberry Pi"
     weight: 1
     parent: "faq"
 ---
