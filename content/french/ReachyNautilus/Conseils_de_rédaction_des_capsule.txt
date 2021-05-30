@@ -1,0 +1,7 @@
+- mettres les noms des fichiers en anglais (en prévision de capsules en anglais) : bras.png -> arm.png
+- extensions des noms de fichier en minuscules : arm.png au lieu de arm.PNG
+
+
+Français :
+- mettre un espece avant et après tous les signes de ponctuation "à 2 éléments" :   ! ; :
+- penser à utiliser les majuacules aacentuées : Épaule, et non pas Epaule

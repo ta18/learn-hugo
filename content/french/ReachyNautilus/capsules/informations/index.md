@@ -16,58 +16,64 @@ menu:
 
 - Lycée et +
 
-## 🎓 Acquis d'apprentissage visés 
+## 📗 Ressources
 
-## 📗 Documentation
-
-Les informations de cette capsule sont tirées des liens suivants :
-* [Site Pollen Robotics](https://www.pollen-robotics.com/reachy/)  
-* [Doc technique](https://pollen-robotics.github.io/reachy-2019-docs/docs/technical-specifications/)  
+Les informations de cette capsule sont tirées des liens :
+* [Site Pollen Robotics](https://www.pollen-robotics.com/reachy/)  (en anglais)
+* [Reachy 2021 Documentation](https://docs.pollen-robotics.com/) (en anglais)
 
 ## 🤖 Le robot Reachy 
 
 ![reachy](img/reachy_hello.png)
 
-Reachy est une plate-forme humanoïde open-source expressive programmable avec Python. Il est particulièrement doué pour interagir avec les gens et manipuler des objets.
-Que vous soyez un chercheur, un universitaire, un professionnel de la création ou de l'innovation, Reachy vous permettra d'apprendre, explorer et développer l'IA et la robotique.
+Reachy est une plate-forme humanoïde **open-source** (software & hardware)  expressive programmable avec le langage Python. 
+Il est particulièrement doué pour interagir avec les gens et manipuler des objets.
+Que tu sois chercheur, étudiant, professionnel de la création ou de l'innovation, Reachy te permettra d'apprendre, explorer et développer l'IA et la robotique.
 
-## 1. Spécifications techniques générales
+Reachy est utilisé à l'ENSAM comme un des supports aux activités robotiques et IA.
 
-Poids total: 7 kg  
-Alimentation: DC 12 V / 15 A  
-Température: 0-45 ° C  
-Interfaces: Ethernet / Wifi / USB 3 / HDMi  
+## 1. Principales caractérisques
 
-## 2. Spécifications du bras de Reachy
-**Répartition des poids :**  
-Bras global: 1670g  
-Épaule: 240g  
-Bras supérieur: 610g  
-Avant-bras: 590g  
-Pince: 230g  
+Poids total : 7 kg 
+Alimentation : DC 12 V / 15 A 
+Température : 0-45 ° C 
+Interfaces : Ethernet (RJ45) / Wifi / USB 3 / HDMi 
 
-**Charge utile maximale:** 500g
+## 2. Caractérisques du bras
 
-![bras](img/bras.PNG)
+**Répartition des masses** :
 
-Le bras de Reachy offre 7 degrés de mouvement + 1 pour la pince. 
+Bras global |&emsp; Épaule |&emsp; Bras supérieur |&emsp; Avant-bras |&emsp; Pince
+:--         | :--          |  :--                 |  :--             | :--
+1670g       |&emsp; 240g   |&emsp; 610g           |&emsp; 590g       |&emsp; 230g 
 
-![angles](img/angleBras.PNG)
+**Charge utile maximale** : 500g
 
-## 3. Spécifications de la tête de Reachy 
+Le bras de Reachy possède 7 degrés de liberté + 1 pour la pince. 
 
-La tête de Reachy comporte deux caméras: une pour observer son environnement et une autre pour se concentrer sur la tâche de manipulation. La tête est animée par Orbita, une technologie développée par l'équipe R&D de Pollen Robotics. Cet actionneur à rotule permet un mouvement dynamique et multidirectionnel. De plus, avec des antennes animées controlables, Reachy peut transmettre de nombreuses émotions à son public.
+![bras](img/arm.png) ![angles](img/arm_angles.png)
 
-Carte de développement Coral G950-01456-01
+## 3. Caractérisques de la tête
 
-### 3.1 Appareils photo
-2 caméras Raspberry Pi associées à 2 lentilles optiques (une macro et une grand angle). Voir les détails sur le module de caméra Raspberry Pi [ici.](https://www.raspberrypi.org/documentation/hardware/camera/)
+La tête est animée par une liaison _Orbita_, une technologie développée par l'équipe R&D de Pollen Robotics. Cet actionneur à rotule permet un mouvement dynamique et multidirectionnel. 
+De plus, avec des antennes animées contrôlables, Reachy peut transmettre de nombreuses émotions à son public.
 
-### 3.2 Articulation du cou Orbita
+<div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden>
+<iframe src=https://www.youtube.com/embed/X9dgsLX_u9I style=position:absolute;top:0;left:0;width:50%;height:50%;border:0 allowfullscreen title="YouTube Video">
+</iframe>
+</div>
 
-![orbita](img/orbita-schema.png)  
+// Carte de développement Coral G950-01456-01
 
-Actionneur à rotule composé d'un mécanisme parallèle motorisé par 3 moteurs DC Maxon. Le contrôle de chaque moteur se fait avec un codeur magnétique Pololu et un module moteur LUOS DC.
+### Caméras
 
-### 3.3 Antennes
+La tête de Reachy comporte un jeu de double caméras 1080p @ 30fps avec zoom motorisé (FOV 65 ° à 125 °), associée à 2 objectifs optiques deux caméras : 
+* la caméra grand angle est utile pour observer l'environnement,
+* la deuxème caméra est utilisée pour l'observation des tâches de manipulation. 
+
+### Articulation du cou : liaison Orbita
+
+La liaison **Orbita**  (liaison rotule) repose sur un mécanisme parallèle motorisé par 3 moteurs DC Maxon. Le contrôle de chaque moteur se fait avec un codeur magnétique Pololu et un module moteur LUOS DC.
+
+### Antennes
 Les antennes sont animées par un moteur Dynamixel et sont amovibles. Un système de 3 aimants (2 sud et 1 nord) permet de fixer les antennes sur l'axe de rotation.

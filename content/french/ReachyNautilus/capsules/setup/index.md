@@ -12,7 +12,7 @@ menu:
 | Setup  &emsp;  🛠️  |&emsp; 10 min      |
 
 
-## 📗 Documentation
+## 📗 Ressources
 
 Plus d'informations sur le robot et sa mise en route avec ces liens :  
 - [Doc Pollen Robotics](https://pollen-robotics.github.io/reachy-2019-docs/docs/getting-started/)  (en anglais)
