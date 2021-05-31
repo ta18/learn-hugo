@@ -10,8 +10,6 @@ menu:
 |:-------------------|:------------------|
 | Info  &emsp;  ℹ️  |&emsp; 10 min      |
 
-### **<p style="text-align: right;">Capsule info ℹ️</p>**
-### <p style="text-align: right;">Durée : 10min</p>
 
 ## 🎒 Prérequis
 
@@ -30,7 +28,7 @@ Les informations de cette capsule sont tirées des liens suivants :
 [Cours sur Python](https://courspython.com/bases-python.html)
 
 
-## 1. Classes, attribus et méthodes 
+## 1. Classes, attributs et méthodes 
 
 La programmation orientée objet (POO) est un concept de programmation très puissant qui permet de structurer ses programmes d'une manière nouvelle. En POO, on définit un « objet » qui peut contenir des « attributs » ainsi que des « méthodes » qui agissent sur lui-même.
 
@@ -58,7 +56,7 @@ class Voiture:
         self.proprietaire = proprietaire
 ```
 
-### Définition des attribus 
+### Définition des attributs 
 
 ```
 class Voiture:
