@@ -37,7 +37,7 @@ Pour programmer le robot il suffit d'utiliser un navigateur WEB sur ton ordinate
 
 ### Connexion au wifi du robot 📶
 
-1. Connecte-toi au **point d'acces** WiFi du robot (le SSID à la livraison est _Reachy-AP_ : nous l'avons renommé _Nemo-AP_).
+1. Connecte-toi au **point d'acces** WiFi du robot (le SSID à la livraison est _Reachy-AP_ : nous l'avons renommé _Nemo_).
 2. Entre l'adresse http://192.168.4.1:8888/ dans un navigateur web.
 3. Appuye sur *se connecter* : tu obtiens la page d'accueil du service *Jupyter notebook* sans avoir besoin de donner un mot de passe.
 
@@ -50,6 +50,6 @@ ping 192.168.4.1
 ```
  s'il n'y a pas d'erreur c'est que tu es bien connecté au WiFi du robot.
 
-✅ Fait attention a toujours bien rester connecté au hotspot WiFi _Nemo-AP_. 
+✅ Fait attention a toujours bien rester connecté au hotspot WiFi _Nemo_. 
 
 Et voilà tu es connecté au robot Reachy, bravo ! 🎉
