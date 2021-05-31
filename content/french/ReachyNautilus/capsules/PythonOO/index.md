@@ -32,24 +32,25 @@ Les informations de cette capsule sont tirées des liens suivants :
 
 La programmation orientée objet (POO) est un concept de programmation très puissant qui permet de structurer ses programmes d'une manière nouvelle. En POO, on définit un « objet » qui peut contenir des « attributs » ainsi que des « méthodes » qui agissent sur lui-même.
 
-**Classe** : Une classe définit des attributs et des méthodes. Par exemple, imaginons une classe Voiture qui servira à créer des instances qui seront des voitures. 
+### Classe :
+Une classe définit des attributs et des méthodes. Par exemple, imaginons une classe Voiture qui servira à créer des instances qui seront des voitures. 
 `class Voiture:()` créer la classe voiture. 
 `tutut = Voiture()` ici on créer un nouvel objet de type voiture, tutut fait référence a cette objet. 
 
-**Attribut** : Cette classe va pouvoir définir un attribut couleur, un attribut proprietaire, un attribut vitesse, etc. Ces attributs correspondent à des propriétés qui peuvent exister pour une voiture. 
+### Attribut :
+Cette classe va pouvoir définir un attribut couleur, un attribut proprietaire, un attribut vitesse, etc. Ces attributs correspondent à des propriétés qui peuvent exister pour une voiture. 
 
-**Méthode** : La classe Voiture pourra également définir une méthode fctFerrari(). Une méthode correspond en quelque sorte à une action, ici l’action c'est de déterminer si l'instance de la classe Voiture est une Ferrari ou pas. 
+### Méthode : 
+La classe Voiture pourra également définir une méthode fctFerrari(). Une méthode correspond en quelque sorte à une action, ici l’action c'est de déterminer si l'instance de la classe Voiture est une Ferrari ou pas.  
 
-**Constructeur** :  
-
-### Constructeur 
+### Constructeur : 
 
 Un constructeur n’est rien d’autre qu’une méthode, sans valeur de retour. Le constructeur se définit dans une classe comme une fonction avec deux particularités :
 * le nom de la fonction doit être __init__ ;
 * la fonction doit accepter au moins un paramètre, dont le nom doit être self, et qui doit être le premier paramètre.
 Le paramètre self représente en fait l'objet cible, c'est-à-dire que c'est une variable qui contient une référence vers l'objet qui est en cours de création. Grâce à ce dernier, on va pouvoir accéder aux attributs et fonctionnalités de l'objet cible.
 
-```
+```python 
 class Voiture:
     def __init__(self, couleur, proprietaire):
         self.couleur = couleur
@@ -58,7 +59,7 @@ class Voiture:
 
 ### Définition des attributs 
 
-```
+```python 
 class Voiture:
     def __init__(self, couleur, proprietaire):
         self.couleur = couleur
@@ -76,10 +77,10 @@ Ici les attributs de la classe Voiture sont :
 
 La syntaxe pour accéder à un attribut est la suivante : objet.attribut
 
-Pour lire l'attribu d'une instance d'objet :   
+Pour lire l'attribut d'une instance d'objet :   
 `x = objet.attribu`  
 
-Ecrire l'attribu d'une instance d'objet :   
+Ecrire l'attribut d'une instance d'objet :   
 `objet.attribu = valeur`   
 
 
@@ -90,7 +91,7 @@ Une méthode se définit dans une classe comme une fonction, avec comme particul
 La syntaxe pour appeler une méthode est la suivante : objet.méthode(). 
 
 Ici on va créer une méthode fctFerrari() pour savoir si notre voiture est une Ferrari (si tu as une voiture rouge, c'est une Ferrari) :  
-```
+```python 
 class Voiture:
     def __init__(self, couleur, proprietaire):
         self.couleur = couleur
@@ -109,7 +110,7 @@ tutut.fctFerrari()
 ### Encapsulation 
 
 Le concept d'encapsulation est un concept très utile de la POO. Il permet en particulier d’éviter une modification par erreur des données d’un objet. En effet, il n’est alors pas possible d’agir directement sur les données d’un objet ; il est nécessaire de passer par ses méthodes qui jouent le rôle d’interface obligatoire.
-```
+```python 
 class Voiture:
     def __init__(self, couleur, proprietaire):
         self._couleur = couleur
@@ -118,7 +119,7 @@ class Voiture:
 Il n’est alors plus possible de faire appel aux attributs __couleur et __proprietaire depuis l’extérieur de la classe Voiture.
 
 Résultats : 
-```
+```python 
 tutut('rouge', 'thea')
 tutut.couleur
 
@@ -132,7 +133,7 @@ AttributeError: 'Voiture' object has no attribute 'couleur'
 ```
 
 Il faut donc disposer de méthodes qui vont permettre par exemple de modifier ou d’afficher les informations associées à ces variables. 
-```
+```python 
 class Voiture:
     def __init__(self, couleur, proprietaire):
         self.__couleur = couleur
