@@ -9,11 +9,11 @@ menu:
 ---
 
 Capsules pédagogiques présentent : 
-* [Prise en main de jupyter notebook]()
-* [Python : les bases]() 
-* [Python : matplotlib]() 
-* [Python : Numpy]() 
-* [Python : Programmation orienté objet]() 
-* [Reachy : informations](informations/) 
-* [Reachy : configuration]() 
-* [Reachy : premiers pas]() 
+* [Prise en main de jupyter notebook](capsules/infos/)
+* [Python : les bases](capsules/PythonBasic/) 
+* [Python : matplotlib](capsules/PythonMatplotlib/) 
+* [Python : Numpy](capsules/PythonNumpy/) 
+* [Python : Programmation orienté objet](capsules/PythonOO/) 
+* [Reachy : informations](capsules/informations/) 
+* [Reachy : configuration](capsules/setup/) 
+* [Reachy : premiers pas](capsules/firstStep/) 
