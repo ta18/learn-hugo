@@ -39,11 +39,13 @@ Dans Jupyter, tu trouvera un fichier *premier pas.ipynb* dans le dossier *Nautil
 
 Regardons en détail le code :
 
-`from reachy import Reachy, parts`  
+```python 
+from reachy import Reachy, parts
+```  
 On import l'objet reachy de l'API Reachy. 
 
 On spécifie les pièces du robot sur lesquels on va travailler :
-```
+```python
 reachy = Reachy( 
     right_arm=parts.RightArm(io='/dev/ttyUSB*', hand='force_gripper'),
     head=parts.Head(io='/dev/ttyUSB*'), 
@@ -64,11 +66,15 @@ Les servomoteurs utilisés dans le bras de Reachy ont deux modes de fonctionneme
 Pour que Reachy conserve sa position et te permette de contrôler ses moteurs, tu dois les rendre non compliant en utilisant l'attribut `compliant` : 
 
 Rendre le bras non-compliant : 
-`reachy.right_arm.compliant = False`
+```python
+reachy.right_arm.compliant = False
+```
 Maintenant, le bras doit résister, tu ne peux plus le bouger à la main.
 
 Rendre le bras compliant : 
-`reachy.right_arm.compliant = True`
+```python
+reachy.right_arm.compliant = True
+```
 
 ⚠️ **Attention** : il ne faut surtout pas forcer les moteurs lorsque le robot est en mode "non compliant" cela pourrait endommager les moteurs. 
 
@@ -83,7 +89,7 @@ Documentation des classes et méthodes : [ici](https://pollen-robotics.github.io
 Pour faire bouger notre moteur, nous utiliserons la méthode goto. Nous définirons une position cible en degrés et une durée de déplacement en seconde.
 Ici on défini une position pour chaque partie du bras et une durée de déplacement total :
 
-```
+```python 
 reachy.goto({ 
     'right_arm.shoulder_pitch': 0, 
     'right_arm.shoulder_roll': 0, 'right_arm.arm_yaw': 0, 
@@ -98,7 +104,9 @@ reachy.goto({
 ```
 
 On peut utiliser cette méthode pour une seule partie du bras. Par exemple, pour le coude :
-`reachy.right_arm.elbow_pitch.goto( goal_position=90, duration=2, wait=True, )`
+```python
+reachy.right_arm.elbow_pitch.goto( goal_position=90, duration=2, wait=True, )
+```
 
 💡 Le `wait=True` permet d'attendre que le déplacement soit fini avant d'effectuer un autre déplacement. Si tu souhaite, par exemple, bouger le bras en même temps que la tête il faut mettre `wait=False`
 
@@ -108,12 +116,16 @@ On peut utiliser cette méthode pour une seule partie du bras. Par exemple, pour
 ### goto(thetas, duration, wait)
 
 Pour la tête on utilise également la méthode goto() avec thetas les positions cibles des 3 parties en dégrés :
-`reachy.head.neck.goto(thetas=(-10,-10,-10), duration=3, wait=True)`
+```python
+reachy.head.neck.goto(thetas=(-10,-10,-10), duration=3, wait=True)
+```
 
 ### look_at(x, y, z, duration, wait)
 
 Cette méthode permet de bouger la tête en fonction d'un point 3D dans l'espace (Nemo regarde ce point 3D) :
-`reachy.head.look_at(1, 0, 0, duration=1, wait=True)`
+```python
+reachy.head.look_at(1, 0, 0, duration=1, wait=True)
+```
 
 ⚠️ **Attention à la durée d'atteinte des positions : ne pas mettre des durée trop courte.**
 
@@ -121,7 +133,7 @@ Cette méthode permet de bouger la tête en fonction d'un point 3D dans l'espace
 
 Pour faire bouger les antennes on utilise une méthode inférieur à la méthode goto() pour contrôler le moteur. Tu dois être prudent en utilisant cette méthode car le moteur essaiera d'atteindre cette nouvelle position d'objectif aussi vite que possible. Une solution de contournement consiste également à utiliser la propriété moving_speed pour définir la vitesse maximale que le moteur peut atteindre.
 
-```
+```python
 for m in reachy.head.motors:
     m.moving_speed = 50  # en degres par seconde
 for m in reachy.head.motors:
@@ -135,19 +147,27 @@ Jusqu'à présent, nous vous avons fait bouger le robot en utilisant goto et une
 Avec cette approche, tu vas effectuer des trajectoires entières avec Reachy en le déplaçant à la main (en utilisant le mode compliant) et enregistrer les positions des différents moteurs. Selon ce que tu veux, tu peux enregistrer un seul moteur ou plusieurs à la fois. Un objet TrajectoryRecorder va rendre ce processus vraiment simple.
 
 Pour enregistrer un mouvement sur le bras droit :
-`from reachy.trajectory import TrajectoryRecorder, TrajectoryPlayer`
+```python
+from reachy.trajectory import TrajectoryRecorder, TrajectoryPlayer
+```
 
 On créer une variable recorder :
-`recorder = TrajectoryRecorder(reachy.right_arm.motors)`
+```python 
+recorder = TrajectoryRecorder(reachy.right_arm.motors)
+```
 
 Lorsque tu est pret effectuer shift + entrer sur la cellule :
-`recorder.start()`
+```python
+recorder.start()
+```
 
 et Lorsqu'on veut stopper l'enregistrement :
-`recorder.stop()`
+```python
+recorder.stop()
+```
 
 Ensuite pour rejouer la trajectoire :
-```
+```python
 player = TrajectoryPlayer(reachy, recorder.trajectories) 
 player.play(wait=True, fade_in_duration=3)
 ```
