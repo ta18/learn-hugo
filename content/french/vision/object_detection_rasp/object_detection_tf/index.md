@@ -1,5 +1,5 @@
 ---
-title: "Détection d'objet sur la "
+title: "Détection d'objet sur la Raspberry Pi"
 menu:
   main:
     name: "Détection d'objet sur la Raspberry Pi"
