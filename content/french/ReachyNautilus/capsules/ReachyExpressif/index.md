@@ -68,7 +68,7 @@ documentation :
 [JEMIme](http://www.innovation-alzheimer.fr/jemime/)   
 [EngageME](https://cordis.europa.eu/article/id/123847-teaching-robots-how-to-interact-with-children-with-autism/fr)   
 
-### Activités 
+## Activités 
 
 Ici nous aimerions profiter du côté très émotionnel de Reachy qui provient principalement du mouvement de la tête et des antennes.  
 
