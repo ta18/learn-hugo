@@ -31,7 +31,9 @@ Les informations de cette capsule sont tirées des liens suivants :
 
 ## Introduction 
 
-### Définition de l'autisme
+### Définition de l'autisme ❓
+
+![autisme](img/autisme.png)
 
 Les caractéristiques de l’autisme sont très variées d’un individu à l’autre. C’est pourquoi on parle de troubles du spectre autistique (TSA) : chaque personne se situe à un degré différent dans ce spectre.
 
@@ -44,7 +46,7 @@ Mouvements répétitifs ou compulsifs, intolérance aux changements ou à l’im
 
 Ces signes s’accompagnent souvent d’une hyper- ou d’une hypo-réactivité sensorielle. Les personnes autistes peuvent, en effet, réagir de manière intense aux stimuli sensoriels (bruit, lumière, odeur, toucher…) ou, au contraire, s’y montrer peu sensibles.
 
-### Autisme et émotions 
+### Autisme et émotions 😀😥😠
 
 Beaucoup de personnes autistes, enfants comme adultes, ont souvent du mal à reconnaître, interpréter, verbaliser et contrôler leurs émotions. De façon générale, elles ont du mal à partager les émotions de manière juste et appropriée. 
 Les expressions faciales émotionnelles sont une des modalités expressives dont dispose l’enfant dès la naissance. Elles vont très rapidement constituer le support de l’interaction avec autrui, dans la mesure où elles vont se combiner avec d’autres comportements au fur et à mesure du développement, de telle sorte que la communication devienne pleinement multimodale.
@@ -53,7 +55,7 @@ Certaines personnes nées avec une condition neurodéveloppementale telle que le
 Depuis les travaux du psychologue américain Paul Ekmen, on peut considérer que l’être humain a six émotions de base : la peur, la tristesse, la colère, le dégoût, la joie et la surprise. Toutes sont reconnaissables par des expressions faciales et corporelles qui peuvent leur être associées. Ces expressions sont dites individuelles, puisqu’elles peuvent se déclencher même sans interaction sociale.
 Si vers l’âge de 5–7 ans, la majorité des enfants autistes peuvent reconnaître la joie et la tristesse, ils peuvent avoir plus de difficultés avec certaines autres émotions plus subtiles telles que la peur et la colère. À l’adolescence, certains d’entre eux ont toujours de la difficulté à reconnaître la peur, la colère, la surprise et le dégoût. Cette difficulté les poursuivra une fois adulte alors qu’ils auront toujours des difficultés à reconnaître certaines émotions de base.
 
-## Etat de l'art 
+## Etat de l'art 📚
  
 Le projet JEMImE vise à concevoir de nouveaux algorithmes de reconnaissance multimodale d’émotions pour évaluer la qualité des émotions produites par des enfants. L’objectif est d’aider les enfants avec autisme à apprendre à imiter et à mimer des émotions faciales et vocales afin d’exprimer l’expression appropriée à un contexte donné.  
 Ils ont centré le jeu sur 3 émotions : la colère, la tristesse et la joie.
@@ -68,11 +70,11 @@ documentation :
 [JEMIme](http://www.innovation-alzheimer.fr/jemime/)   
 [EngageME](https://cordis.europa.eu/article/id/123847-teaching-robots-how-to-interact-with-children-with-autism/fr)   
 
-## Activités 
+## Activités 👩‍💻
 
-Ici nous aimerions profiter du côté très émotionnel de Reachy qui provient principalement du mouvement de la tête et des antennes.  
-
-Un jeu mémoriel à l'intention des enfants avec autisme qui leur permettrait de mémoriser un certain nombre d'émotions afin de pouvoir détecter les émotions d'autrui et pemettre des interactions sociales plus adaptées.   
+Tu est ingénieur dans une équipe de recherche sur les maladies neurodéveloppementale qui concoit des serious game afin d'améliorer la vie ...
+Ici vous aimeriez profiter du côté très émotionnel de Reachy qui provient principalement du mouvement de la tête et des antennes.  
+Nous avez décider de créer un jeu mémoriel à l'intention des enfants avec autisme qui leur permettrait de mémoriser un certain nombre d'émotions afin de pouvoir détecter les émotions d'autrui et pemettre des interactions sociales plus adaptées.   
 
 ### Déroulement du jeu mémoriel :   
 1. Le robot produit des émotions par des expressions faciales et corporelles (posture/geste) et des expressions vocales. On peut commencer par 3/4 émotions. 
