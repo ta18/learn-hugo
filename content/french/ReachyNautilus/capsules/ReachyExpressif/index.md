@@ -72,12 +72,12 @@ documentation :
 
 ## Activités 👩‍💻
 
-Tu est ingénieur dans une équipe de recherche sur les maladies neurodéveloppementale qui concoit des serious game afin d'améliorer la vie ...
+Tu est ingénieur dans une équipe de recherche sur les maladies neurodéveloppementale qui concoit des serious game afin d'améliorer le quotidien des personnes en situation de handicap.
 Ici vous aimeriez profiter du côté très émotionnel de Reachy qui provient principalement du mouvement de la tête et des antennes.  
-Nous avez décider de créer un jeu mémoriel à l'intention des enfants avec autisme qui leur permettrait de mémoriser un certain nombre d'émotions afin de pouvoir détecter les émotions d'autrui et pemettre des interactions sociales plus adaptées.   
+Vous avez décider de créer un jeu mémoriel à l'intention des enfants avec autisme qui leur permettrait à terme de mémoriser un certain nombre d'émotions afin de pouvoir détecter les émotions d'autrui et pemettre des interactions sociales plus adaptées.
 
 ### Déroulement du jeu mémoriel :   
-1. Le robot produit des émotions par des expressions faciales et corporelles (posture/geste) et des expressions vocales.   
+1. Le robot produit des émotions par des expressions faciales et corporelles (posture et geste) et des expressions vocales.   
 2. L'enfant doit retenir les émotions et le nom de l'émotion annoncée (on peut aussi associer l'émotion à une couleur mais il faut vérifier si ca ne biaise pas l'apprentissage + comment annoncer l'émotions ?). 
 3. Le robot va refaire les émotions dans un ordre aléatoire et l'enfant devra les reconnaitre. 
 
@@ -88,11 +88,17 @@ Tu dois fournir des séquences de 5 émotions. Les émotions que le robot doit f
 * la joie 
 * la surprise.
 
-### Consigne 
-Tu dois créer les émotions sur Reachy en lui faisant bouger les bras et la tête et en le faisant faire du bruit. Le nom de l'émotion doit être énoncé a la personne qui est entrain d'apprendre.   
-Tu dois une partie de code qui permet de lancer des séquences de 5 émotions faites dans un ordre aléatoire.   
-Tu dois créer une partie de code où la personne qui apprendre pourra rentrer la séquences d'émotions qu'il a vu afin de valider la justesse de son apprentissage.   
-Tu dois créer une partie de code qui permettra au robot d'apprendre de nouvelles émotions qu'il ne connait pas déjà (avec movement recorder).   
+### Consignes 
+Créer les émotions sur Reachy en lui faisant bouger les bras et la tête et en le faisant faire du bruit. Le nom de l'émotion doit être énoncé a la personne qui est entrain d'apprendre.   
+Créer une partie de code qui permet de lancer des séquences de 5 émotions faites dans un ordre aléatoire.   
+Créer une partie de code où la personne qui apprendre pourra rentrer la séquences d'émotions qu'il a vu afin de valider la justesse de son apprentissage.   
+Créer une partie de code qui permettra au robot d'apprendre de nouvelles émotions qu'il ne connait pas déjà (avec movement recorder).   
+
+**Recommandations :** 
+- Utiliser la création de classe pour créer la classe Emotion.
+- Utiliser les trajectoire recorder pour apprendre au robot de nouvelles émotions. 
+- Utiliser les input 
+- Utiliser le haut parleur de Nemo avec la librairie [pygame](https://www.pygame.org/docs/ref/mixer.html)
 
 
 Partie avancée :   
