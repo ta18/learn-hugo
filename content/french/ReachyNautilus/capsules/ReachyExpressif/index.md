@@ -77,7 +77,7 @@ Ici vous aimeriez profiter du côté très émotionnel de Reachy qui provient pr
 Nous avez décider de créer un jeu mémoriel à l'intention des enfants avec autisme qui leur permettrait de mémoriser un certain nombre d'émotions afin de pouvoir détecter les émotions d'autrui et pemettre des interactions sociales plus adaptées.   
 
 ### Déroulement du jeu mémoriel :   
-1. Le robot produit des émotions par des expressions faciales et corporelles (posture/geste) et des expressions vocales. On peut commencer par 3/4 émotions. 
+1. Le robot produit des émotions par des expressions faciales et corporelles (posture/geste) et des expressions vocales.   
 2. L'enfant doit retenir les émotions et le nom de l'émotion annoncée (on peut aussi associer l'émotion à une couleur mais il faut vérifier si ca ne biaise pas l'apprentissage + comment annoncer l'émotions ?). 
 3. Le robot va refaire les émotions dans un ordre aléatoire et l'enfant devra les reconnaitre. 
 
