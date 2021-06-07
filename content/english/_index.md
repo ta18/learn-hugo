@@ -21,18 +21,18 @@ ROS4PRO is a set of resources for learning open-source robotics with the [ROS](h
 ## Learning paths
 
 ### Path #1 : Poppy Ergo Jr + tensorflow2 + Turtlebot (possible partially in simulation)
-1. [Introduction]  (introduction/)
-2. [Navigation] (navigation/turtlebot/)
-3. [Manipulation] (manipulation/ergo-jr/)
+1. [Introduction](introduction/)
+2. [Navigation](navigation/turtlebot/)
+3. [Manipulation](manipulation/ergo-jr/)
 4. [Vision](vision/)
-5. [Intégration] (integration/ergo-tb-keras/)
+5. [Intégration](integration/ergo-tb-keras/)
 
 ### Path #2 : Sawyer + tensorflow2 + Turtlebot
-1. [Introduction] (introduction/)
-2. [Navigation] (navigation/turtlebot/)
-3. [Manipulation] (manipulation/sawyer/)
-4. [Vision] (vision/)
-5. [Intégration] (integration/sawyer-tb-keras/)
+1. [Introduction](introduction/)
+2. [Navigation](navigation/turtlebot/)
+3. [Manipulation](manipulation/sawyer/)
+4. [Vision](vision/)
+5. [Intégration](integration/sawyer-tb-keras/)
 
 ## Legend
 The following pictograms are used:
