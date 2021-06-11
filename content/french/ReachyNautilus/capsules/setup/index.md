@@ -39,7 +39,7 @@ Pour programmer le robot il suffit d'utiliser un navigateur WEB sur ton ordinate
 
 1. Connecte-toi au **point d'acces** WiFi du robot (le SSID à la livraison est _Reachy-AP_ : nous l'avons renommé _Nemo_) le mot de passe est reachy.
 2. Connecte-toi en ssh au robot : `ssh nemo@localhost` 
-3. Entre l'adresse http://localhost/ dans un navigateur web.
+3. Ouvre un invite de commande et tape `jupyter notebook --ip=0.0.0.0`
 4. Appuye sur *se connecter* : tu obtiens la page d'accueil du service *Jupyter notebook* sans avoir besoin de donner un mot de passe.
 
 **Si cela ne fonctionne pas...** 
