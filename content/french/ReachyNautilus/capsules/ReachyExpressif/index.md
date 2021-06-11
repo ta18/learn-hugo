@@ -102,4 +102,4 @@ Créer une partie de code qui permettra au robot d'apprendre de nouvelles émoti
 
 
 Partie avancée :   
-Reconnaissance des émotions des enfants
+Reconnaissance des émotions des enfants avec detection de visage et corps
