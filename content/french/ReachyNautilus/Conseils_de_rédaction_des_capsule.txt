@@ -4,5 +4,5 @@
 
 Français :
 - mettre un espece avant et après tous les signes de ponctuation "à 2 éléments" :   ! ; :
-- penser à utiliser les majuacules aacentuées : Épaule, et non pas Epaule
+- penser à utiliser les majuscules aacentuées : Épaule, et non pas Epaule
 
