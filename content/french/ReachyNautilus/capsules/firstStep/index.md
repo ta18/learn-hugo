@@ -29,7 +29,7 @@ A l'issue de cette activité, l'apprenant saura :
 
 Si tu souhaites d'autres informations sur le robot et sa mis en route tu peux consulter ces liens :
 [Doc Pollen Robotics](https://pollen-robotics.github.io/reachy-2019-docs/docs/program-your-robot/)
-[Doc API Reachy](https://pollen-robotics.github.io/reachy-2019/index.html)
+[Doc SDK Reachy](https://pollen-robotics.github.io/reachy-sdk/index.html)
 
 
 Une fois connecté au robot, tu peux commencer à programmer les mouvements de Nemo. 
@@ -82,7 +82,7 @@ Pour que Reachy conserve sa position et te permette de contrôler ses moteurs, t
 Pour bouger des parties du robot, tu va utiliser les méthodes des classes Head() et Right_Arm() :
 Documentation des classes et méthodes : [ici](https://pollen-robotics.github.io/reachy-2019/autoapi/reachy/index.html#)
 
-### goto(goal_position, duration, wait)
+### goto(goal_position, duration, starting_positions=None , sampling_freq=100 , interpolation_mode=<function linear> )
 
 Pour faire bouger notre moteur, nous utiliserons la méthode goto. Nous définirons une position cible en degrés et une durée de déplacement en seconde.
 Ici on défini une position pour chaque partie du bras et une durée de déplacement total :
@@ -142,7 +142,7 @@ for m in reachy.head.motors:
 
 Jusqu'à présent, nous vous avons fait bouger le robot en utilisant goto et une position cible. Cela fonctionne bien pour un mouvement simple mais parfois, pour des mouvements complexes, il semble plus agréable de pouvoir enregistrer un mouvement et l'enregistrer.
 
-Avec cette approche, tu vas effectuer des trajectoires entières avec Reachy en le déplaçant à la main (en utilisant le mode compliant) et enregistrer les positions des différents moteurs. Selon ce que tu veux, tu peux enregistrer un seul moteur ou plusieurs à la fois. Un objet TrajectoryRecorder va rendre ce processus vraiment simple.
+Avec cette approche, tu vas effectuer des trajectoires entières avec Reachy en le déplaçant à la main (en utilisant le mode libre) et enregistrer les positions des différents moteurs. Selon ce que tu veux, tu peux enregistrer un seul moteur ou plusieurs à la fois. Un objet TrajectoryRecorder va rendre ce processus vraiment simple.
 
 Pour enregistrer un mouvement sur le bras droit :
 ```python
