@@ -84,7 +84,7 @@ Documentation des classes et méthodes : [ici](https://pollen-robotics.github.io
 
 ### goto(goal_position, duration, starting_positions=None , sampling_freq=100 , interpolation_mode=<function linear> )
 
-Pour faire bouger notre moteur, nous utiliserons la méthode goto. Nous définirons une position cible en degrés et une durée de déplacement en seconde.
+Pour faire bouger notre moteur, nous utiliserons la méthode goto. Nous définirons une position cible en degrés et une durée de déplacement en seconde. Tu peux également renseigner la position de départ si elle est différente de la position actuelle du robot. 
 Ici on défini une position pour chaque partie du bras et une durée de déplacement total :
 
 ```python 
