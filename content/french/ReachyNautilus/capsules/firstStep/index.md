@@ -40,43 +40,41 @@ Dans Jupyter, tu trouvera un fichier *premier pas.ipynb* dans le dossier *Nautil
 Regardons en détail le code :
 
 ```python 
-from reachy import Reachy, parts
+from reachy_sdk import ReachySDK
 ```  
-On import l'objet reachy de l'API Reachy. 
+On import l'objet reachy du sdk Reachy. 
 
-On spécifie les pièces du robot sur lesquels on va travailler :
+On se connecte au robot :
 ```python
-reachy = Reachy( 
-    right_arm=parts.RightArm(io='/dev/ttyUSB*', hand='force_gripper'),
-    head=parts.Head(io='/dev/ttyUSB*'), 
-    )
+reachy = ReachySDK('localhost')
 ```
-Ici, nous spécifions que nous voulons ajouter une partie bras droit et une partie tête. Ces pièces doivent être trouvées sur des ports séries USB de type «/ dev / ttyUSB \*». 
-Pour le bras, nous définissons la main comme «force_gripper» (main en forme de pince).
 
 Si tu ne vois aucune erreur au lancement de ces lignes de code, bonne nouvelle, tu es maintenant connecté au Robot et tous les systèmes ont bien été trouvés !
+
+L'objet reachy possède 8 attributs et 2 méthodes que nous allons rapidement présenter ici : 
+* reachy.fans : permet d'accéder au ventilateur du bras et de la tête 
+* reachy.force_sensors : permet d'accéder au capteurs de force présent dans la pince 
+* reachy.head : permet d'accéder au informations des trois articulations composant la liaison Orbita ainsi que des méthodes pour sa cinématique ou pour la contrôler.
+* reachy.joints : permet d'accéder aux informations (par exemple la position) sur toutes les jointures
+* reachy.r_arm : permet d'accéder à chaque jointure du bras droit (épaule, coude, poignet ...etc)
+* reachy.left_camera : permet de récupérer la dernière image capturée par la caméra de gauche et également de contrôler le zoom motorisé attaché à la caméra
+* reachy.right_camera : pareil que pour la caméra gauche 
+
+* reachy.turn_on() : méthode pour allumer une pièce, c'est-à-dire mettre toutes les articulations de cette pièce en mode rigide
+* reachy.turn_off() : méthode pour éteindre une pièce, c'est-à-dire mettre toutes les articulations de cette pièce en mode libre
 
 ## 2. Compliant ou pas ?
 
 Les servomoteurs utilisés dans le bras de Reachy ont deux modes de fonctionnement:
 
-- **compliant** : les servomoteurs sont libres et peuvent être tournés à la main. Ils ne peuvent pas être contrôlés.
-- **non compliant** : les servomoteurs sont actifs et résistent au déplacement à la main. Ils peuvent être contrôlés en définissant une nouvelle position cible.
+- **libre (OFF)** : les servomoteurs sont libres et peuvent être tournés à la main. Ils ne peuvent pas être contrôlés.
+- **rigide (ON)** : les servomoteurs sont actifs et résistent au déplacement à la main. Ils peuvent être contrôlés en définissant une nouvelle position cible.
 
-Pour que Reachy conserve sa position et te permette de contrôler ses moteurs, tu dois les rendre non compliant en utilisant l'attribut `compliant` : 
+Pour que Reachy conserve sa position et te permette de contrôler ses moteurs, tu dois les mettre en ON en utilisant les méthodes `reachy.turn_on()` et `reachy.turn_off()`. Tu peux rendre rigide tout reachy d'un coup ou juste spécifier quel partie tu veux rigidifier. 
 
-Rendre le bras non-compliant : 
-```python
-reachy.right_arm.compliant = False
-```
-Maintenant, le bras doit résister, tu ne peux plus le bouger à la main.
+`reachy.turn_off_smoothly('reachy')` permet de passer le robot en mode libre plus doucement 
 
-Rendre le bras compliant : 
-```python
-reachy.right_arm.compliant = True
-```
-
-⚠️ **Attention** : il ne faut surtout pas forcer les moteurs lorsque le robot est en mode "non compliant" cela pourrait endommager les moteurs. 
+⚠️ **Attention** : il ne faut surtout pas forcer les moteurs lorsque le robot est en mode rigide cela pourrait les endommager. 
 
 
 ## 3. Les méthodes pour faire bouger les moteurs :
