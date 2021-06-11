@@ -78,8 +78,10 @@ Exemple :
 >>> c
 5 
 ```
-## 3. Les boucles if 
+## 3. Les boucles 
+Les boucles s’utilisent pour répéter plusieurs fois l’éxecution d’une partie du programme.
 
+### 3.1 Boucle if 
 Les conditions ont le même sens en informatique que dans le langage courant, elles permettent d'effectuer une action dans un cas précis. Si (événement), dans ce cas (action). 
 
 Les différentes condtions possibles sont : 
@@ -98,6 +100,38 @@ print("Le nombre est égal à zéro")
 else:
 print("Le nombre est positif")
 ```
+### Boucle for et while
+
+**Boucle bornée**
+Quand on sait combien de fois doit avoir lieu la répétition, on utilise généralement une boucle `for`.
+
+Exemple :
+```python 
+>>>for i in [0, 1, 2, 3]:
+    print("i a pour valeur", i)
+0
+1
+2
+3
+```
+
+**Boucle non bornée**
+Si on ne connait pas à l’avance le nombre de répétitions, on choisit une boucle `while`.
+
+Exemple : 
+```python
+>>> x = 1
+>>> while x < 10:
+    print(x)
+    x = x * 2
+>>> print("Fin")
+1
+2
+4
+8
+Fin
+```
+
 ## 4. Les listes et tupples
 
 ### Liste
