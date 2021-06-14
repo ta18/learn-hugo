@@ -17,7 +17,6 @@ menu:
 ## 🎓 Acquis d'apprentissage
 
 * Installation de Tensorflow Lite sur la Raspberry Pi
-* 
 
 
 ## Mettre en place l'environnement virtuel 
