@@ -42,10 +42,10 @@ Pour coder en Python vous pouvez utiliser de nombreux IDE. Voir [capsule prise e
 Chaque information que vous souhaitez réutiliser plus tard s’appelle une variable. Nous pouvons voir une variable comme une étiquette que vous colleriez sur un objet pour vous souvenir de son nom. 
 Pour définir une variable, nous allons taper son nom, un signe égal puis sa valeur. Par exemple :  
    
-```
-prenom = "nemo"
-prenom
-> nemo
+```python
+>>> prenom = "nemo"
+>>> prenom
+'nemo'
 ```  
 Pour afficher le contenu d'une variable il suffit d'entrer le nom de la variable ou d'effectuer un print().  
 
@@ -131,7 +131,7 @@ D'autres méthodes de l'objet liste :
 * **remove()** : enlève un élèment 
 
 l'instruction range() créer une liste pré-remplie de n élèments : 
-```
+```python
 for i in range(6):
     print(i)
 >1, 2, 3, 4, 5
