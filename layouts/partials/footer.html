@@ -15,8 +15,7 @@
     </a>
 
     <a href="https://eitmanufacturing.eu/">
-      <img src="{{"img/logos/EITM.png" | relURL}}"
-        title="EIT Manufacturing" />
+      <img src="{{"img/logos/EITM.png" | relURL}}" title="EIT Manufacturing" />
     </a>
 
     <a href="https://robot-enseirb-matmeca.fr/">
@@ -48,7 +47,7 @@
     </a>
   </div>
 
-  <h4>📚 Auteurs</h4>
+  <h4>📚 {{ i18n "author" }}</h4>
   <p>
     Jessica Colombel (<a href="http://inria.fr/" target="_blank">Inria</a>),
     Jean-Luc Charles (<a href="https://artsetmetiers.fr/" target="_blank">ENSAM</a>),
@@ -60,11 +59,14 @@
     Etienne Schmitz (<a href="https://robotics.catie.fr/" target="_blank">CATIE</a>).
   </p>
 
-  <h4>💬 Besoin d'aide ?</h4>
+  <h4>💬 {{ i18n "help" }}</h4>
 
-  <p>Posez votre question sur le <a href="https://discourse.ros.org/c/local/france/48" target="_blank">forum francophone
-      des utilisateurs de ROS</a>.</p>
+  <p> {{ i18n "help_text" }}
+    <a href='{{ i18n "help_link"}}' target="_blank">
+      {{ i18n "help_link_text" }}
+    </a>.
+  </p>
   <p>
-    📅 Dernière mise à jour : {{ .Page.Lastmod.Format "02/01/2006, 15:04:05" }}
+    📅 {{ i18n "update" }} : {{ .Page.Lastmod.Format "02/01/2006, 15:04:05" }}
   </p>
 </footer>
