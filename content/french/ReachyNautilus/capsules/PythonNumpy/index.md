@@ -7,8 +7,10 @@ menu:
     parent: "capsules"
 ---
 
-### **<p style="text-align: right;">Capsule info ℹ️</p>**
-### <p style="text-align: right;">Durée : 10min</p>
+| Classe de capsule  | &emsp;durée recommandée |
+|:-------------------|:------------------|
+| Info  &emsp;  ℹ️  |&emsp; 10 min      |
+
 
 ## 🎒 Prérequis
 
@@ -34,17 +36,31 @@ Memento Python à toujours avoir à coter de soi :
 **Vocabulaire : array = tableau = matrice**  
 
 Pour commencer a utiliser Numpy il faut l'importer : 
-`import numpy as np`
+```python 
+import numpy as np
+```
 
 
 ## 1. Création d'un array simple   
 
-`a = np.array([1, 2, 3.5])` : à partir d'une liste python, et python détermine lui-même le type de l'array créée.  
-`a = np.array((1, 2, 3.5))` : on peut aussi le faire à partir d'un tuple.  
-`a = np.int_([1, 2, 3.5])` : à partir d'une liste python, mais en imposant un type (pareil avec float_ et bool_).  
+* À partir d'une liste python (python détermine lui-même le type de l'array créée) :  
+```python 
+a = np.array([1, 2, 3.5])
+``` 
+* À partir d'une liste python, mais en imposant un type (pareil avec float_ et bool_) : 
+```python 
+a = np.int_([1, 2, 3.5])
+```
+* À partir d'un tuple :  
+```python 
+a = np.array((1, 2, 3.5))
+```  
 
 Méthodes utiles :  
-* pour connaître le type d'un array : `a.dtype`  
+* pour connaître le type d'un array : 
+```python 
+a.dtype
+```  
 * accès à un élément : a[0]. Donne un scalaire du même type que le type du tableau, donc souvent un type numpy. Attention, si on veut un type python, il faut le convertir : int(a[0]) par exemple.  
 
 
@@ -55,7 +71,7 @@ Si on fait `b = np.asarray(a)` b pointe vers la même tableau que a (si a modifi
 
 ## 2. Création d'un array à plusieurs dimensions :
 On peut aussi créer un tableau à deux dimensions à partir d'une liste de listes :   
-```  
+```python 
 numpy.array([[1, 2, 3], [4, 5, 6]])
 >array([[1, 2, 3],
        [4, 5, 6]])
@@ -72,50 +88,50 @@ Méthodes utiles :
 
 Un tableau peut jouer le rôle d’une matrice si on lui applique une opération de calcul matriciel. Par exemple, la fonction numpy.dot() permet de réaliser le produit matriciel.
 
-```
-a = np.array([[1, 2, 3],
+```python 
+>>> a = np.array([[1, 2, 3],
                   [4, 5, 6]])
-b = np.array([[4],
+>>> b = np.array([[4],
                   [2],
                   [1]])
-np.dot(a,b)
+>>> np.dot(a,b) # méthode pour obtenir le produit entre 2 matrice 
 
->array([[11],
+array([[11],
        [32]])
 ```
 ### Transposé 
 
-```
-a.T
->array([[1, 4],
+```python 
+>>> a.T
+array([[1, 4],
        [2, 5],
        [3, 6]])
 ```
 
 ### Déterminant 
 
-```
-from numpy.linalg import det
-a = np.array([[1, 2],
+```python 
+>>> from numpy.linalg import det
+>>> a = np.array([[1, 2],
                  [3, 4]])
-det(a)
->-2.0
+>>> det(a) # méthode pour obtenir le déterminant d'une matrice 
+-2.0
 ```
 
 ### Inverse 
 
-```
-from numpy.linalg import inv
-a = np.array([[1, 3, 3],
+```python 
+>>> from numpy.linalg import inv
+>>> a = np.array([[1, 3, 3],
                   [1, 4, 3],
                   [1, 3, 4]])
-inv(a)
->array([[ 7., -3., -3.],
+>>> inv(a) # méthode pour obtenir l'inverse d'une matrice 
+array([[ 7., -3., -3.],
        [-1.,  1.,  0.],
        [-1.,  0.,  1.]])
 ```
 
 Autres méthodes utiles :  
-* `numpy.zeros()`: renvoie un tableau de zéros (marche aussi pour les tableaux 2D)
-* `numpy.ones()`: renvoie un tableau de un (marche aussi pour les tableaux 2D)
-* `numpy.eye()`: renvoie une matrice identité (tableau 2D avec des uns sur la diagonale)
+* **numpy.zeros()**: renvoie un tableau de zéros (marche aussi pour les tableaux 2D)
+* **numpy.ones()**: renvoie un tableau de un (marche aussi pour les tableaux 2D)
+* **numpy.eye()**: renvoie une matrice identité (tableau 2D avec des uns sur la diagonale)
