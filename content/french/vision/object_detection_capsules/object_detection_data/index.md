@@ -35,8 +35,20 @@ Cette étape du travail comporte cinq tâches :
 4. Convertir les fichiers annotés CSV au format _tensorflow record_
 5. Créer le fichier `label_map.pbtxt` qui contient les labels des objets à reconnaître.
 
+### 1. Créer les images avec une caméra 
 
-### 1. Créer les images avec la caméra du robot  
+Dans le cas des images prises avec des smartphones ou autre, il faut les convertir en png et les redimenssionner.
+Les commandes suivantes effectuent ces modifications :
+
+```python
+#from tod_tf2/images/faces_cube/train or tod_tf2/images/faces_cube/test
+mogrify -format png *.*
+convert '*.png[640x]' resized%03d.png
+```
+
+Ici, la valeur de 640 correspond au taille des images du réseau.
+
+### 2. Créer les images avec la caméra du robot  
 
 Les images des faces des cubes peuvent être obtenues en utilisant le service ROS `/get_image` proposé par le robot Poppy Ergo Jr.
 
