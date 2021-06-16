@@ -86,6 +86,17 @@ Les images produites sont :
 ![1](img/infere_img01.png) |  ![2](img/infere_img02.png)  | ![3](img/infere_img03.png) | ![4](img/infere_img04.png)
  
 
+__Attention !__ L'erreur suivante peut apparaître :
+
+
+```bash
+File "plot_object_detection_saved_model.py", line 155, in <module>
+  viz_utils.visualize_boxes_and_labels_on_image_array(
+NameError : name 'viz_utils' is not defined
+```
+Il suffit de modifier la ligne 155 du fichier **plot_object_detection_saved_model.py**
+en remplaçant viz_utils.visualize_boxes_and_labels_on_image_array(... par vis_utils.visualize_boxes_and_labels_on_image_array(...
+
 ## Intégration
 
 Une fois le réseau entraîné et évalué, si les résultats sont bons, "il ne reste plus qu'à" créer le fichier `nn.py` pour réaliser les traitements nécessaires à l'exploitation du réseau entraîné pour ton projet : le but est d'intégrer le réseau de neurones `nn`  dans le contexte ROS :
