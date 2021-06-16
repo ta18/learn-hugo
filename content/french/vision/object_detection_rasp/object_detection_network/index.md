@@ -83,7 +83,7 @@ différentes résolutions.
 Le réseau utilisé dans les prochains exemples et capsules est le réseau 
 **SSD MobileNet V2 FPNLite 640x640**.
 
-
+![Convert](img/convert.png)<br>(source: https://coral.ai/docs/edgetpu/models-intro/#compatibility-overview)<br>
 
 ### Exporter le graphe d'inférence TFLite 
 
