@@ -32,15 +32,42 @@ Credit :
 * https://www.tensorflow.org/lite/convert
 
 
+
 ## Introduction
 
-Dans la capsule, **Détection d'objet sur la Raspberry Pi** un réseau sous Tensorflow Lite est utilisé.
+Dans la capsule **Détection d'objet sur la Raspberry Pi**, un réseau sous Tensorflow Lite est utilisé.
 C'est à dire qu'il possède un fichier **detect.tflite** et un **labelmap.txt**.
 Cependant, customiser son réseau, c'est à dire l'entraîner sur des images spécifiques, 
-est peu adapté sur une Raspberry Pi, du fait du manque de mémoire et du processeur ARM.
-L'idée est donc d'entraîner un réseau Tensorflow avec une base de données spécifiques 
-sur des machines avec des CPU et/ou GPU conséquents. Puis, de convertir ce réseau entrainé 
-sous Tensorflow Lite afin de pouvoir l'utiliser sur la Raspberry Pi ou autre.
+est peu adapté pour une Raspberry Pi, du fait du manque de mémoire et du processeur ARM.
+L'idée est donc d'entraîner un réseau Tensorflow, avec une base de données spécifiques,
+sur des machines avec des ressources importantes. Puis, de convertir ce réseau entrainé 
+sous Tensorflow Lite afin de pouvoir l'utiliser sur une Raspberry Pi ou autre.
+
+La conversion consiste donc à obtenir deux fichiers `detect.tflite` et `labelmap.txt`.
+Ces deux fichiers doivent ensuite être intégrer dans le répertoire du projet 
+sur la Raspberry Pi.
+Ajouter de nouvelles images spécifiques permet aussi 
+de limiter la perte de précision en convertissant le modèle en **.tflite**.
+
+
+Si on reprend la capsule sur la reconnaissance d'objet avec Tensorflow, 
+on remarque qu'un réseau pré-entrainé Faster R-CNN est utilisé. 
+En convertissant celui-ci à l'aide du script `export_tflite_ssd_graph.py`
+du module research/object_detection, on remarque que ce type de réseau 
+n'est pas supporté par TFLite (notamment TFArray).
+Parmi les réseaux existants, on retient les réseaux SSD et YOLO
+spécifiques à la détection d'objet et qui sont supportés par TFLite.
+YOLO/Tiny YOLO est plus rapide mais moins précis.
+Inversement, les réseaux SSD (Singe Shot MultiBoxDetector) sont plus précis mais moins rapides.
+Ces derniers utilisent un CNN et réalisent du Transfert Learning.
+Plus précisement, les réseaux SSD (entraînés avec la base de données COCO) 
+possèdent les caractéristiques suivantes :
+
+* La localisation et la classification de l'objet sont faites en un seul parcours de réseau,
+* La technique MultiBox est utilisée,
+* En plus d'être détectés, les objets sont aussi classifiés.
+
+## Convertir le réseau
 
 Afin de convertir son réseau, on réalise dans un premier temps l'ensemble des capsules **Detection d'objet avec Tensorflow**.
 
@@ -57,7 +84,6 @@ Le réseau utilisé dans les prochains exemples et capsules est le réseau
 **SSD MobileNet V2 FPNLite 640x640**.
 
 
-## Convertir le réseau
 
 ### Exporter le graphe d'inférence TFLite 
 
