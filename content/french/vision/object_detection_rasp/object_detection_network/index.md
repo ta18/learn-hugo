@@ -30,8 +30,7 @@ menu:
 Credit : 
 * https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_on_mobile_tf2.md
 * https://www.tensorflow.org/lite/convert
-
-
+* https://coral.ai/docs/edgetpu/models-intro/
 
 ## Introduction
 
