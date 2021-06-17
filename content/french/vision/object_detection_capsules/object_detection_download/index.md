@@ -24,6 +24,21 @@ menu:
 
 * Mise en place d'un réseau, ici, pré-entraîné
 
+## Introduction 
+
+Construire son propre modèle et l'entraîner peut prendre plusieurs jours 
+et requiert une quantité de données d'entraînements très importantes. 
+Une solution est d'entraîner un modèle déjà existant et, bien sur, 
+compatible avec l'architecture de destination (TPU, ARM...). Cette
+technique est connue sous le nom de **Transfert Learning** ou parfois **Fine Tuning**.
+En effet, le **Transfert Learning** permet de partir d'un modèle déjà entrainé pour 
+une tâche spécifique et de compléter l'entraînement avec de nouvelles classes 
+en utilisant une base de données plus petites.
+Deux possibilités existent pour faire cela : 
+* Re-entraîner tout le modèle (en ajustant les poids à travers le réseau), 
+* Enlever la dernière couche qui effectue la classification et entraîner une nouvelle couche 
+qui reconnaît des nouvelles classes.
+
 ## Télécharger le réseau pré-entraîné
 
 Plusieurs familles de réseaux dédiés à la détection d’objets sont proposés sur le site  [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md), parmi lesquelles :

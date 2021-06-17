@@ -35,10 +35,18 @@ Credit :
 
 ## Introduction
 
+
+TensorFlow Lite est une version allégée de TensorFlow, conçus pour les mobiles 
+et les objets embarqués. TensorFlow Lite permet une inférence à faible latence
+avec une faible taille binaire.
+La taille des modèles peut être encore réduite grâce à la quantification, qui 
+convertit des paramètres de 32 bits en des représentations de 8 bits. 
+
 Dans la capsule **Détection d'objet sur la Raspberry Pi**, un réseau sous Tensorflow Lite est utilisé.
 C'est à dire qu'il possède un fichier **detect.tflite** et un **labelmap.txt**.
 Cependant, customiser son réseau, c'est à dire l'entraîner sur des images spécifiques, 
 est peu adapté pour une Raspberry Pi, du fait du manque de mémoire et du processeur ARM.
+De plus, il n'est pas vraiment possible d'entraîner directement un réseau avec TensorFlow Lite.
 L'idée est donc d'entraîner un réseau Tensorflow, avec une base de données spécifiques,
 sur des machines avec des ressources importantes. Puis, de convertir ce réseau entrainé 
 sous Tensorflow Lite afin de pouvoir l'utiliser sur une Raspberry Pi ou autre.
