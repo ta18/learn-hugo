@@ -52,16 +52,16 @@ reachy = ReachySDK('localhost')
 Si tu ne vois aucune erreur au lancement de ces lignes de code, bonne nouvelle, tu es maintenant connecté au Robot et tous les systèmes ont bien été trouvés !
 
 L'objet reachy possède 8 attributs et 2 méthodes que nous allons rapidement présenter ici : 
-* reachy.fans : permet d'accéder au ventilateur du bras et de la tête 
-* reachy.force_sensors : permet d'accéder au capteurs de force présent dans la pince 
-* reachy.head : permet d'accéder au informations des trois articulations composant la liaison Orbita ainsi que des méthodes pour sa cinématique ou pour la contrôler.
-* reachy.joints : permet d'accéder aux informations (par exemple la position) sur toutes les jointures
-* reachy.r_arm : permet d'accéder à chaque jointure du bras droit (épaule, coude, poignet ...etc)
-* reachy.left_camera : permet de récupérer la dernière image capturée par la caméra de gauche et également de contrôler le zoom motorisé attaché à la caméra
-* reachy.right_camera : pareil que pour la caméra gauche 
+* `reachy.fans` : permet d'accéder au ventilateur du bras et de la tête 
+* `reachy.force_sensors` : permet d'accéder au capteurs de force présent dans la pince 
+* `reachy.head` : permet d'accéder au informations des trois articulations composant la liaison Orbita ainsi que des méthodes pour sa cinématique ou pour la contrôler.
+* `reachy.joints` : permet d'accéder aux informations (par exemple la position) sur toutes les jointures
+* `reachy.r_arm` : permet d'accéder à chaque jointure du bras droit (épaule, coude, poignet ...etc)
+* `reachy.left_camera` : permet de récupérer la dernière image capturée par la caméra de gauche et également de contrôler le zoom motorisé attaché à la caméra
+* `reachy.right_camera` : pareil que pour la caméra gauche 
 
-* reachy.turn_on() : méthode pour rendre rigide une partie du robot, c'est-à-dire mettre toutes les articulations de cette partie en mode rigide. 
-* reachy.turn_off() : méthode pour rendre libre une partie du robot, c'est-à-dire mettre toutes les articulations de cette partie en mode libre. 
+* `reachy.turn_on()` : méthode pour rendre rigide une partie du robot, c'est-à-dire mettre toutes les articulations de cette partie en mode rigide. 
+* `reachy.turn_off()` : méthode pour rendre libre une partie du robot, c'est-à-dire mettre toutes les articulations de cette partie en mode libre. 
 
 ## 2. Compliant ou pas ?
 
@@ -76,6 +76,9 @@ Pour que Reachy conserve sa position et te permette de contrôler ses moteurs, t
 
 ⚠️ **Attention** : il ne faut surtout pas forcer les moteurs lorsque le robot est en mode rigide cela pourrait les endommager. 
 
+Si l'on souhaite mettre une jointure en particulier en mode rigide ou libre tu peux utiliser l'attribut compliant d'une jointure : 
+`reachy.r_arm.r_shoulder.compliant = True`
+*True met la joiture en mode libre, False en mode rigide.*
 
 ## 3. Les méthodes pour faire bouger les moteurs :
 
@@ -126,10 +129,11 @@ reachy.head.look_at(1, 0, 0, duration=1, wait=True)
 Pour commander les moteurs des antennes on utilise une méthode inférieur à la méthode goto(). Tu dois être prudent en utilisant cette méthode car le moteur essaiera d'atteindre cette nouvelle position d'objectif aussi vite que possible. Une solution de contournement consiste à utiliser la propriété moving_speed pour définir la vitesse maximale que le moteur peut atteindre.
 
 ```python
-for m in reachy.head.motors:
-    m.moving_speed = 50  # en degres par seconde
-for m in reachy.head.motors:
-    m.goal_position = 0
+reachy.head.l_antenna.speed_limit = 50.0
+reachy.head.r_antenna.speed_limit = 50.0
+
+reachy.head.l_antenna.goal_position = 0.0
+reachy.head.r_antenna.goal_position = 0.0
 ```
 
 ## 4. Enregistrer une trajectoire et la reproduire
@@ -138,30 +142,58 @@ Jusqu'à présent, nous vous avons commander le robot en utilisant la fonction g
 
 Avec cette approche, tu vas effectuer des trajectoires entières avec Reachy en le déplaçant à la main (en utilisant le mode libre) et enregistrer les positions des différents moteurs. Selon ce que tu veux, tu peux enregistrer un seul moteur ou plusieurs à la fois. Un objet TrajectoryRecorder va rendre ce processus vraiment simple.
 
-Pour enregistrer un mouvement sur le bras droit :
+
+Pour enregistrer un mouvement sur le bras droit on précise les jointures sur lesquelles ont enregistre les positions :
 ```python
-from reachy.trajectory import TrajectoryRecorder, TrajectoryPlayer
+recorded_joints = [
+    reachy.r_arm.r_shoulder_pitch,
+    reachy.r_arm.r_shoulder_roll,
+    reachy.r_arm.r_arm_yaw,
+    reachy.r_arm.r_elbow_pitch,
+    reachy.r_arm.r_forearm_yaw,
+    reachy.r_arm.r_wrist_pitch,
+    reachy.r_arm.r_wrist_roll,
+]
+
+sampling_frequency = 100  #en hertz
+record_duration = 10  #en seconde
 ```
 
-On créer une variable recorder :
+On créer une boucle While qui permet d'enregistrer toute les positions actuelles lors du mouvement :
 ```python 
-recorder = TrajectoryRecorder(reachy.right_arm.motors)
+reachy.turn_off('r_arm')
+trajectories = [] #on créer une nouvelle liste trajectoire
+
+start = time.time() #seconde passées depuis epoch
+while (time.time() - start) < record_duration:
+    #on optient les positions actuelles de toutes les jointures 
+    current_point = [joint.present_position for joint in recorded_joints]
+    #on ajoute les positions à la liste trajectoire 
+    trajectories.append(current_point)
+
+    time.sleep(1 / sampling_frequency)
 ```
 
-Lorsque tu est pret effectuer shift + entrer sur la cellule :
+On lance  :
 ```python
-recorder.start()
-```
+#on rend rigide toutes jointures utiliser pour effectuer la trajectoire
+for joint in recorded_joints:
+    joint.compliant = False
 
-et Lorsqu'on veut stopper l'enregistrement :
-```python
-recorder.stop()
+#on créer un dictionnaire associant chaque jointure à sa première position 
+first_point = dict(zip(recorded_joints, trajectories[0]))
+
+#le robot se positionne sur les premieres positions de chaque jointures 
+goto(first_point, duration=3.0)
 ```
 
 Ensuite pour rejouer la trajectoire :
 ```python
-player = TrajectoryPlayer(reachy, recorder.trajectories) 
-player.play(wait=True, fade_in_duration=3)
+for joints_positions in trajectories:
+    for joint, pos in zip(recorded_joints, joints_positions):
+        joint.goal_position = pos
+
+    time.sleep(1 / sampling_frequency)
 ```
 
 ## 5. Création de trajectoire 
