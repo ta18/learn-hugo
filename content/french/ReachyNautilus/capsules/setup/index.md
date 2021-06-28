@@ -35,7 +35,9 @@ Configuration écran/HDMI directement sur le robot.
 ## 2. Travailler sur le robot
 
 Le robot Reachy est livré avec une carte NUC (mini ordinateur) qui permet de contrôler les moteurs et les périphériques qui l'équipent.   
-Tu va travailler directement sur le robot, c'est-à-dire sur l'ordinateur du robot (le NUC)     
+Tu va travailler directement sur le robot, c'est-à-dire sur l'ordinateur du robot (le NUC)   
+
+montrer le bureau graphique Linux img + mdp 
 Lance Jupyter Notebook avec les commandes :    
 ```bash
 cd ~/Reachy_Nautilus
