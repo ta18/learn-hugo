@@ -7,7 +7,9 @@ menu:
     identifier: "capsulesTF2"
     parent: "vision"
 ---
-
+## Validation
+- JLC
+- rentrée 2021 par Bachelors 2A
 
 Dans cette section nous allons utiliser l'API __Tensorflow Object Detection__ (_a.k.a_ TOD) qui propose :
 * une collection de réseaux pré-entraînés, spécialement conçus pour pour la détection d'objets dans des images (__Object Detection__),
