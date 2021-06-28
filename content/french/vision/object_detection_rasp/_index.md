@@ -8,6 +8,10 @@ menu:
     parent: "vision"
 ---
 
+## Validation : 
+
+__Faire valider retrée 2021 par des Bachelors 2A__
+
 Lorsqu'on implémente et entraîne un modèle en utilisant `TensorFlow`, on obtient un modèle qui requiert beaucoup 
 d'espace en mémoire et une certaine puissance de calcul notamment sur GPU. Ce genre de matériel n'est, 
 en général, pas disponible sur des appareils mobiles. 
