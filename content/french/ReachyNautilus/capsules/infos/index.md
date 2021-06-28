@@ -34,11 +34,13 @@ Reachy est utilisé à l'ENSAM comme un des supports aux activités robotiques e
 
 ## 1. Principales caractérisques
 
-Poids total : 7 kg 
-Alimentation : DC 12 V / 15 A 
-Température : 0-45 ° C 
-Interfaces : Ethernet (RJ45) / Wifi / USB 3 / HDMi 
-
+Poids total : 6.2 kg   
+Construction: imprimé 3D peinture MJF - Flexible PU molded - Aluminium  
+Alimentation : DC 12 V / 15 A   
+Interfaces : Ethernet (RJ45) / Wifi / USB 3 / HDMi   
+Full Kit Dimensions: 670x450x200mm (670x1800x200mm with arms outstretched)   
+Starter Kit Dimensions: 670x380x200mm (670x1008x200mm with arms outstretched)  
+ 
 ## 2. Caractérisques du bras
 
 **Répartition des masses** :
@@ -57,12 +59,10 @@ Le bras de Reachy possède 7 degrés de liberté + 1 pour la pince.
 
 La tête est animée par une liaison _Orbita_, une technologie développée par l'équipe R&D de Pollen Robotics. Cet actionneur à rotule permet un mouvement dynamique et multidirectionnel. 
 De plus, avec des antennes animées contrôlables, Reachy peut transmettre de nombreuses émotions à son public.
-
 <div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden>
 <iframe src=https://www.youtube.com/embed/X9dgsLX_u9I style=position:absolute;top:0;left:0;width:50%;height:50%;border:0 allowfullscreen title="YouTube Video">
 </iframe>
 </div>
-
 // Carte de développement Coral G950-01456-01
 
 ### Caméras
