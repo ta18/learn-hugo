@@ -38,9 +38,9 @@ Si tu veux utilise Jupyter en local sur ton ordinateur tu dois :
 ## 1. Ouvrir Jupyter Notebook
 
 Pour ouvrir Jupyter Notebook deux options : 
-* Ouvrir Anaconda Navigator > *launch Jupyter*
+* Si installation Anaconda : Ouvrir Anaconda Navigator > *launch Jupyter*
 ![anaconda](img/anaconda.png)
-* Ouvrir via une fenêtre de commande et taper `jupyter notebook`
+* Si installation MiniConda : Ouvrir une fenêtre de commande et taper `jupyter notebook`
 
 ## 2. Créer un notebook 
 Une fenêtre Jupyter va s'ourvir dans votre navigateur   
@@ -52,13 +52,14 @@ Pour créer un nouveau notebook clique sur *Nouveau* > *Python 3*.
 
 Les notebook Jupyter peuvent contenir des zones de textes en markdown : 
 Pour mettre une cellule au format markdown, selectionner *Markdown* dans la liste déroulante
-![main](img/entete.png)
+![main](img/tools.png)
 
+* Pour enregistrer son notebook cliquer sur le bouton disquette. 
 * Pour ajouter une cellule cliquer sur le bouton +. 
 * Pour suprimer une cellule cliquer sur le bouton poubelle. 
-* Pour couper une cellule cliquer sur le ciseaux. 
-* Pour coller une cellule cliquer sur les 2 feuilles. 
-* Pour monter ou descendre une cellule cliquer sur les fleches. 
+* Pour couper une cellule cliquer sur le bouton ciseaux. 
+* Pour coller une cellule cliquer sur le bouton avec les 2 feuilles. 
+* Pour monter ou descendre une cellule cliquer sur le bouton avec les flèches. 
 
 Pour trouver d'autres commandes tu peux regarder dans l'onglet *Cellule* dans le menu. 
 
@@ -72,7 +73,7 @@ Pour exécuter un notebook manuellement cellule par cellule :
 
 Pour arreter un notebook deux options : 
 * Dans l'onglet *Actifs* dans l'accueil : cliquer sur le bouton rouge *Arrêter* a droite du nom du notebook 
-![main](img/arret.png)
+![main](img/stop.png)
 * Dans le notebook : dans le menu cliquer sur *Kernel* --> *Shutdown*
 
 
