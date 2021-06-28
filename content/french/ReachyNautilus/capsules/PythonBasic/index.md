@@ -51,7 +51,7 @@ Pour afficher le contenu d'une variable il suffit d'entrer le nom de la variable
 
 Si tu souhaites redéfinir cette variable il suffit de réécrire :   
 ```python 
-prenom = "dory"
+prenom = "nemo"
 ```
 
 **Les différentes nature de variables :** 
