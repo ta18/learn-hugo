@@ -28,7 +28,7 @@ A l'issue de cette activité, l'apprenant saura :
 ## 📗 Documentation
 
 Si tu souhaites d'autres informations sur le robot et sa mis en route tu peux consulter ces liens :
-[Doc Pollen Robotics](https://pollen-robotics.github.io/reachy-2019-docs/docs/program-your-robot/)
+[Doc Pollen Robotics](https://pollen-robotics.github.io/reachy-2019-docs/docs/program-your-robot/)   
 [Doc SDK Reachy](https://pollen-robotics.github.io/reachy-sdk/index.html)
 
 
