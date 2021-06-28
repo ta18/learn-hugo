@@ -33,7 +33,7 @@ Les informations de cette capsule sont tirées des liens suivants :
 
 ### Définition de l'autisme ❓
 
-![autisme](img/autisme.png)
+![autisme](img/autism.png)
 
 Les caractéristiques de l’autisme sont très variées d’un individu à l’autre. C’est pourquoi on parle de troubles du spectre autistique (TSA) : chaque personne se situe à un degré différent dans ce spectre.
 
@@ -74,7 +74,7 @@ documentation :
 
 Tu est ingénieur dans une équipe de recherche sur les maladies neurodéveloppementale qui concoit des serious game afin d'améliorer le quotidien des personnes en situation de handicap.
 Ici vous aimeriez profiter du côté très émotionnel de Reachy qui provient principalement du mouvement de la tête et des antennes.  
-Vous avez décider de créer un jeu mémoriel à l'intention des enfants avec autisme qui leur permettrait à terme de mémoriser un certain nombre d'émotions afin de pouvoir détecter les émotions d'autrui et pemettre des interactions sociales plus adaptées.
+Vous avez décider de créer un jeu mémoriel à l'intention des enfants avec autisme qui leur permettrait à terme de mémoriser un certain nombre d'émotions afin de pouvoir détecter les émotions d'autrui et permettre des interactions sociales plus adaptées.
 
 ### Déroulement du jeu mémoriel :   
 1. Le robot produit des émotions par des expressions faciales et corporelles (posture et geste) et des expressions vocales.   
@@ -97,7 +97,7 @@ Créer une partie de code qui permettra au robot d'apprendre de nouvelles émoti
 **Recommandations :** 
 - Utiliser la création de classe pour créer la classe Emotion.
 - Utiliser le trajectoire recorder pour enregistrer les trajectoires pour le bras. 
-- Utiliser les input 
+- Utiliser les input. 
 - Utiliser le haut parleur de Nemo avec la librairie [pygame](https://devdocs.io/pygame-pygame-mixer-music/) pour jouer des sons sur Reachy. 
 
 **Description des émotions :**

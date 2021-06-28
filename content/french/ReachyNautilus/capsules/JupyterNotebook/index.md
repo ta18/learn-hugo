@@ -38,9 +38,9 @@ Si tu veux utilise Jupyter en local sur ton ordinateur tu dois :
 ## 1. Ouvrir Jupyter Notebook
 
 Pour ouvrir Jupyter Notebook deux options : 
-* Si installation Anaconda : Ouvrir Anaconda Navigator > *launch Jupyter*
+* Si installation **Anaconda** : Ouvrir Anaconda Navigator > *launch Jupyter*
 ![anaconda](img/anaconda.png)
-* Si installation MiniConda : Ouvrir une fenêtre de commande et taper `jupyter notebook`
+* Si installation **MiniConda** : Ouvrir une fenêtre de commande et taper `jupyter notebook`
 
 ## 2. Créer un notebook 
 Une fenêtre Jupyter va s'ourvir dans votre navigateur   
@@ -54,20 +54,20 @@ Les notebook Jupyter peuvent contenir des zones de textes en markdown :
 Pour mettre une cellule au format markdown, selectionner *Markdown* dans la liste déroulante
 ![main](img/tools.png)
 
-* Pour enregistrer son notebook cliquer sur le bouton disquette. 
-* Pour ajouter une cellule cliquer sur le bouton +. 
-* Pour suprimer une cellule cliquer sur le bouton poubelle. 
-* Pour couper une cellule cliquer sur le bouton ciseaux. 
-* Pour coller une cellule cliquer sur le bouton avec les 2 feuilles. 
-* Pour monter ou descendre une cellule cliquer sur le bouton avec les flèches. 
+* Pour **enregistrer** son notebook cliquer sur le bouton disquette. 
+* Pour **ajouter** une cellule cliquer sur le bouton +. 
+* Pour **suprimer** une cellule cliquer sur le bouton poubelle. 
+* Pour **couper** une cellule cliquer sur le bouton ciseaux. 
+* Pour **coller** une cellule cliquer sur le bouton avec les 2 feuilles. 
+* Pour **monter ou descendre** une cellule cliquer sur le bouton avec les flèches. 
 
 Pour trouver d'autres commandes tu peux regarder dans l'onglet *Cellule* dans le menu. 
 
 ## 4. Exécuter un notebook 
 
 Pour exécuter un notebook manuellement cellule par cellule : 
-* en passant à la cellule suivante : shift + entrer ou cliquer sur le bouton *Exécuter* 
-* en restant sur la cellule actuelle : controle + entrer 
+* **en passant à la cellule suivante** : shift + entrer ou cliquer sur le bouton *Exécuter* 
+* **en restant sur la cellule actuelle** : controle + entrer 
 
 ## 5. Arrêter un notebook 
 
