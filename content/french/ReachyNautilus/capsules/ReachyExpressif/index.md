@@ -89,16 +89,23 @@ Tu dois fournir des séquences de 5 émotions. Les émotions que le robot doit f
 * la surprise.
 
 ### Consignes 
-Créer les émotions sur Reachy en lui faisant bouger les bras et la tête et en le faisant faire du bruit. Le nom de l'émotion doit être énoncé a la personne qui est entrain d'apprendre.   
+Créer les émotions sur Reachy en lui faisant bouger les bras et la tête et en le faisant faire du bruit. Le nom de l'émotion doit être énoncé à la personne qui est entrain d'apprendre.   
 Créer une partie de code qui permet de lancer des séquences de 5 émotions faites dans un ordre aléatoire.   
 Créer une partie de code où la personne qui apprendre pourra rentrer la séquences d'émotions qu'il a vu afin de valider la justesse de son apprentissage.   
 Créer une partie de code qui permettra au robot d'apprendre de nouvelles émotions qu'il ne connait pas déjà (avec movement recorder).   
 
 **Recommandations :** 
 - Utiliser la création de classe pour créer la classe Emotion.
-- Utiliser les trajectoire recorder pour apprendre au robot de nouvelles émotions. 
+- Utiliser le trajectoire recorder pour enregistrer les trajectoires pour le bras. 
 - Utiliser les input 
-- Utiliser le haut parleur de Nemo avec la librairie [pygame](https://www.pygame.org/docs/ref/mixer.html)
+- Utiliser le haut parleur de Nemo avec la librairie [pygame](https://devdocs.io/pygame-pygame-mixer-music/) pour jouer des sons sur Reachy. 
+
+**Description des émotions :**
+* la peur :  Mouvements courts, rapides et compulsifs / difficultés a rester immobile / mouvements abrupts et maladroits / croissement des bras / poings fermés ou mains cachées / tortillement 
+* la tristesse : tete penchée vers l'avant / tête sur le coté droit / corps mou / corps recrocviller /  mouvements lents
+* la colère : bras et mains raides / gestes rapides, lourds et brusques / voix forte /   
+* la joie : corps détendu / geste fluide / mouvements ample et grandissant / exclamation / 
+* la surprise : main à la bouche / yeux écarquillés et sourcils haussées 
 
 
 Partie avancée :   
