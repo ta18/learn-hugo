@@ -1,8 +1,8 @@
 ---
-title: "Convertir un réseau Tensoflow en TFLite"
+title: "Convertir un réseau Tensorflow au format TFLite"
 menu:
   main:
-    name: "Convertir un réseau Tensorflow en TFLite"
+    name: "Convertir un réseau Tensorflow au format TFLite"
     weight: 3
     parent: "capsulesRSP"
 ---
@@ -10,20 +10,20 @@ menu:
 
 | Classe de capsule  | &emsp;Durée recommandée |
 |:-------------------|:------------------|
-| Info  &emsp;  ℹ️  |&emsp; 10 min      |
+| Task  &emsp;  ⚙️  |&emsp; 10 min      |
 
 ## 🎒 Prérequis
 
 * BAC+2 et +
 * Bonne compréhension de Python et numpy
 * Une première expérience des réseaux de neurones est souhaitable
-* Une raspberry Pi avec caméra mise en place
+* Une raspberry Pi avec caméra fonctionnelle
 * Capsule sur la **Mise en place des modules sur la Raspberry Pi**
 * Capsule sur la **Détection d'objet sur la Raspberry Pi**
 
 ## 🎓 Acquis d'apprentissage
 
-* Conversion d'un réseau Tensorflow en un réseau Tensorflow Lite
+* savoir convertir un réseau Tensorflow ré-entraîné vers un réseau au format Tensorflow Lite.
 
 ## 📗 Documentation
 
@@ -35,90 +35,83 @@ Credit :
 ## Introduction
 
 
-TensorFlow Lite est une version allégée de TensorFlow, conçus pour les mobiles 
+TensorFlow Lite est une version allégée de TensorFlow, conçue pour les mobiles 
 et les objets embarqués. TensorFlow Lite permet une inférence à faible latence
 avec une faible taille binaire.
-La taille des modèles peut être encore réduite grâce à la quantification, qui 
-convertit des paramètres de 32 bits en des représentations de 8 bits. 
+La taille des réseaux de neurones peut être encore réduite grâce à la quantification, qui 
+convertit les paramètres de 32 bits en des représentations sur 8 bits. 
 
-Dans la capsule **Détection d'objet sur la Raspberry Pi**, un réseau sous Tensorflow Lite est utilisé.
-C'est à dire qu'il possède un fichier **detect.tflite** et un **labelmap.txt**.
-Cependant, customiser son réseau, c'est à dire l'entraîner sur des images spécifiques, 
-est peu adapté pour une Raspberry Pi, du fait du manque de mémoire et du processeur ARM.
-De plus, il n'est pas vraiment possible d'entraîner directement un réseau avec TensorFlow Lite.
-L'idée est donc d'entraîner un réseau Tensorflow, avec une base de données spécifiques,
-sur des machines avec des ressources importantes. Puis, de convertir ce réseau entrainé 
-sous Tensorflow Lite afin de pouvoir l'utiliser sur une Raspberry Pi ou autre.
+Dans la capsule **Détection d'objet sur la Raspberry Pi**, un réseau au format Tensorflow Lite est utilisé :
+il possède un fichier **detect.tflite** et un **labelmap.txt**.
 
-La conversion consiste donc à obtenir deux fichiers `detect.tflite` et `labelmap.txt`.
-Ces deux fichiers doivent ensuite être intégrer dans le répertoire du projet 
+Pour l'entraînement personnalisé d'un réseau Tensorflow, l'état de l'art consite à utiliser une machine avec des 
+ressources importantes (RAM, CPU, GPU, acccélérateur graphique...), puis de convertir le réseau entrainé 
+au format Lite afin de pouvoir l'utiliser sur une Raspberry Pi ou autre. On n'a aucun intérêt à entraîner un 
+réseau directement sur une Raspberry Pi, du fait du manque de mémoire et du processeur ARM.
+
+La conversion fournit deux fichiers `detect.tflite` et `labelmap.txt`.
+Ces deux fichiers doivent ensuite être intégrés dans le répertoire du projet 
 sur la Raspberry Pi.
-Ajouter de nouvelles images spécifiques permet aussi 
-de limiter la perte de précision en convertissant le modèle en **.tflite**.
 
+La conversion au format TFlite peut s'accompagner d'une dégradation des performances de détection qui peut conduire
+à utiliser plus d'images labellisées pour compenser cette dégradation.
 
-Si on reprend la capsule sur la reconnaissance d'objet avec Tensorflow, 
-on remarque qu'un réseau pré-entrainé Faster R-CNN est utilisé. 
-En convertissant celui-ci à l'aide du script `export_tflite_ssd_graph.py`
-du module research/object_detection, on remarque que ce type de réseau 
-n'est pas supporté par TFLite (notamment TFArray).
-Parmi les réseaux existants, on retient les réseaux SSD et YOLO
-spécifiques à la détection d'objet et qui sont supportés par TFLite.
-YOLO/Tiny YOLO est plus rapide mais moins précis.
-Inversement, les réseaux SSD (Singe Shot MultiBoxDetector) sont plus précis mais moins rapides.
-Ces derniers utilisent un CNN et réalisent du Transfert Learning.
-Plus précisement, les réseaux SSD (entraînés avec la base de données COCO) 
-possèdent les caractéristiques suivantes :
+Dans la capsule sur la reconnaissance d'objet avec Tensorflow, un réseau pré-entrainé Faster R-CNN est utilisé. 
+Ce format n'est pas supporté par la conevrsion TFLite.
 
-* La localisation et la classification de l'objet sont faites en un seul parcours de réseau,
-* La technique MultiBox est utilisée,
-* En plus d'être détectés, les objets sont aussi classifiés.
+Parmi les réseaux existant ([TensorFlow 2 Detection Model Zoo]{https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md} on retient les réseaux SSD, ou le réseau [YOLO]{https://pjreddie.com/darknet/yolo/}
+spécifiques à la détection d'objet et qui sont supportés par TFLite. Il existe aussi _YOLO/Tiny YOLO_ est plus rapide mais moins précis.
 
 ## Convertir le réseau
 
-Afin de convertir son réseau, on réalise dans un premier temps l'ensemble des capsules **Detection d'objet avec Tensorflow**.
+Première étape :  réalise la capsule **Detection d'objet avec Tensorflow** pour entraîner ton réseau avec tes images.
 
+__Attention ! Dans la capsule **Téléchargement du réseau pré-entrainé**, si le réseau doit être exploité sur 
+des architectutes légères (RPI, TPU, ...) il faut choisir un réseau de départ adapté.__
 
-__Attention ! Dans la capsule **Téléchargement du réseau pré-entrainé**, si le réseau doit être porté par la suite
-sur des architectutes plus légères (TPU, ...), il faut choisir un réseau de départ adapté.__
+Pour la conversion au format TFlite, le réseau pré-entrainé doit avoir une annotation __FPNLite__.
 
-
-Ici, les capsules s'appuient sur l'utilisation d'une Raspberry Pi. Par conséquent, seuls les réseaux SSD sont adaptés.
-De plus, comme on souhaite obtenir l'extension **.tflite**, le réseau doit avoir une annotation __FPNLite__.
-**FPN** correspond à **Feature Pyramid Network**, c'est un sous-réseau qui génère des **feature maps** de
-différentes résolutions.
 Le réseau utilisé dans les prochains exemples et capsules est le réseau 
 **SSD MobileNet V2 FPNLite 640x640**.
 
 ![Convert](img/convert.png)<br>(source: https://coral.ai/docs/edgetpu/models-intro/#compatibility-overview)<br>
 
-### Exporter le graphe d'inférence TFLite 
+### Exporter le graphe d'inférence 
 
-Cette commande génère un **savedModel** intermédiaire qui va être ensuite utilisé avec le convertisseur TFLite.
-Cela devrait génèrer un dossier saved_model avec un ficher **saved_model.pb**.
-
+La commande ci-dessous génère un fichier d'extension **.pb** (_frozen_graph_) qui va être utilisé en entrée pour la conversion TFLite.
 
 ```python 
-# From the tensorflow/models/research/ directory
-python object_detection/export_tflite_graph_tf2.py \
-    --pipeline_config_path path/to/ssd_model/pipeline.config \
-    --trained_checkpoint_dir path/to/ssd_model/checkpoint \
-    --output_directory path/to/exported_model_directory
+python <path_to_models/research>/object_detection/export_tflite_graph_tf2.py \
+    --pipeline_config_path <path_to_ssd_model>/pipeline.config \
+    --trained_checkpoint_dir <path_to_ssd_model>/checkpoint \
+    --output_directory <path_to_exported_model_directory>
+```
+Le fichier `saved_model.pb` est crée dans le chemin `<path_to_exported_model_directory>/saved_model/`.
+
+Par exemple, avec les capsules déjà faites, le dossier de travail où a été installé l'API TOD est `tod_tf2`, et la commande ci-dessus devient :
+```python 
+# From the tod_tf2 directory:
+python ./models/research/object_detection/export_tflite_graph_tf2.py \
+    --pipeline_config_path training/<project>/<ssd_model_dir>/pipeline.config \
+    --trained_checkpoint_dir training/<project>/<ssd_model_dir>/checkpoint \
+    --output_directory training/<project>/<ssd_model_dir>/
 ```
 
 ### Convertir avec le convertisseur TFLite
 
-Pour convertir un **SavedModel**, la commande est la suivante : 
-
+Pour convertir le fichier  **saved_model.pb** au format TFLite, la commande est la suivante : 
 
 ```python 
 tflite_convert \
-  --saved_model_dir=/tmp/mobilenet_saved_model \
-  --output_file=/tmp/mobilenet.tflite
+  --saved_model_dir <path_to_"saved_model"_dir> \
+  --output_file <path>/<name>.tflite
 ```
-
-Si la commande ne renvoie pas d'erreur, elle devrait génèrer un fichier avec l'extension **.tflite**.
-
+Par exemple :
+```python 
+# From the tod_tf2 directory:
+tflite_convert \
+  --saved_model_dir training/<project>/<ssd_model_dir>/saved_model \
+  --output_file training/<project>/<ssd_model_dir>/tagada.tflite
 
 
 
