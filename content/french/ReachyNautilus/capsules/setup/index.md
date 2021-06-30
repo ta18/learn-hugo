@@ -18,9 +18,14 @@ Plus d'informations sur le robot et sa mise en route avec ces liens :
 - [Doc Pollen Robotics](https://pollen-robotics.github.io/reachy-2019-docs/docs/getting-started/)  (en anglais)
 - [Prise en main Reachy](https://github.com/ta18/Reachy_Nautilus/blob/main/Prise%20en%20main.md)
 
-HUB USB 
+Matériel nécessaire : 
+- Hub USB 
+- Ecran PC
+- Câble HDMI
+- Clavier 
+- Souris 
 
-Configuration écran/HDMI directement sur le robot. 
+Tu va travailler sur Reachy via un écran brancher en HDMI sur le robot.  
 
 ## 1. Mise en route 
 
@@ -35,10 +40,13 @@ Configuration écran/HDMI directement sur le robot.
 ## 2. Travailler sur le robot
 
 Le robot Reachy est livré avec une carte NUC (mini ordinateur) qui permet de contrôler les moteurs et les périphériques qui l'équipent.   
-Tu va travailler directement sur le robot, c'est-à-dire sur l'ordinateur du robot (le NUC)   
+Tu va travailler directement sur le robot, c'est-à-dire sur l'ordinateur du robot (le NUC). 
 
-montrer le bureau graphique Linux img + mdp 
-Lance Jupyter Notebook avec les commandes :    
+Une fois les étapes de mise en route effectué, il te faudra rentrer le mot de passe de la session reachy. Mot de passe session : *reachy*. 
+Une fois le mot de passe rentré, tu vas te retrouver sur le bureau graphique Linux Ubuntu de robot : 
+![bureau linux](img/back2021.png) 
+
+Pour commencer à programmer Reachy il te faut lancer Jupyter Notebook avec les commandes :    
 ```bash
 cd ~/Reachy_Nautilus
 jupyter notebook 
