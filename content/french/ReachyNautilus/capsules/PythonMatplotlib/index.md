@@ -15,11 +15,11 @@ menu:
 
 - Lycée et +
 
-## Acquis d'apprentissage
-A l'issue de cette activité, l'apprenant saura : 
+## Dans cette capsule : 
+Cette capsule permet de rappeler à l'apprenant comment : 
 - Créer un graphique
 - Modifier le visuel des graphiques 
-- Mettre en forme le graphique
+- Mettre en forme un graphique
 - Créer plusieurs courbes sur un graphique
 - Afficher plusieurs graphiques sur la même image 
 - Sauvegarder un graphique sous la forme souhaité 

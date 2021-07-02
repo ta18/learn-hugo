@@ -16,8 +16,9 @@ menu:
 
 - Lycée et +
 
-## 🎓 Acquis d'apprentissage visés
-A l'issue de cette activité, l'apprenant saura : 
+## 🎓 Dans cette capsule : 
+
+Cette capsule permet de rappeler à l'apprenant comment :  
 - Manipuler les variables, le calcul et les conditions sur variables  
 - Manipuler mes listes et tupples 
 
