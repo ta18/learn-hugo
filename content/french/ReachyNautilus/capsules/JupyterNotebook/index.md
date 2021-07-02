@@ -16,8 +16,9 @@ menu:
 ## 🎒 Prérequis
 - Lycée et +
 
-## 🎓 Acquis d'apprentissage visés 
-A l'issue de cette activité, l'apprenant saura : 
+## 🎓 Dans cette capsule : 
+
+Cette capsule permet de rappeler à l'apprenant comment : 
 * ouvrir un notebook jupyter  
 * créer un notebook  
 * mettre en forme un notebook   
