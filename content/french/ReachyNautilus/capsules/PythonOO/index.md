@@ -15,7 +15,7 @@ menu:
 
 - Lycée et +
 
-## Dans cette capsule : 
+## 🎓 Dans cette capsule : 
 Cette capsule permet de rappeler à l'apprenant comment : 
 - Créer une classes 
 - Définir un constructeur

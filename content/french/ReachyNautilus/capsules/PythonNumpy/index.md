@@ -16,8 +16,8 @@ menu:
 
 - Lycée et +
 
-## Dans cette capsule :
- 
+## 🎓 Dans cette capsule :
+
 Cette capsule permet de rappeler à l'apprenant comment : 
 - Manipuler les tableaux 
 - Créer un tableau 1 à plusieurs dimensions 
