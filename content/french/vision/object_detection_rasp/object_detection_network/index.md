@@ -69,10 +69,8 @@ Première étape :  réalise la capsule **Detection d'objet avec Tensorflow** po
 __Attention ! Dans la capsule **Téléchargement du réseau pré-entrainé**, si le réseau doit être exploité sur 
 des architectutes légères (RPI, TPU, ...) il faut choisir un réseau de départ adapté.__
 
-Pour la conversion au format TFlite, le réseau pré-entrainé doit avoir une annotation __FPNLite__.
-
 Le réseau utilisé dans les prochains exemples et capsules est le réseau 
-**SSD MobileNet V2 FPNLite 640x640**.
+**SSD MobileNet V1 FPN 640x640**.
 
 ![Convert](img/convert.png)<br>(source: https://coral.ai/docs/edgetpu/models-intro/#compatibility-overview)<br>
 
