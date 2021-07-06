@@ -17,10 +17,10 @@ menu:
 
 * Quelques notions de base d'utilisation du terminal
 * Quelques notions sur les réseaux de neurone
-* Capsule sur l'installation des modules
-* Capsule sur la mise en place de l'arborescence de travail
-* Capsule sur le téléchargement d'un réseau pré-entraîné
-* Capsule sur la création des données pour l'apprentissage supervisé
+* Capsule sur **l'installation des modules**
+* Capsule sur **la mise en place de l'arborescence de travail**
+* Capsule sur **le téléchargement d'un réseau pré-entraîné**
+* Capsule sur **la création des données pour l'apprentissage supervisé**
 
 ## 🎓 Acquis d'apprentissage
 
