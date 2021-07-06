@@ -70,7 +70,7 @@ __Attention ! Dans la capsule **Téléchargement du réseau pré-entrainé**, si
 des architectutes légères (RPI, TPU, ...) il faut choisir un réseau de départ adapté.__
 
 Le réseau utilisé dans les prochains exemples et capsules est le réseau 
-**SSD MobileNet V1 FPN 640x640**.
+**SSD MobileNet V2 FPNLite 640x640**.
 
 ![Convert](img/convert.png)<br>(source: https://coral.ai/docs/edgetpu/models-intro/#compatibility-overview)<br>
 

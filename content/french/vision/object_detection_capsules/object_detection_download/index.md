@@ -58,7 +58,7 @@ qui contient 200 000 images annotées avec 80 objets différents. Cette mesure s
 📥 Pour le travail de détection des faces des cubes dans les images fournies par la caméra du robot Ergo Jr tu peux télécharger le réseau `Faster R-CNN ResNet50 V1 640x640` sur le site [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md) (~203 Mo).
 
 __Attention ! Si le réseau doit être converti en **.tflite** par la suite afin d'être exporté sur des architectures 
-plus légères comme sur Raspberry Pi, un réseaux SSD tel que **SSD MobileNet V1 FPN** est
+plus légères comme sur Raspberry Pi, un réseaux SSD tel que **SSD MobileNet V2 FPNLite** est
 préférable.__ (cf. Capsule **Convertir un réseau Tensorflow en TFLite**).
 
 Une fois téléchargée, il faut extraire l'archive TGZ au bon endroit dans l'arborescence de travail :
