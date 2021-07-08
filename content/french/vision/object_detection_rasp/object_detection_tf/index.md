@@ -12,15 +12,13 @@ menu:
 * BAC+2 et +
 * Bonne compréhension de Python et numpy
 * Une première expérience des réseaux de neurones est souhaitable
-* Une raspberry Pi avec caméra mise en placeRaspberry Pi
+* Une raspberry Pi avec une caméra 
 * Capsule sur la mise en place de l'environnement et des modules sur la Raspberry Pi
 
 ## 🎓 Acquis d'apprentissage
 
 * Utilisation d'un modèle pré-entraîné pour la détection d'objet
 * Utilisation de Tensorflow Lite pour la détection d'objet sur une Raspberry Pi
-
-
 
 ## Télécharger un modèle pré-entraîné 
 
