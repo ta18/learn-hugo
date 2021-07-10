@@ -9,7 +9,7 @@ menu:
 ---
 
 Capsules pédagogiques présentent : 
-* [Prise en main de jupyter notebook](jupyterNotebook)
+* [Prise en main de jupyter notebook](jupyterNotebook/)
 * [Python : les bases](capsules/PythonBasic/) 
 * [Python : matplotlib](capsules/PythonMatplotlib/) 
 * [Python : Numpy](capsules/PythonNumpy/) 

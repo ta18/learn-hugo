@@ -15,4 +15,4 @@ Capsules pédagogiques présentent :
 * [Python : Programmation orienté objet](capsules/PythonOO/) 
 * [Reachy : informations](capsules/infos/) 
 * [Reachy : configuration](capsules/setup/) 
-* [Reachy : premiers pas](capsules/firstStep/) 
+* [Reachy : premiers pas](ReachyNautilus/capsules/firstStep/)

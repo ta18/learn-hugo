@@ -16,8 +16,9 @@ menu:
 
 - Lycée et +
 
-## 🎓 Acquis d'apprentissage visés
-A l'issue de cette activité, l'apprenant saura : 
+## 🎓 Dans cette capsule : 
+
+Cette capsule permet de rappeler à l'apprenant comment :  
 - Manipuler les variables, le calcul et les conditions sur variables  
 - Manipuler mes listes et tupples 
 
@@ -51,7 +52,7 @@ Pour afficher le contenu d'une variable il suffit d'entrer le nom de la variable
 
 Si tu souhaites redéfinir cette variable il suffit de réécrire :   
 ```python 
-prenom = "dory"
+prenom = "nemo"
 ```
 
 **Les différentes nature de variables :** 
@@ -100,7 +101,7 @@ print("Le nombre est égal à zéro")
 else:
 print("Le nombre est positif")
 ```
-### Boucle for et while
+### 3.2 Boucle for et while
 
 **Boucle bornée**
 Quand on sait combien de fois doit avoir lieu la répétition, on utilise généralement une boucle `for`.
@@ -130,6 +131,14 @@ Exemple :
 4
 8
 Fin
+```
+## Les input 
+
+La plupart des scripts élaborés nécessitent à un moment ou l'autre une intervention de l'utilisateur (entrée d'un paramètre, clic de souris sur un bouton, etc.). La méthode la plus simple consiste à employer la fonction intégrée input(). Cette fonction provoque une interruption dans le programme courant. L'utilisateur est invité à entrer des caractères au clavier et à terminer avec <Enter>. Lorsque cette touche est enfoncée, l'exécution du programme se poursuit, et la fonction fournit en retour une valeur correspondant à ce que l'utilisateur a entré. Cette valeur peut alors être assignée à une variable quelconque.
+
+```python 
+>>> prenom = input('Entrez votre prénom (entre guillemets) : ')
+>>> print 'Bonjour,', prenom
 ```
 
 ## 4. Les listes et tupples

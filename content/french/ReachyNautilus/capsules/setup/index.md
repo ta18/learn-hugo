@@ -18,41 +18,40 @@ Plus d'informations sur le robot et sa mise en route avec ces liens :
 - [Doc Pollen Robotics](https://pollen-robotics.github.io/reachy-2019-docs/docs/getting-started/)  (en anglais)
 - [Prise en main Reachy](https://github.com/ta18/Reachy_Nautilus/blob/main/Prise%20en%20main.md)
 
-  
-### **Infos robot 🤖** : 
-Nom du robot: **Nemo**  
-Adresse IP : `192.168.4.1` 
+Matériel nécessaire : 
+- Hub USB 
+- Ecran PC
+- Câble HDMI
+- Clavier 
+- Souris 
+
+Tu va travailler sur Reachy via un écran brancher en HDMI sur le robot.  
 
 ## 1. Mise en route 
 
-* Branche l'alimentation fournie sur la prise ronde au dos du robot.
-* Appuie sur les 2 boutons ON/OFF pour mettre sous tension les moteurs et la Raspberry Pi.
+![Dos du robot](img/back2021.png)   
 
-![Dos du robot](img/back.png)
+1. Branche l'alimentation fournie sur la prise ronde au dos du robot.
+2. Branche l'écran en HDMI sur le robot
+3. Branche le Hub USB au robot pour connecter le clavier et l'écran.
+4. Appuie sur le bouton poussoir à gauche pour mettre sous tension le NUC et sur le bouton ON/OFF à droite pour mettre sous tension les moteurs.
+5. Allume l'écran du Reachy. 
 
-## 2. Connexion au robot
+## 2. Travailler sur le robot
 
-Le robot Reachy est livré avec une carte NUC qui permet de contrôler les moteurs et les périphériques qui l'équipent.<br>
-Pour programmer le robot il suffit d'utiliser un navigateur WEB sur ton ordinateur (Linux, Mac ou Windows) : tu n'as aucun logiciel particulier à installer. 
+Le robot Reachy est livré avec une carte NUC (mini ordinateur) qui permet de contrôler les moteurs et les périphériques qui l'équipent.   
+Tu va travailler directement sur le robot, c'est-à-dire sur l'ordinateur du robot (le NUC). 
 
-### Connexion au wifi du robot 📶
+Une fois les étapes de mise en route effectué, il te faudra rentrer le mot de passe de la session reachy. Mot de passe session : *reachy*. 
+Une fois le mot de passe rentré, tu vas te retrouver sur le bureau graphique Linux Ubuntu de robot : 
+![bureau linux](img/back2021.png) 
 
-1. Connecte-toi au **point d'acces** WiFi du robot (le SSID à la livraison est _Reachy-AP_ : nous l'avons renommé _Nemo_) le mot de passe est reachy.
-2. Connecte-toi en ssh au robot : `ssh nemo@localhost` 
-3. Ouvre un invite de commande et tape `jupyter notebook --ip=0.0.0.0`
-4. Appuye sur *se connecter* : tu obtiens la page d'accueil du service *Jupyter notebook* sans avoir besoin de donner un mot de passe.
-
-**Si cela ne fonctionne pas...** 
-
-✅ Vérifie que tu es bien connecté au hotspot Wifi du robot en tapant dans un terminal ou une fenêtre de commande :
-
+Pour commencer à programmer Reachy il te faut lancer Jupyter Notebook avec les commandes :    
 ```bash
-ping 192.168.4.1
+cd ~/Reachy_Nautilus
+jupyter notebook 
 ```
- s'il n'y a pas d'erreur c'est que tu es bien connecté au WiFi du robot.
 
-✅ Fait attention a toujours bien rester connecté au hotspot WiFi _Nemo_. 
-
-Et voilà tu es connecté au robot Reachy, bravo ! 🎉
+Et voilà tu es prêt à commancer avec le robot Reachy ! 🎉
 
 

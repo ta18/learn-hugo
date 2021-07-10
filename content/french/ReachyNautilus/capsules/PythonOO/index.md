@@ -15,8 +15,8 @@ menu:
 
 - Lycée et +
 
-## Acquis d'apprentissage
-A l'issue de cette activité, l'apprenant saura : 
+## 🎓 Dans cette capsule : 
+Cette capsule permet de rappeler à l'apprenant comment : 
 - Créer une classes 
 - Définir un constructeur
 - définir des attributs
