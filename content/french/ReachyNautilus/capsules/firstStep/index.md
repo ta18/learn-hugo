@@ -34,6 +34,7 @@ Si tu souhaites d'autres informations sur le robot et sa mis en route tu peux co
 
 Une fois connecté au robot, tu peux commencer à programmer les mouvements du Reachy. 
 Dans Jupyter, tu trouvera un fichier *premier pas.ipynb* dans le dossier *Nautilus*. Tu dois copier ce fichier et renommer la copie sous la forme *aa-mm-jj.prenom.nom*. 
+Tu peux retrouver ce fichier [ici](https://github.com/ta18/learn-hugo/blob/main/content/french/ReachyNautilus/capsules/firstStep/firstStep.ipynb) également.
 
 ## 1. Instancier l'objet Reachy 
 
@@ -140,7 +141,7 @@ reachy.head.r_antenna.goal_position = 0.0
 
 Jusqu'à présent, nous vous avons commander le robot pour qu'il effectue des mouvements simples. Pour affectuer des mouvements complexes, nous allons utiliser un bout de code qui permet d'enregistrer une trajectoire faite par Reachy. 
 Avec cette approche, tu vas effectuer des trajectoires entières avec Reachy en le déplaçant à la main (en utilisant le mode libre) et enregistrer les positions des différents moteurs. Selon ce que tu veux, tu peux enregistrer un seul moteur ou plusieurs à la fois.
-
+Ouvre le jupyter notebook *trajectoryRecorder.ipynb* qui se trouve dans le dossier *Nautilus*. A retrouver [ici](https://github.com/ta18/learn-hugo/blob/main/content/french/ReachyNautilus/capsules/firstStep/trajectoryRecorder.ipynb) également.
 
 Pour enregistrer un mouvement sur le bras droit on précise les jointures sur lesquelles ont enregistre les positions :
 ```python
