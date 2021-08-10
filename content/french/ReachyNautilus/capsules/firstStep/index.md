@@ -28,11 +28,11 @@ A l'issue de cette activité, l'apprenant saura :
 ## 📗 Documentation
 
 Si tu souhaites d'autres informations sur le robot et sa mis en route tu peux consulter ces liens :
-[Doc Pollen Robotics](https://pollen-robotics.github.io/reachy-2019-docs/docs/program-your-robot/)   
-[Doc SDK Reachy](https://pollen-robotics.github.io/reachy-sdk/index.html)
+[Doc Pollen Robotics](https://docs.pollen-robotics.com/)   
+[Doc SDK Reachy](https://docs.pollen-robotics.com/sdk/getting-started/introduction/)
 
 
-Une fois connecté au robot, tu peux commencer à programmer les mouvements de Nemo. 
+Une fois connecté au robot, tu peux commencer à programmer les mouvements du Reachy. 
 Dans Jupyter, tu trouvera un fichier *premier pas.ipynb* dans le dossier *Nautilus*. Tu dois copier ce fichier et renommer la copie sous la forme *aa-mm-jj.prenom.nom*. 
 
 ## 1. Instancier l'objet Reachy 
@@ -67,8 +67,8 @@ L'objet reachy possède 8 attributs et 2 méthodes que nous allons rapidement pr
 
 Les servomoteurs utilisés dans le bras de Reachy ont deux modes de fonctionnement:
 
-- **libre (OFF)** : les servomoteurs sont libres et peuvent être tournés à la main. Ils ne peuvent pas être contrôlés.
-- **rigide (ON)** : les servomoteurs sont actifs et résistent au déplacement à la main. Ils peuvent être contrôlés en définissant une nouvelle position cible.
+- **libre (OFF)** : les servomoteurs sont libres et peuvent être tournés à la main. Ils ne peuvent pas être contrôlés. Correspond au mode non-compliant.
+- **rigide (ON)** : les servomoteurs sont actifs et résistent au déplacement à la main. Ils peuvent être contrôlés en définissant une nouvelle position cible. Correspond au mode compliant.
 
 Pour que Reachy conserve sa position et te permette de contrôler ses moteurs, tu dois les mettre en ON en utilisant la méthode `reachy.turn_on()`. Pour rendre les moteurs "libre" tu utilisera la méthode `reachy.turn_off()`. Tu peux rendre rigide tout reachy d'un coup ou juste spécifier quelle partie tu veux rigidifier. 
 
@@ -87,7 +87,7 @@ Documentation des classes et méthodes : [ici](https://pollen-robotics.github.io
 
 ### goto(goal_position, duration, starting_positions=None , sampling_freq=100 , interpolation_mode=<function linear> )
 
-Pour commander par programme le robot, nous utiliserons la fonction goto() (majoritairement pour commander le bras). La fonction goto() prend comme argument la position cible en degrés, une durée de déplacement en seconde et un mode de déplcament. Tu peux également renseigner la position de départ si elle est différente de la position actuelle du robot. 
+Pour commander par programme le robot, nous utiliserons la fonction goto(). La fonction goto() prend comme argument les positions cibles en degrés, une durée de déplacement en seconde et un mode de déplacement. Tu peux également renseigner la position de départ si elle est différente de la position actuelle du robot. 
 Ici on défini une position pour chaque partie du bras, une durée de déplacement total et le mode de déplacement "interpolation_mode":
 
 ```python 
@@ -119,7 +119,7 @@ goto(goal_positions={reachy.r_arm.r_elbow_pitch: -90}, duration=1.0, interpolati
 
 Cette méthode permet de commander la tête en fonction d'un point 3D dans l'espace (Reachy regarde ce point 3D) :
 ```python
-reachy.head.look_at(1, 0, 0, duration=1, wait=True)
+reachy.head.look_at(1, 0, 0, duration=1)
 ```
 
 ⚠️ **Attention à la durée d'atteinte des positions : ne pas mettre des durée trop courte.**
@@ -195,11 +195,5 @@ for joints_positions in trajectories:
     time.sleep(1 / sampling_frequency)
 ```
 
-## 5. Création de trajectoire 
-
-Pour effectuer une trajectoire 3 options : 
-* trajectoire point par point 
-* trajectoire aléatoire 
-* trajectoire qui suit une courbe 
 
 

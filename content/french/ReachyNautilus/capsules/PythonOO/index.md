@@ -17,7 +17,7 @@ menu:
 
 ## 🎓 Dans cette capsule : 
 Cette capsule permet de rappeler à l'apprenant comment : 
-- Créer une classes 
+- Créer une classe 
 - Définir un constructeur
 - définir des attributs
 - créer des méthodes  
