@@ -9,11 +9,11 @@ menu:
 ---
 
 Capsules pédagogiques proposées : 
-* [Prise en main de jupyter notebook](jupyterNotebook/)
-* [Python : les bases](capsules/PythonBasic/) 
-* [Python : tracer des courbes avec matplotlib](capsules/PythonMatplotlib/) 
-* [Python : calculer avec numpy](capsules/PythonNumpy/) 
-* [Python : programmation Orientée Objet](capsules/PythonOO/) 
-* [Reachy : informations](capsules/infos/) 
-* [Reachy : configuration](capsules/setup/) 
-* [Reachy : premiers pas](capsules/firstStep/) 
+* [Prise en main de jupyter notebook](jupyter_notebook/)
+* [Python : les bases](python_basic) 
+* [Python : tracer des courbes avec matplotlib](python_matplotlib/) 
+* [Python : calculer avec numpy](python_numpy/) 
+* [Python : programmation Orientée Objet](python_oo/) 
+* [Reachy : informations](infos/) 
+* [Reachy : configuration](setup/) 
+* [Reachy : premiers pas](firstStep/) 

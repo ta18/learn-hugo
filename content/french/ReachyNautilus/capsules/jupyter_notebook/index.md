@@ -21,7 +21,7 @@ menu:
 Cette capsule rappelle comment :
 
 * ouvrir un notebook jupyter
-* créer un notebook  
+* créer un notebook
 * mettre en forme un notebook
 * executer un notebook
 * arreter un notebook.
