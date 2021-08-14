@@ -7,7 +7,7 @@ menu:
     identifier: "nautilus"
 ---
 
-Capsules pédagogiques présentent : 
+Capsules pédagogiques propopsées : 
 * [Prise en main de jupyter notebook](capsules/jupyterNotebook)
 * [Python : les bases](capsules/PythonBasic/) 
 * [Python : matplotlib](capsules/PythonMatplotlib/) 
