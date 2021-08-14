@@ -8,12 +8,12 @@ menu:
     parent: "nautilus"
 ---
 
-Capsules pédagogiques présentent : 
+Capsules pédagogiques proposées : 
 * [Prise en main de jupyter notebook](jupyterNotebook/)
 * [Python : les bases](capsules/PythonBasic/) 
-* [Python : matplotlib](capsules/PythonMatplotlib/) 
-* [Python : Numpy](capsules/PythonNumpy/) 
-* [Python : Programmation orienté objet](capsules/PythonOO/) 
+* [Python : tracer des courbes avec matplotlib](capsules/PythonMatplotlib/) 
+* [Python : calculer avec numpy](capsules/PythonNumpy/) 
+* [Python : programmation Orientée Objet](capsules/PythonOO/) 
 * [Reachy : informations](capsules/infos/) 
 * [Reachy : configuration](capsules/setup/) 
 * [Reachy : premiers pas](capsules/firstStep/) 
