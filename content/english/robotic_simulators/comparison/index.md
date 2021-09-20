@@ -4,7 +4,7 @@ menu:
   main:
     name: "Comparison of main simulators"
     weight: 1
-    parent: "robotic_simulators"
+    parent: "simulation"
 ---
 
 Robotic simulators software help to program robots offline. These simulators enable to test some programs or robot movements without stopping production or cause damage. This section aims at introducing and comparing main robotic simulators.
