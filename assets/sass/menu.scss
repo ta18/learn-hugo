@@ -4,14 +4,19 @@ menu {
   width: 360px;
   position: fixed;
   top: 0;
-  left: 0;
+  left: -500px;
   z-index: 1;
   overflow-x: hidden;
+  transform: translateX(0);
+  transition: transform 0.5s;
+}
+
+menu.sidebar {
+  transform: translateX(500px)
 }
 
 main {
   margin-left: 360px;
-  margin-top: 3rem;
 }
 
 /* Color, etc... */
@@ -107,4 +112,10 @@ nav ul li ul {
     -webkit-appearance: none;
     background-position-x: 95%;
   }
+}
+
+#button-menu {
+  background: none;
+  border: none;
+  cursor: pointer;
 }
