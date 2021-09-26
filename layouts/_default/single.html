@@ -1,10 +1,10 @@
 {{ define "main_body" }}
   {{ partial "menu" . }}
   <aside>
-    <button id="button-menu">
-        <img src="https://img.icons8.com/material-outlined/24/000000/menu--v3.png"/>
-    </button>  
-  </aside>  
+    <a id="button-menu">
+      <i class="fas fa-align-justify"></i>
+    </a>  
+  </aside>    
   <main>
     <h1>{{.Title}}</h1>
     {{ .Content }}
