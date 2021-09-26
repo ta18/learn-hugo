@@ -1,5 +1,12 @@
 /* Fixed Display */
+.sidebar menu {
+  transform: translateX(500px);
+}
+
 menu {
+  margin: 0;
+  padding: 0;
+
   height: 100vh;
   width: 360px;
   position: fixed;
@@ -9,22 +16,7 @@ menu {
   overflow-x: hidden;
   transform: translateX(0);
   transition: transform 0.5s;
-}
 
-menu.sidebar {
-  transform: translateX(500px)
-}
-
-main {
-  margin-left: 360px;
-}
-
-/* Color, etc... */
-menu {
-  margin: 0;
-  padding: 0;
-
-  height: 100%;
   background-color: $menu-bg;
 
   header {
@@ -51,11 +43,6 @@ menu {
   }
 }
 
-main {
-  padding-right: 4%;
-  padding-left: 4%;
-}
-
 .active {
   & > a {
     color: $nav-title-active;
@@ -78,8 +65,6 @@ nav ul li {
     padding-bottom: 3%;
 
     display: block;
-    // border-bottom: none;
-    // color: #364149;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -114,8 +99,28 @@ nav ul li ul {
   }
 }
 
+main,
+aside {
+  margin-left: 0px;
+  padding-right: 1rem;
+  padding-left: 3rem;
+}
+
+.sidebar {
+  main,
+  aside {
+    margin-left: 360px;
+  }
+}
+
 #button-menu {
   background: none;
   border: none;
   cursor: pointer;
+}
+
+aside {
+  background-color: $menu-header-bg;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }

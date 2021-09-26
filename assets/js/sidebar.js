@@ -1,6 +1,6 @@
 let button = document.querySelector("#button-menu");
-let menu = document.querySelector("menu");
+let body = document.body
 
 button.addEventListener("click", () => {
-  menu.classList.toggle("sidebar")
+  body.classList.toggle("sidebar")
 })
