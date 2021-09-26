@@ -123,3 +123,20 @@ aside {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+
+@media only screen and (max-device-width: 480px) {
+  menu {
+    width: 250px;
+  }
+  main,
+  aside {
+    padding-left: 1rem;
+  }
+
+  .sidebar {
+    main,
+    aside {
+      margin-left: 250px;
+    }
+  }  
+}
