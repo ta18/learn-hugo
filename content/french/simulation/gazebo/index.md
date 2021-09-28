@@ -77,6 +77,7 @@ Afin de rendre la simulation plus réaliste, nous allons lancer des contrôleurs
 
 Clonez [ce repertoire](https://github.com/poppy-project/poppy_ergo_jr_moveit_config.git) dans le dossier `src`, mettez vous sur la branche `camera_integration` de votre workspace et compilez le.
 
+- Installer le package effort_controller `sudo apt install ros-noetic-effort-controllers` 
 - lancez : `roslaunch poppy_ergo_jr_gazebo load_ergo_position_controllers.launch` On constate la création de `topics` pour chaque contrôleur
 - Envoyez des commandes en position : `rostopic pub /ergo_jr/m2_position_controller/command [TAB] [TAB]`
 - Comment contrôler la position de la pince dans l'espace cartésien?
