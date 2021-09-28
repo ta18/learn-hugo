@@ -97,7 +97,7 @@ Pour installer moveit lancez: `sudo apt install ros-noetic-moveit*`
 ## 7. Démarrer MoveIt
 
 Précédemment nous avons expérimenté avec les contrôleurs en position. MoveIt a besoin de contrôleurs légèrement différents (contrôleurs de trajectoire).
-
+- Installer `sudo apt install ros-noetic-joint-trajectory-controller*`
 - Lancez tout d'abord Gazebo et charger le modèle du robot. Puis lancez les contrôleurs en trajectoire avec : `roslaunch poppy_ergo_jr_gazebo load_ergo_controllers.launch` ⇒ Vous pouvez aussi combiner ces 3 étapes avec un seul fichier .launch : `roslaunch poppy_ergo_jr_gazebo start_gazebo.launch gripper:=true lamp:=false`
 - Lancez MoveIt avec : `roslaunch poppy_ergo_jr_moveit_config start_moveit.launch gripper:=true lamp:=false`
 - Essayez de manipuler le robot : ![img](./img/moveit_marker_annote.png)
