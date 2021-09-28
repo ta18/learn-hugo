@@ -92,6 +92,8 @@ Dans le cas général, calculer les mouvements nécessaires pour atteindre un ob
 
 ![img](https://moveit.ros.org/assets/images/diagrams/moveit_pipeline.png)
 
+Pour installer moveit lancez: `sudo apt install ros-noetic-moveit*` 
+
 ## 7. Démarrer MoveIt
 
 Précédemment nous avons expérimenté avec les contrôleurs en position. MoveIt a besoin de contrôleurs légèrement différents (contrôleurs de trajectoire).
