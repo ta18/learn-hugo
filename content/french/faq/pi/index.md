@@ -41,7 +41,12 @@ sudo apt-get install exfat-fuse exfat-utils
 ## 📡 Connecter le robot en Wifi
 ### Poppy Ergo Jr
 
-La connexion Wifi de Poppy Ergo Jr se déroule via l'interface graphique. Depuis votre station de travail ouvrez [`http://poppy.local`](http://poppy.local) puis cliquez sur "Configuration" et activer le paramètre **Wifi** puis remplissez le nom du réseau et son mot de passe.
+La connexion Wifi de Poppy Ergo Jr se déroule via l'interface graphique Poppy :
+
+1. Connectez une première fois votre robot en Ethernet en mode `Lien local` uniquement dans les paramètres réseau.
+2. Débranchez puis rebranchez votre câble réseau (parfois nécessaire)
+3. Depuis votre station de travail ouvrez [`http://poppy.local`](http://poppy.local) puis cliquez sur "Configuration" et activer le paramètre **Wifi** puis remplissez le nom du réseau et son mot de passe.
+4. Faîtes Redémarrer le robot, déconnectez le câble et vérifiez que le ping réussit. 
 
 ### Turtlebot 3
 ⚠️ Cette procédure ne fonctionne qu'avec le Turtlebot **éteint** et la carte SD **hors du robot**.
@@ -99,6 +104,7 @@ Vérifiez avec la commande `date` que l'horloge ne dérive pas exagérément.
 
 Vérifiez qu'il est conencté à Internet via la 4G, le réseau Ethernet ou le wifi, puis tapez sur votre PC et/ou en SSH sur le robot :
 ```
+ssh poppy@poppy.local
 sudo timedatectl set-ntp off
 sudo timedatectl set-time "2021-09-30 18:00"   # Mettre ici une date et une heure approximative
 sudo timedatectl set-ntp on
@@ -126,7 +132,7 @@ Ensuite :
 
 💻 Dans un terminal taper `ping poppy.local` (pour Poppy) ou `ping raspberrypi.local` (pour Turtlebot) :
 
-* **Si 1 ligne s'affiche chaque seconde** avec des statistiques ➡️ Test réseau réussi (1). Vous avez peut-être oublié de démarrer le roscore ou bien `ROS_MASTER_URI` dans le fichier `~/.bashrc` pointe vers le mauvais robot
+* **Si 1 ligne s'affiche chaque seconde** avec des statistiques et que la première ligne s'affiche en moins de 2 secondes ➡️ Test réseau réussi (1). Vous avez peut-être oublié de démarrer le roscore ou bien `ROS_MASTER_URI` dans le fichier `~/.bashrc` pointe vers le mauvais robot ou bien `ROS_HOSTNAME` est incorrect 
 * **Si une erreur survient** et la commande s'arrête ➡️ Test réseau échoué. Vérifiez que la LED verte ACT de la Raspberry Pi vacille pendant environ 45 secondes lorsque vous venez de brancher l'alimentation :
   * **Si `ACT` vacille** en 🟢 ➡️ Votre Raspberry Pi démarre correctement mais la configuration réseau est incorrecte. Vérifiez que vous n'avez pas fait d'erreur  dans le fichier de configuration Wifi (`50-cloud-init.yaml`) ou réessayez ; ou bien connectez-vous avec un câble RJ45 sur un routeur
   * **Si `ACT` ne vacille pas** ➡️ Votre Raspberry Pi ne démarre pas correctement. La LED rouge `PWR` s'allume-t-elle ?
@@ -140,10 +146,15 @@ Si vos commandes ROS sont lentes voire échouent de façon désorganisée sous l
 * Utilisez un autre smartphone comme point d'accès qui pourrait avoir un meilleur point d'accès Wifi (souvent la meilleure option)
 * Branchez votre point d'accès au secteur et mettez-le au plus près de vos robots
 * Isolez-vous dans un espace avec peu de monde (les salles de classe sont souvent saturées par de nombreux réseaux Wifi différents)
+* Si cela persiste utilisez une connexion câblée avec votre robot
 
 #### ❌ Erreur `Unable to connect to move_group action server 'move_group' within allotted time (30s)`
 
-Cette erreur survient généralement quand la qualité du réseau est mauvaise et ne permet pas de démarrer MoveIt correctement. Consultez la section "Wifi trop lent ou saturé".
+Cette erreur peut survenir si :
+* La variable d'environnement `ROS_HOSTNAME` n'est pas correctement définie sur votre poste de dévéloppement ou bien votre robot
+* Il y a un mélange de `ROS_HOSTNAME` et `ROS_IP` sur les différentes machines
+* L'IP de la machine n'est plus à jour dans son `ROS_IP`
+* La qualité du réseau est mauvaise ou bien qu'un pare-feu ralentir les requêtes mDNS, ce qui ne permet pas de démarrer MoveIt correctement. Consultez la section "Wifi trop lent ou saturé". Ne négligez pas cette option, il est **fréquent** que la qualité du réseau soit problématique.
 
 #### ❌ Erreur `Unable to ping my own server at XXXXX.local`
 
@@ -174,12 +185,12 @@ Puis testez la mise à jour :
 ![OpenCR](./img/opencr_models.png)
 
 ## 📡 Comment effectuer un scan pour trouver l'adresse IP de la raspberry pi ?
-Normalement vous n'avez pas besoin d'utiliser les adresses IP en dur, à la place on utile avahi-daemon (déjà installé) pour effectuer la résolution des noms (c'est ce qui permet de faire `ping raspberrypi.local` sans connaître son adresse). Mais si vous voulez quand même le faire, voici comment précéder. Ouvrir un terminal et exécuter les commandes suivantes :
+Normalement vous n'avez pas besoin d'utiliser les adresses IP en dur, à la place on utilise avahi-daemon (déjà installé) pour effectuer la résolution des noms. Mais si vous voulez quand même le faire, voici comment précéder. Ouvrir un terminal et exécuter les commandes suivantes :
 ```bash
 sudo apt install arp-scan
 ```
 ```bash
 sudo arp-scan --localnet
 ```
-Les devices connectés à votre réseau devraient apparaître avec un nom qui permet de les discriminer.
+Les machines connectées à votre réseau devraient apparaître avec un nom qui permet de les discriminer.
 
