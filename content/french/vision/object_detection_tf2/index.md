@@ -7,19 +7,19 @@ menu:
     parent: "vision"
 ---
 
-Dans cette section nous allons utiliser l'API __Tensorflow Object Detection__ (_a.k.a_ TOD) qui propose :
+Dans cette section nous allons apprendre à utiliser l'API __Tensorflow Object Detection__ (_a.k.a_ TOD) qui propose :
 * une collection de réseaux pré-entraînés, spécialement conçus pour pour la détection d'objets dans des images (__Object Detection__),
 * un mécanisme de _transfert learning_ pour continuer l'entraînement des réseaux pré-entraînés avec ses propres images labellisées, 
 pour obtenir la détection des objets qui nous intéressent.
 
 Contrairement à la stratégie de __Classification__ présentée dans la section [Classification tf2](https://learn.e.ros4.pro/fr/vision/classification_tf2/), 
-la __Détection d'objets__ permet de trouver directement les boîtes englobantes des objets "face avec un 1" et "face avec un 2" : 
-cette approche évite de faire appel au traitement d'image classique pour extraire les faces des cubes dans un premier temps, puis de classifier les images des faces des cubes dans un deuxième temps. 
+la __Détection d'objets__ permet de trouver directement les boîtes englobantes des objets "face de cube avec un 1" et "face de cube avec un 2" : 
+cette approche évite de faire appel au traitement d'image classique pour extraire les faces des cubes dans un premier temps, puis de classifier les images estraites  dans un deuxième temps. 
 
 Le traitement d'image utilisé pour la classification est basé sur une approche traditionnelle de manipulation des pixels de l'image (seuillage, extraction de contour, segmentation...).
 Il est assez fragile : sensible à la luminosité, à la présence ou non d'un fond noir...
 
-Un avantage attendu de l'approcje __Object Detection__ est de fournir directement les boîtes englobantes des faces des cubes, sans passer par l'étape de traitement d'image.
+Un avantage attendu de l'approche __Object Detection__ est donc de fournir directement les boîtes englobantes des faces des cubes, sans passer par l'étape de traitement d'image.
 
 ## Prérequis
 
@@ -518,7 +518,7 @@ C’est la dernière étape avant de lancer l’entraînement…
 
 * Il faut ensuite modifier les paramètres du fichier `training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8` pour les adpater à l'entraînement :
 
-|n° | paramètre                     | Description                                                            | Valeur initiale  | valeur à donner |  explication                    |
+|line | parameter                     | Description                                                            | Initial value  | value |  comment               |
 |:--|:------------------------------|:-----------------------------------------------------------------------|:----------------:|:---------------:|:--------------------------------|
 |010| `num_classes`                 | nombre de classe d'objets                                              | 90               | 2               | les deux classes 'one' et 'two' |
 |077| `max_detections_per_class`    | nombre max de détection par classe                                     | 100              | 4               | 4 cubes          | 
