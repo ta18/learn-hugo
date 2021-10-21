@@ -16,7 +16,6 @@ La robotique de manipulation regroupe la manipulation d'objets avec des robots. 
 * Notions de Python
 * Notions de géométrie 3D
 * Le [TP d'introduction](../introduction)
-* Ce TP est compatible avec la simulation si vous n'avez pas de Poppy Ergo Jr : sauter directement au 2.3.bis
 
 ## Diapositives
 
@@ -30,20 +29,16 @@ La robotique de manipulation regroupe la manipulation d'objets avec des robots. 
 
 ### 1.2. Assembler Poppy Ergo Jr
 
-🔧 Pour assembler votre robot, veuillez suivre [le guide d'assemblage](https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/), en suivant les étapes faîtes pour ROS le cas échéant ; et en comparant minutieusement chaque pièce aux photos pour vérifier leur orientation car il est très facile d'assembler ce robot à l'envers même s'il a au final la même allure. Si votre robot était pré-assemblé, recommencez à minima toutes les [configurations des moteurs](https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/motor-configuration.html#32ter-configurer-les-moteurs-un-par-un-si-vous-utilisez-une-image-ros) qui pourraient être incorrectes.
+🔧 Pour assembler votre robot, veuillez suivre [le guide d'assemblage](https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/), en suivant les étapes faîtes pour ROS le cas échéant ; et en comparant minutieusement chaque pièce aux photos pour vérifier leur orientation car il est très facile d'assembler ce robot à l'envers même s'il a au final la même allure. Si votre robot était pré-assemblé, redoublez de prudence, d'autres utilsiateurs pourraient avoir monté  
 
-✅ **Vérification :** Pour vérifier que tous vos moteurs sont configurés, connectez-vous en SSH au robot (si ce n'est pas déjà fait) puis exécutez :
+### 1.3. Démarrage de ROS sur Poppy Ergo Jr
+  
+Suiviez la documentation pour [démarrer votre ROS en mode ROS](https://docs.poppy-project.org/fr/programming/ros.html#utiliser-poppy-sous-ros). Consultez les journaux (logs) de Poppy pour vérifier si ROS a correctement démarré : Vous devriez voir apparaître `Connection successful`. La caméra est automatiquement désactivée si elle ne fonctionne pas ⚠️ Ne jamais (dé)brancher la caméra lorsque l'alimentation secteur est branchée : **risques de dommages**. Si l'erreur `"Connection to the robot can't be established"` est affichée, alors vos moteurs n'ont pas été configurés correctement. La suite de ce message d'erreur indique quel(s) moteur(s) pose(nt) problème pour vous aider à le résoudre. Fermez avec Ctrl+C puis utilisez de nouveau Poppy Configure si un moteur est mal configuré.
 
-```bash
-ssh pi@poppy.local      # password raspberry
-# Effacer éventuellement l'ancienne clé ECDSA si vous avez un message d'erreur
-roslaunch poppy_controllers control.launch
-```
-
-Vous devriez voir apparaître `Connection successful`. La caméra est automatiquement désactivée si elle ne fonctionne pas ⚠️ Ne jamais (dé)brancher la caméra lorsque l'alimentation secteur est branchée : **risques de dommages**. Si l'erreur `"Connection to the robot can't be established"` est affichée, alors vos moteurs n'ont pas été configurés correctement. La suite de ce message d'erreur indique quel(s) moteur(s) pose(nt) problème pour vous aider à le résoudre. Fermez avec Ctrl+C puis utilisez de nouveau Poppy Configure si un moteur est mal configuré.
+* **PRISE EN MAIN :** Suivez la prise en main du robot proposée sur la documentation pour prendre une image caméra, changer la compliance du robot, et actionner l'effecteur puis revenez ici pour le démarrage des TP.
 
 **Remarque :** Si vos moteurs clignotent en rouge : votre code a créé une collision et ils se sont mis en alarme. Pour désactiver l'alarme il faut débrancher et rebrancher l'alimentation, ce qui fera aussi redémarrer le robot
-
+  
 ## 2. Travaux pratiques
 
 ### 2.1. Comprendre la représentation d'un robot ROS
@@ -64,7 +59,7 @@ git clone https://github.com/poppy-project/poppy_ergo_jr_description.git
 💻 Compilez votre workspace puis sourcez votre `.bashrc`, enfin rdv dans le dossier `urdf` de ce package, puis exécutez la commande `urdf_to_graphiz` qui convertit un fichier URDF en représentation graphique dans un PDF :
 
 ```bash
-sudo apt install liburdfdom-tools
+sudo apt install liburdfdom-tools ros-noetic-plotjuggler
 roscd poppy_ergo_jr_description/urdf
 urdf_to_graphiz poppy_ergo_jr.urdf
 ```
@@ -114,7 +109,7 @@ source ~/.bashrc    # Pour charger votre .bashrc et donc le nouveau master
 
 ##### 2.1.2.c. Tracer la courbe des positions des moteurs en temps réel
 
-Mettez votre robot en mode compliant. Démarrez `rqt_plot` et ajoutez au graphe 6 courbes à tracer correspondant aux 6 positions angulaires, par exemple `/joint_states/position[0]` pour le premier moteur. Ajoutez également les vitesse (`velocity`). Bougez les moteurs à la main et vérifiez que `rqt_plot` actualise la courbe en temps réel.
+✍  Mettez votre robot en mode compliant. Démarrez `rosrun plotjuggler plotjuggler`, démarrez le streaming `ROS Topic Subscriber`, et sélectionnez `/joint_states`. Sélectionnez la position et la vitesse angulaire du moteur `m6` puis faîtes-les glisser sur le graphe. Bougez les moteurs à la main et vérifiez que les valeurs sont tracées en temps réel.
 
 ### 2.2. Cinématique, et planification avec MoveIt dans RViz
 
@@ -163,9 +158,9 @@ Rviz doit démarrer avec un Poppy Ergo Jr en visu correspondant à l'état de vo
 * Pourquoi ce groupe est-il plus facilement manipulable que l'autre ?
 * Déduisez-en ce que désigne exactement un `planning group`
 
-#### 2.2.4. Transformations `tf`
+#### 2.2.4. Interroger l'arbre des transformations `tf` en ligne de commande
 
-Nous allons visualiser et interroger l'arbre des transformations nommé `tf`
+Nous allons visualiser et interroger l'arbre des transformations nommé `tf`.
 
 💻✍ Démarrer MoveIt puis dans un autre terminal lancer `rosrun tf2_tools view_frames.py`. Un fichier PDF nommé `frames.pdf` a été créé : les `frames` (repères géométriques) qu'ils contient sont les mêmes que ceux dessinés par Rviz en rouge-vert-bleu.
 
@@ -257,9 +252,9 @@ Si on sélectionne le groupe `arm` comprenant 5 moteurs au lieu de `arm_and_fing
 
 ⚠️ Hormis certains quaternions remarquables comme l'identité `[0, 0, 0, 1]` ou les rotations de 180°, n'essayez pas de modifier les valeurs d'un quaternion au hasard, votre quaternion résultant serait invalide à coup sûr : pour le modifier il vaut mieux le faire par le calcul mathématique ou par la mesure en direct avec `rosrun tf2 echo.py`.
 
-##### 2.3.2.c. ✍ Mise en pratique
+##### 2.3.2.c. ✍ Mise en pratique de la planification de trajectoire avec MoveIt
 
-**Mise en pratique n°1** : A l'aide des fonctions et commandes vues en 2.2.4. et 2.3.2.a., vérifiez que vous savez prendre les coordonnées cartésiennes courantes et les définir comme cible puis l'atteindre, càd :
+✍  **Mise en pratique n°1** : A l'aide des fonctions et commandes vues en 2.2.4. et 2.3.2.a., vérifiez que vous savez prendre les coordonnées cartésiennes courantes et les définir comme cible puis l'atteindre, càd :
   1. Passer votre robot en compliant
   2. Le bouger dans une configuration cible
   3. Utiliser `echo.py` pour obtenir les coordonnées cartésiennes courantes de l'effecteur
@@ -267,7 +262,7 @@ Si on sélectionne le groupe `arm` comprenant 5 moteurs au lieu de `arm_and_fing
   5. Bouger votre robot dans une nouvelle configuration quelconque puis repasser en non-compliant 
   6. Exécuter votre script : observez que l'effecteur est dans la même position et orientation que demandée, sauf que les angles moteurs peuvent être différents
 
-**Mise en pratique n°2** : A l'aide des fonctions et commandes vues en 2.1.2.a. et 2.3.2.b., vérifiez que vous savez prendre les positions des joints courantes et les définir comme cible puis l'atteindre, càd :
+✍  **Mise en pratique n°2** : A l'aide des fonctions et commandes vues en 2.1.2.a. et 2.3.2.b., vérifiez que vous savez prendre les positions des joints courantes et les définir comme cible puis l'atteindre, càd :
   1. Passer votre robot en compliant
   2. Le bouger dans une configuration cible
   3. Lire le topic `/joint_states` pour obtenir les angles moteurs courants
@@ -275,7 +270,7 @@ Si on sélectionne le groupe `arm` comprenant 5 moteurs au lieu de `arm_and_fing
   5. Bouger votre robot dans une nouvelle configuration quelconque puis repasser en non-compliant 
   6. Exécuter votre script : observez que l'effecteur est dans la même position et orientation que demandée, et également les angles moteurs
 
-**Mise en pratique n°3** :
+✍  **Mise en pratique n°3** :
 A l'aide du mode compliant, prendre les coordonnées cartésiennes de l'effecteur et et les positions des joints pour deux configurations différentes du robot : points A et point B (par exemple A = effecteur vers le haut et B = effecteur vers le bas). Faîtes bouger le robot infiniement entre les cibles cartésiennes A et B.
 
 #### 2.3.3. Déclarer des obstacles
@@ -308,45 +303,48 @@ Les coordonnées des objets de collision sont données sous la forme d'objet `Po
 
 **Note**: Accessoirement, il est possible d'attacher et de détacher les objets de collision au robot, ceci permet par exemple de simuler la saisie et la dépose d'objets physique dans RViz avec MoveIt. cf [la documentation MoveIt pour Python](https://ros-planning.github.io/moveit_tutorials/doc/move_group_python_interface/move_group_python_interface_tutorial.html) ou même [le code de `PlanningSceneInterface`](https://github.com/ros-planning/moveit/blob/melodic-devel/moveit_commander/src/moveit_commander/planning_scene_interface.py#L56)
 
-#### 2.3.4. Enregistrer et rejouer un mouvement de pick-and-place
+#### 2.3.4. Interroger et publier l'arbre des transformations `tf` en Python
+  
+✍ Grâce au [module `tf`](http://wiki.ros.org/tf/Tutorials), nous allons lire et écrire l'arbre des transformations pour calculer une nouvelle cible cartésienne via le code :
+* Déclarer un transform listener, puis récupérer la position cartésienne actuelle de `moving_tip` dans le repère `base_link`
+* Créer une nouvelle variable 5cm en dessous de la position actuelle sur l'axe des `z`
+* Déclarer un transform broadcaser puis publier un nouveau repère nommé `target` : assurez-vous de le visualiser dans RViz (attention, il expire 15s après sa publication). Nous l'utiliserons dans la question suivante.
+  
+**Note** : Le module Python `tf.transformations` fournit des fonctions permettant d'effectuer diverses opérations sur les transformations : multiplication matricielle, rotations, transformations inverses. Ce module possède un nombre assez limité d'opérations, en pratique selon les besoins il est possible de les combiner aussi avec `numpy` et `scipy` pour le calcul numérique et `sympy` ou même `Maxima` pour du calcul formel.
+  
+#### 2.3.5. Appeler les services de cinématique directe (FK) ou inverse (IK)
+  
+MoveIt fournit la cinématique directe et inverse du robot via le services génériques `/compute_fk` et `/compute_ik`. Ils sont parfois utilisés automatiquement sans que vous n'y fassiez explicitement appel : les fonctions de planification de trajectoires utilisées jusqu'alors ont elles-même appelé l'IK lorsque nécessaire.
 
-Référez-vous à la documentation du [Poppy Controllers](https://github.com/poppy-project/poppy_controllers/#3-trajectory-record-and-playback-feature) afin d'enregistrer et de rejouer des mouvements en utilisant la compliance du robot. Faîtes quelques essais avec plusieurs mouvements qui s'alternent pour bien comprendre le fonctionnement.
+Dans certains situations vous pourriez cependant nécessiter d'obtenir une configuration moteurs pour atteindre un point cartésien sans pour autant générer de trajectoire ni l'exécuter :
+  
+Vous devez dans ce cas appeler explicitement `/compute_ik` avec une requête de type [`GetPositionIK`](https://docs.ros.org/en/api/moveit_msgs/html/srv/GetPositionIK.html) qui comprend au minimum :
+* l'horodatage et le repère de référence dans l'en tête
+* la "seed" pour initialiser le calcul ; généralement l'état actuel du robot
+* le nom du groupe de joints
+* la position carétienne à atteindre
+  
+👀 Remarquez la possibilité d'envoyer également des contraintes pour contraindre le résultats sur les joints, la position cartésienne, l'orientation cartésienne ou la visibilité.
 
-* Enregistrez un mouvement de pick-and-place pour attraper un cube et le déposer à un autre endroit
+✍ Réalisez un calcul de cinématique inverse puis l'affichage de la configuration résultante :
+* Avec l'aide du tutoriel décrivant l'[appel de service via un client Python](https://wiki.ros.org/ROS/Tutorials/WritingServiceClient(python)), créer une requête pour obtenir une configuration permettant d'atteindre le point `target` de la question précédente
+* Récupérer le résultat de la requête et, si l'appel est réussi, le publier sur un nouveau topic de votre choix, par exemple `/computed_state`
+* Afficher `/computed_state` dans RViz avec un nouveau `display`  : `Add`, `By display type` puis `RobotState`
+  
+Ces deux questions vous ont permis de calculer puis visualiser à l'aide de RViz de nouvelles cibles cartésiennes.
+  
+#### 2.3.6. Enregistrer et rejouer un mouvement de pick-and-place
 
-#### 2.4. Récupérer les images de la caméra en Python
+Deux méthodes existent avec Poppy Ergo Jr pour enregistrer et rejouer des mouvements à l'identique. Elles sont décrites dans [la documentation Poppy](https://docs.poppy-project.org/fr/programming/ros.html#fonctionnalit%C3%A9-denregistrement-et-rejeu-de-trajectoire-%C3%A0-lidentique).
+  
+Faîtes quelques essais avec plusieurs mouvements qui s'alternent, en jouant également avec la compliance, pour bien comprendre le fonctionnement.
 
-💻📀 Avec la carte SD ROS, l'image de la caméra est accessible par appel d'un service dédié. Nous aurons besoin de récupérer le package Poppy Controllers et le compiler d'abord :
+✍  Enregistrez un mouvement de pick-and-place pour attraper un cube et le déposer à un autre endroit
 
-```bash
-cd ~/ros_ws/src
-git clone https://github.com/poppy-project/poppy_controllers.git    # Nous aurons besoin de ce package
-cd ~/ros_ws/
-catkin_make
-source ~/.bashrc
-```
-
-🐍 Testez ce code pour vérifier que vous pouvez récupérer l'image en Python via le service ROS `/get_image` fourni par le contrôleur.
-
-```python
-import cv2, rospy
-from poppy_controllers.srv import GetImage
-from cv_bridge import CvBridge
-
-get_image = rospy.ServiceProxy("get_image", GetImage)
-response = get_image()
-bridge = CvBridge()
-image = bridge.imgmsg_to_cv2(response.image)
-cv2.imshow("Poppy camera", image)
-cv2.waitKey(200)
-
-```
-
-Cette image peut ensuite être traitée par un réseau de neurones, une fonction OpenCV, etc ...
 
 ## Documentation
 
 * [Tutoriaux de MoveIt](https://ros-planning.github.io/moveit_tutorials/)
 * [Code du MoveIt Commander Python](https://github.com/ros-planning/moveit/tree/master/moveit_commander/src/moveit_commander)
-* [Documentation de l’API MoveIt en Python](http://docs.ros.org/melodic/api/moveit_python/html/namespacemoveit__python.html)
+* [Documentation de l’API MoveIt en Python](http://docs.ros.org/noetic/api/moveit_python/html/namespacemoveit__python.html)
 * [Documentation de Poppy Ergo Jr](https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/)
