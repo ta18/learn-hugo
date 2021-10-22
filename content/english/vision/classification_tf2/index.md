@@ -3,7 +3,7 @@ title: "Classification of images with tensorflow2"
 menu:
   main:
     name: "Classification"
-    weight: 1
+    weight: 2
     parent: "vision"
 ---
 
