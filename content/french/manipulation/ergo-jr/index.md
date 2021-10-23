@@ -200,7 +200,7 @@ while not rospy.is_shutdown():
 💻 Compilez votre workspace puis sourcez votre `.bashrc`. Exécutez votre noeud avec rosrun :
 
 ```bash
-cd ~/ros_ws
+cd ~/catkin_ws
 catkin_make
 rosrun ros4pro_custom manipulate.py
 ```
