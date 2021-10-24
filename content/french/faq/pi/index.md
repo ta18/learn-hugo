@@ -102,9 +102,9 @@ Si vous obtenez l'erreur `Received JointState is XXXXXX.XXXXXX seconds old` ou t
 
 Vérifiez avec la commande `date` que l'horloge ne dérive pas exagérément.
 
-Vérifiez qu'il est conencté à Internet via la 4G, le réseau Ethernet ou le wifi, puis tapez sur votre PC et/ou en SSH sur le robot :
+Vérifiez qu'il est connecté à Internet via la 4G, le réseau Ethernet ou le wifi, puis tapez sur votre PC et/ou en SSH sur le robot :
 ```
-ssh poppy@poppy.local
+ssh <usename>@<hostname>.local
 sudo timedatectl set-ntp off
 sudo timedatectl set-time "2021-09-30 18:00"   # Mettre ici une date et une heure approximative
 sudo timedatectl set-ntp on
