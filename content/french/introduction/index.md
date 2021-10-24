@@ -68,7 +68,7 @@ Cette configuration est partiellement expliquée dans les diapositives. Pour plu
 
 ![Hierarchie de fichier du rosier](img/rosier.png)
 
-Vous aurez besoin des commandes suivantes :h
+Vous aurez besoin des commandes suivantes :
 
 * `ls`, pour lister les fichiers et dossiers courants
 * `cd`, pour changer le dossier courant
@@ -77,9 +77,7 @@ Vous aurez besoin des commandes suivantes :h
 * `nano`, pour créer un nouveau fichier et écrire à l'intérieur
 * `tree`, pour afficher la hierarchie de fichiers
 
-🧑‍🏫 Vous êtes désormais prêt à utiliser ROS !
-
-## 3. Tutoriels
+## 3. 🧑‍🏫 Tutoriels
 
 Nous allons d'abord utiliser Turtlesim (une simulation 2D de tortue, à ne pas confondre avec le robot Turtlebot). Suivez les tutoriels ROS suivants pour découvrir et tester les concepts de base, sachant que votre distribution ROS s'appelle `noetic` :
 
@@ -96,6 +94,6 @@ Pour l'un et l'autre de vos 2 robots, réalisez les étapes de préparation suiv
 3. Se connecter via SSH au robot
 4. Démarrer les services ROS sur le robot (bringup ou services)
 
-## Quizz final
+## 5. ❓ Quizz final
 
 ❓ [**Quizz** : bien mémoriser les commandes importantes](quizz.pdf)
