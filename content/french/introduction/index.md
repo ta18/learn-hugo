@@ -21,9 +21,7 @@ Selon votre situation, une clé USB bootable nommée "clé Live" peut vous être
 
 ### Cas 1.A : Une clé USB bootable m'est fournie
 
-Vous devez faire "booter" votre poste de travail sur la clé USB Live fournie en vous aidant si nécessaire de [la procédure dédiée](https://files.ros4.pro/boot.pdf).
-
-Votre clé est fournie avec tous les paquets préinstallés pour le workshop. Ainsi, dans les TP vous devrez sauter toutes les étapes précédées du pictogramme "disque" suivant : 📀 car ces étapes ont déjà été réalisées.
+Vous devez faire "booter" votre poste de travail sur la clé USB Live fournie en vous aidant si nécessaire de [la procédure dédiée](https://files.ros4.pro/boot.pdf). Votre clé est fournie avec tous les paquets préinstallés pour le workshop. Ainsi, dans les TP vous devrez sauter toutes les étapes précédées du pictogramme "disque" suivant : 📀 car ces étapes ont déjà été réalisées.
 
 Localisez l'application "Terminator" sur votre clé USB Live puis passez directement au titre 2. ci-dessous dès que vous avez réussi à ouvrir un terminal.
 
@@ -49,12 +47,11 @@ catkin_make
 source /opt/ros/noetic/setup.bash
 source ~/catkin_ws/devel/setup.bash
 
-#export ROS_HOSTNAME=$(hostname).local
+# Warning: Choose ROS_HOSTNAME (preferred) *OR* ROS_IP but do not activate both
 export ROS_HOSTNAME=$(hostname).local
-export TURTLEBOT3_MODEL=burger
+#export ROS_IP=`ip address|grep inet|grep dynamic|tr ' ' ':'|cut -d':' -f6|cut -d'/' -f1|head -n1`
 
 # CHOOSE A ROS MASTER: local host, Poppy robot or Turtlebot robot
-# Add # in front of the lines that you want to disable
 ROS_MASTER_URI=http://localhost:11311
 #ROS_MASTER_URI=http://poppy.local:11311
 #ROS_MASTER_URI=http://turtlebot.local:11311
@@ -80,43 +77,25 @@ Vous aurez besoin des commandes suivantes :h
 * `nano`, pour créer un nouveau fichier et écrire à l'intérieur
 * `tree`, pour afficher la hierarchie de fichiers
 
+🧑‍🏫 Vous êtes désormais prêt à utiliser ROS !
+
 ## 3. Tutoriels
 
-🧑‍🏫 Vous êtes désormais prêt à utiliser ROS ! Suivez les tutoriels ROS suivants pour découvrir et tester les concepts de base, sachant que votre distribution ROS s'appelle `noetic` :
+Nous allons d'abord utiliser Turtlesim (une simulation 2D de tortue, à ne pas confondre avec le robot Turtlebot). Suivez les tutoriels ROS suivants pour découvrir et tester les concepts de base, sachant que votre distribution ROS s'appelle `noetic` :
 
 * [Understanding ROS Nodes](http://wiki.ros.org/ROS/Tutorials/UnderstandingNodes) : Maîtriser ROS master (`roscore`) et lancer des nœuds (`rosrun`)
 * [Understanding ROS Topics](http://wiki.ros.org/ROS/Tutorials/UnderstandingTopics) : Envoyer et recevoir des messages dans un topic (`rostopic`)
 * [Understanding ROS Services and Parameters](http://wiki.ros.org/ROS/Tutorials/UnderstandingServicesParams) : Déclarer et appeler un service requête/réponse (`rosservice`, `rossrv`)
 
-❓ [**Quizz** : quizz au tableau pour mémoriser les commandes importantes](quizz.pdf)
-
 ## 4. ⚙️ Préparer vos robots
 
-Pour l'un ou l'autre de vos 2 robots, réalisez les étapes de préparation suivantes expliquées [dans la FAQ robots](../faq/pi/) :
+Pour l'un et l'autre de vos 2 robots, réalisez les étapes de préparation suivantes expliquées [dans la FAQ robots](../faq/pi/) :
 
 1. Flasher sa carte SD
 2. Connecter le robot en wifi
 3. Se connecter via SSH au robot
-4. Personnaliser le nom de votre robot (si nécessaire)
+4. Démarrer les services ROS sur le robot (bringup ou services)
 
-## 5. FAQ
+## Quizz final
 
-### 📥 Mise à jour pendant le TP
-
-Il se peut que l'enseignant mette à jour les ressources pendant le cours. Dans ce cas exécutez les commandes suivantes pour récupérer les dernières mises-à-jour :
-
-```bash
-roscd ros4pro
-git pull origin poppy_tb3_keras
-```
-
-Si l'erreur suivante survient :
-
-```bash
-error: Vos modifications locales aux fichiers suivants seraient écrasées par la fusion :
- <LISTE DE FICHIERS>
-Veuillez valider ou remiser vos modifications avant la fusion.
-Abandon
-```
-
-Alors les fichiers spécifiés ne peuvent pas être mis à jour car cela détruirait les modifications que vous avez apportées à la liste des fichiers indiquée. Il est recommandé de demander conseil avant d'essayer une autre action pour récupérer la mise à jour.
+❓ [**Quizz** : bien mémoriser les commandes importantes](quizz.pdf)
