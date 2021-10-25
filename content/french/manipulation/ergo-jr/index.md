@@ -77,7 +77,7 @@ Ouvrez le PDF obtenu puis déterminez :
 🤖 Le contrôleur se trouve déjà sur le robot. Vous pouvez directement vous connecter au robot et le démarrer :
 
 ```bash
-ssh pi@poppy.local      # password raspberrypi
+ssh poppy@poppy.local      # password poppy
 # Effacer éventuellement l'ancienne clé ECDSA si vous avez un message d'erreur
 roslaunch poppy_controllers control.launch
 ```
