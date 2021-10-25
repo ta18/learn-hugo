@@ -80,7 +80,7 @@ ssh poppy@poppy.local
 ssh ubuntu@turtlebot.local
 ```
 
-Taper `yes` pour confirmer la connexion puis taper le mot de passe (`turtlebot` pour Turtlebot ou `raspberry` pour Poppy). Votre invite de commande devrait désormais indiquer `poppy@poppy.local~$` ou `ubuntu@turtlebot.local~$` : toute commande tapée dans ce terminal sera exécutée par le robot. En cas d'erreur, consultez la procédure de diagnostic ci-dessous.
+Taper `yes` pour confirmer la connexion puis taper le mot de passe (`turtlebot` pour Turtlebot ou `poppy` pour Poppy). Votre invite de commande devrait désormais indiquer `poppy@poppy.local~$` ou `ubuntu@turtlebot.local~$` : toute commande tapée dans ce terminal sera exécutée par le robot. En cas d'erreur, consultez la procédure de diagnostic ci-dessous.
 
 ### 🔑 Mots de passe par défaut
 
