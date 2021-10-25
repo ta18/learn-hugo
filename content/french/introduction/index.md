@@ -47,6 +47,8 @@ catkin_make
 source /opt/ros/noetic/setup.bash
 source ~/catkin_ws/devel/setup.bash
 
+export TURTLEBOT3_MODEL=burger
+
 # Warning: Choose ROS_HOSTNAME (preferred) *OR* ROS_IP but do not activate both
 export ROS_HOSTNAME=$(hostname).local
 #export ROS_IP=`ip address|grep inet|grep dynamic|tr ' ' ':'|cut -d':' -f6|cut -d'/' -f1|head -n1`
