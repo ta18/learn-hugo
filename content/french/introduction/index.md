@@ -54,9 +54,9 @@ export ROS_HOSTNAME=$(hostname).local
 #export ROS_IP=`ip address|grep inet|grep dynamic|tr ' ' ':'|cut -d':' -f6|cut -d'/' -f1|head -n1`
 
 # CHOOSE A ROS MASTER: local host, Poppy robot or Turtlebot robot
-ROS_MASTER_URI=http://localhost:11311
-#ROS_MASTER_URI=http://poppy.local:11311
-#ROS_MASTER_URI=http://turtlebot.local:11311
+export ROS_MASTER_URI=http://localhost:11311
+#export ROS_MASTER_URI=http://poppy.local:11311
+#export ROS_MASTER_URI=http://turtlebot.local:11311
 
 ```
 
