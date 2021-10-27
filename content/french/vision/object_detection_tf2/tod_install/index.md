@@ -7,12 +7,12 @@ menu:
     parent: "objectDetectionTF2"
 ---
 ---
-    Acquis d'apprentissages visés :
+    Acquis d'apprentissage visés :
     - Savoir initialiser un espace de travail pour la détection d'objets utilisant l'_API TOD_
     - Savoir installer l'_API TOD_ et les composants requis
 
     Type d'activité : 🛠️ [setup]
-    Durée prévue    : 45 minutes
+    Durée prévue    : 60 minutes (dépend du débit internet et des ressources CPU & RAM de ton ordinateur).
 ---
 
 ## Prérequis
@@ -26,7 +26,7 @@ menu:
 
 L'installation de l'API proposée comporte 6 étapes :
 1. Créer et initialiser ton espace de travail
-2. Cloner le dépôt `tensorflow/models`
+2. Télécharger et installer le dépôt `tensorflow/models`
 3. Installer les outils `protobuf`
 4. Installer l'_API COCO_
 5. Installer le package `object_detection` 
@@ -35,7 +35,7 @@ L'installation de l'API proposée comporte 6 étapes :
 Dans toute la suite le _prompt_ du terminal sera noté `(tf2) user@host $` : le préfixe `(tf2)` est là pour bien rappeler que le travail d'installation de l'_API TOD_ se fait dans l'__Environnement Virtuel Python tf2__ que tu auras créé au préalable (cf les Prérequis).
 
 
-### 1. Créer et initialiser ton espace de travail
+### 1. Créé et initialise ton espace de travail
 
 La première étape consiste à créer le répertoire de travail `tod_tf2`, qui sera le  __dossier racine du projet__ dans lequel seront créés tous les fichiers, et à te positionner dans ce répertoire :
 ```bash
@@ -51,29 +51,33 @@ La première étape consiste à créer le répertoire de travail `tod_tf2`, qui 
 (tf2) user@host $ cp tod_tf2_tools/*.ipynb .
 ```
 
-### 2. Cloner le dépôt `tensorflow/models`
+### 2. Télécharge et installe le dépôt `tensorflow/models`
 
-📥 Dans le dossier de travail `tod_tf2` clone le dépôt github `tensorflow/models` (~ 576 Mio) :
+📥 Télécharge le ZIP du dépôt github `tensorflow/models` (~ 35 Mio) dans le dossier `/tmp` puis dézippe son contenu dans le dossier `tod_tf2` :
 ```bash
-# From tod_tf2/
-(tf2) user@host $ git clone https://github.com/tensorflow/models.git
-...some stuff...
+(tf2) user@host $ wget https://github.com/tensorflow/models/archive/refs/heads/master.zip -P /tmp
+(tf2) user@host $ cd ~/catkin_ws/tod_tf2       # adapte au besoin si le chemin d'accès à tod_tf2 est différent
+(tf2) user@host $ unzip /tmp/master.zip        # dézipe l'archive dans le dossier tod_tf2
+(tf2) user@host $ mv models-master/ models     # renomme models-master en models
+(tf2) user@host $ rm /tmp/master.zip           # efface le zip dans /tmp qui ne sert plus
 ```
 
-Tu obtiens un dossier `models`. <br>
-L’API TOD est dans le dossier `models/research/object_detection`, commme le montre la commande `tree` :
+L’_API TOD_ est dans le dossier `models/research/object_detection` :
 ```bash	
-(tf2) user@host $ tree -d -L 2 .
-.
-├── models
-│   ├── community
-│   ├── official
-│   ├── orbit
-│   └── research
-└── tod_tf2_tools
+(tf2) user@host $ tree -d models -L 2   # arbre du dossier models sur 2 niveaux
+models
+├── community
+├── official
+│   ...
+├── orbit
+│   ...
+└── research
+    ...    
+    ├── object_detection
+    ...
 ```	
 
-📥 Complète ton installation avec quelques paquets Python utiles pour le travail avec l'API TOD :
+📥 Complète ton installation avec quelques paquets Python utiles pour le travail avec l'_API TOD_ :
 
 ```bash
 (tf2) user@host $ conda install cython contextlib2 pillow lxml
@@ -95,10 +99,10 @@ user@host $ conda activate tf2
 (tf2) user@host $
  ```
 
-### 3. Installer les outils `protobuf`
+### 3. Installe les outils `protobuf`
 
-L’API native TOD utilise des fichiers `*.proto` pour la configuration des modèles et le stockage des paramètres d’entraînement. 
-Ces fichiers doivent être traduits en fichiers `*.py` afin que l’API Python puisse fonctionner correctement : 
+L’_API_ native _TOD_ utilise des fichiers `*.proto` pour la configuration des modèles et le stockage des paramètres d’entraînement. 
+Ces fichiers doivent être traduits en fichiers `*.py` afin que l’_API_ Python puisse fonctionner correctement : 
 
 * Installe d'abord le paquet debian `protobuf-compile` qui donne accès à la commande `protoc` :
 ```bash
@@ -106,17 +110,18 @@ Ces fichiers doivent être traduits en fichiers `*.py` afin que l’API Python p
 ```
 * Tu peux ensuite te positionner dans le dossier `tod_tf2/models/research` et taper :
 ```bash
-# From tod_tf2/models/research/
+# From tod_tf2
+(tf2) user@host $ cd models/research/
 (tf2) user@host $ protoc object_detection/protos/*.proto  --python_out=.
 ```
 Cette commande travaille de façon muette.
 
-### 4. Installer l'API COCO
+### 4. Installe l'API COCO
 
-COCO est une banque de données destinée à alimenter les algorithmes de détection d’objets, de segmentation… <br>
-Voir [cocodataset.org](https://cocodataset.org) pour les tutoriels, publications… 
+_COCO_ (_Common Objects in Context_)  est une banque de données destinée à alimenter les algorithmes de détection d’objets, de segmentation 
+(voir [cocodataset.org](https://cocodataset.org) pour les tutoriels, publications…). 
 
-📥 Pour installer l’API Python de COCO, clone le site `cocoapi.git` (~ 15 Mo) dans le dossier `/tmp`, tape la commande `make` dans le dossier `cocoapi/PythonAPI`, puis recopie le dossier `pycococtools` dans ton dossier `.../models/research/` :
+📥 Pour installer l’_API_ Python de _COCO_, clone le site `cocoapi.git` (~ 15 Mo) dans le dossier `/tmp`, tape la commande `make` dans le dossier `cocoapi/PythonAPI`, puis recopie le dossier `pycococtools` dans ton dossier `.../models/research/` :
 ```bash
 (tf2) user@host $ cd /tmp
 (tf2) user@host $ git clone  https://github.com/cocodataset/cocoapi.git
@@ -126,24 +131,26 @@ Voir [cocodataset.org](https://cocodataset.org) pour les tutoriels, publications
 ```
 remplace `"<chemin absolu du dossier tod_tf2>"` par le chemin absolu du dossier `tod_tf2` sur ta machine (par exemple `~/catkins_ws/tod_tf2`).
 
-### 5. Installer le package `object_detection` 
+### 5. Installe le module `object_detection` 
 
 Pour finir l'installation, place-toi dans le dossier  `models/research/` et tape les commandes :
 ```bash
+(tf2) user@host $ cd ~/catkin_ws/tod_tf2       # adapte au besoin si le chemin d'accès à tod_tf2 est différent
+(tf2) user@host $ cd models/research/
 # From tod_tf2/models/research/
 (tf2) user@host $ cp object_detection/packages/tf2/setup.py .
 (tf2) user@host $ python setup.py build
 (tf2) user@host $ pip install .
 ```
 
-### 6. Tester l'installation de l'API TOD
+### 6. Teste l'installation de l'API TOD
 
 Pour tester ton installation de l’API TOD, place-toi dans le dossier `models/research/` et tape la commande :
 ```bash	
 # From within tod_tf2/models/research/
 (tf2) user@host $ python object_detection/builders/model_builder_tf2_test.py
 ```
-Le programme déroule toute une série de tests et doit se terminer par un OK sans faire apparaître d'erreur :
+Le programme déroule toute une série de tests qui peuvent durer "un certain temsp..." et doit se terminer par un OK sans faire apparaître d'erreur :
 
 	...
 	[       OK ] ModelBuilderTF2Test.test_invalid_second_stage_batch_size
@@ -166,12 +173,12 @@ Le programme déroule toute une série de tests et doit se terminer par un OK s
 
     OK (skipped=1)
 
-L'abscence de message d'erreur valide l'installation de l'_API TOD_ sur ta machine.
+__L'absence de message d'erreur valide l'installation de l'_API TOD_ sur ta machine.__
 
 ## Compléments...
 
-Pour finir, tu peux vérifier l’installation en utilisant le notebook IPython `object_detection_tutorial.ipynb` présent dans le dossier `tod_tf2`.<br>
-(note : c'est une copie du notebook `tod_tf2/models/research/object_detection/colab_tutorials/object_detection_tutorial.ipynb` dans laquelle on a enlevé les cellules d'installation de l'API_TOD et quelques autres cellules qui peuvent générer des erreurs...).
+Pour finir, tu peux vérifier l’installation de l'_API TOD_en utilisant le notebook IPython `object_detection_tutorial.ipynb` présent dans le dossier `tod_tf2`.<br>
+(note : c'est une copie du notebook original `tod_tf2/models/research/object_detection/colab_tutorials/object_detection_tutorial.ipynb` dans lequelle on a enlevé les cellules d'installation de l'_API_TOD_ et quelques autres cellules qui peuvent générer des erreurs...).
 
 * ⚠️ Avant d'exécuter les cellules du notebook, il faut corriger une erreur dans le fichier `.../tod_tf2/models/research/object_detection/utils/ops.py`, ligne 850 :
 remplace `tf.uint8` par `tf.uint8.as_numpy_dtype`

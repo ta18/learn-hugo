@@ -7,9 +7,17 @@ menu:
     parent: "objectDetectionTF2"
 ---
 
+---
+    Acquis d'apprentissage visés :
+    - Savoir exploiter un réseau TOD ré-entraîné.
+
+    Type d'activité     : ⚙️ [tâche]
+    Durée approximative : 40 minutes (dépend des ressources CPU & RAM de ton ordinateur).
+---
+
 ## Évaluer les inférences du réseau ré-entrainé
 
-On va vérifier que le réseau entraîné est bien capable de détecter les faces des cubes en discriminant correctement les numéros écrits sur les faces.
+Vérifie que le réseau entraîné est bien capable de détecter les faces des cubes en discriminant correctement les numéros écrits sur les faces.
 
 Le script Python `plot_object_detection_saved_model.py` permet d'exploiter le réseau entraîné sur des images, les arguments sont :
 * `-p` : le nom du projet
@@ -18,11 +26,11 @@ Le script Python `plot_object_detection_saved_model.py` permet d'exploiter le r�
 * `-n` : le nombre max d'objets à détecter
 * `-t` : le seuil (_threshold_) de détection exprimé en % (optionnel, valeur par défaut : 50 %).
 
-Par exemple pour faire la détection des cubes des images de test avec le réseau qu'on vient d'entraîner :
+Par exemple pour faire la détection des cubes des images de test avec le réseau que tu viens d'entraîner :
 
 ```bash
 # From within tod_tf2
-(tf2) jlc@pikatchou: $ python plot_object_detection_saved_model.py -p faces_cubes -s training/faces_cubes/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8/saved_model1/saved_model -i images/faces_cubes/test/ -n 4
+(tf2) user@host: $ python plot_object_detection_saved_model.py -p faces_cubes -s $PTN_DIR/saved_model1/saved_model -i images/faces_cubes/test/ -n 4
 
 Loading model...Done! Took 11.77 seconds
 
