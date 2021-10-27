@@ -7,7 +7,7 @@ menu:
     parent: "python3"
 ---
 
-Dans toute l apage, on suppose que `numpy` est importé selon :
+Dans toute la page, on suppose que `numpy` est importé selon :
 ```python
 >>> import numpy as np
 ```
@@ -40,13 +40,13 @@ array([[  1,   2,   3],
 
 [top](#mot_clefs)
 
-### indexation
+## indexation
 
 
 [top](#mot_clefs)
 
 
-### shape
+## shape
 
 L'attribut `shape` d'un tableau `ndarray` est un _tuple_ qui donne les dimensions du tableau:
 
@@ -58,11 +58,11 @@ L'attribut `shape` d'un tableau `ndarray` est un _tuple_ qui donne les dimension
 >>> V.shape
 (2, 3)
 ``` 
+
 [top](#mot_clefs)
 
 
-
-### slicing
+## slicing
 
 On peut extraire un sous-ensemble d'un tableau `ndarray` avec la syntaxe `start:stop_exclu:step` applicable à n'importe laquelle des dimension du tableau:
 

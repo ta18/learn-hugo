@@ -1,102 +1,113 @@
 ---
-title: "🔨 FAQ Créer et utiliser un Environnement Virtuel Python (EVP)"
+title: "🔨 Créer et utiliser un Environnement Virtuel Python"
 menu:
   main:
-    name: "Env. virtuel"
+    name: "Env. Virtuel"
     weight: 1
     parent: "python3"
 ---
 
 ## Intérêt
 
-Un Environnement Virtuel Python (EVP) procure un environnement informatique contenant une installation de Python :
+L'état de l'art pour la programmation en Python du Machine Learning consiste à utiliser un __Environnement Virtuel Python__ (EVP) pour encapsuler chaque projet dans un environnment dédié et pérenne. Chaque EVP procure un environnement informatique contenant une installation de Python :
 
-* indépendante des autres environnements Python susceptibles de coexister sur la même machine,
+* indépendante des autres installations Python susceptibles de coexister sur la même machine,
 * indépendante des mises à jour de l’ordinateur.
 
 Un EVP repose sur la création d’une arborescence disque dédiée qui héberge la version de Python et des modules dont tu as besoin pour ton projet.
+Tu peux effacer et re-créer un EVP très facilement, sans impacter les autres installations de Python éventuellement présentes sur ton ordinateur.
 
-On peut effacer et re-créer un EVP très facilement, sans que cela n'impacte la distribution Python système installée avec Ubuntu.
+## Outils
 
-Quand tu actives un EVP sous Linux, la variable d’environnement PATH est modifiée de sorte que l’interpréteur Python et tous les modules soient recherchés dans l’arborescence dédiée à cet EVP.
+Deux outils sont le plus souvent rencontrés pour créer EVP :
 
-## Créer un EVP avec `conda`
-
-Plusieurs outils permettent de créer EVP, en particulier  :
-
-* la commande `conda` , disponible si tu as installé Python avec la distribution [miniconda](https://docs.conda.io/en/latest/miniconda.html).
-* le module Python `venv` qui permet de créer un EVP (cf [venv](https://docs.python.org/3/library/venv.html)).
+* La commande `conda`, disponible si tu as installé Python avec [miniconda](https://docs.conda.io/en/latest/miniconda.html) ou [Anaconda](https://www.anaconda.com/products/individual).
+* Le module Python `venv` (cf [venv](https://docs.python.org/3/library/venv.html)).
 
 L'intérêt de `miniconda` pour le calcul numérique est que cette distribution installe de façon transparente la bibliothèque [MKL](https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html), qui fournit l'optimisation pour les processeurs Intel des bibliothèques d'algèbre linéaire (BLAS, Lapack...) à la base des performances du module numpy.
 
-## Étapes de création d'un EVP avec `conda`
+## Comment fonctionne un EVP
 
-1. Télécharge et installe la distribution [miniconda](https://docs.conda.io/en/latest/miniconda.html) ...
+Quand l'EVP `<nom_evp>` est activé :
 
-    * La seule précaution est d'installer le répertoire `miniconda3` dans un chemin qui ne comporte __ni espace__, __ni caractère accentué__.
-    * En général, le chemin d'installation proposé par défaut ressemble à `/home/<logname>/miniconda3/`.
+* la variable d'environnement `PATH` est modifiée dans ton fichier `.bashrc` pour mentionner en premier :
+  * le répertoire contenant la commande `conda` : par exemple `/home/<logname>/miniconda3/condabin/`
+  * le répertoire `bin` de l'EVP: par exemple `/home/<logname>/miniconda3/envs/<nom_evp>/bin/`
+* toutes les commandes liées à Python (`python`, `conda`, `pip`...) sont recherchées en premier dans ces deux répertoires.
+* toute installation d'un module Python par `conda` ou `pip` installe le module dans l'arborescence `/home/<logname>/miniconda3/envs/<nom_evp>/`
+
+
+## Création d'un EVP avec `conda` sous Ubuntu
+
+1. 📥 Télécharge et installe [miniconda](https://docs.conda.io/en/latest/miniconda.html) sur ton ordinateur en faisant attention à ces points :
+
+    * Tu dois définir un chemin d'installation du répertoire `miniconda3` qui ne comporte __ni espace__, __ni caractère accentué__ <br>
+    Sous Ubuntu le chemin d'installation par défaut ressemble à `/home/<logname>/miniconda3/`.
+    * Répondre `yes` à la question :<br>
+    `Do you wish the installer to initialize Miniconda3`<br>
+    `by running conda init? [yes|no]`
+
     * À la fin de l'installation réponds `yes` à la question `Do you wish the installer to initialize Miniconda3 by running conda init? [yes|no]`
     * Lance un nouveau terminal ou tape la commande `source ~/.bashrc` pour hériter des modifications du fichier `.bashrc`.
-    * Une fois `conda` installé, désactive le lancement automatique de l'EVP `(base)` en tapant la commande : `conda config --set auto_activate_base false`.
+    * Désactive le lancement automatique de l'EVP `(base)` en tapant la commande : `conda config --set auto_activate_base false`.
 
 1. Créé l'EVP avec la commande `conda create -n <nom_evp> python=<version>`
 
-    * `<nom_evp>` : nom (libre) de ton EVP : par exemple `pyml`(pour Python mechine learning)
-    * `<version>` :  version de Python que tu veux installer dans ton EVP : par exmple `3.6` ou `3.6.8` ou `3.8`...
+    * `<nom_evp>` : nom (libre) de ton EVP : souvent un nom mnémonique comme `pyml`(pour Python machine learning) ou `tf2` (pour un projet avec  tensorflow2)
+    * `<version>` :  version de Python que tu veux installer dans ton EVP : par exmple `3.6` ou `3.6.8` ou `3.8`...<br>
+_Nota_: pour utiliser l'API _Tensorflow2 Object Detection_ dans un EVP, la version 3.8 de Python est conseillée.
 
 1. Active ton EVP avec la commande `conda activate <nom_evp>` :
 
-    * L'activation de l'EVP se traduit par le préfixage du *prompt* avec la chaîne : `(<nom_evp>)`.
+    * L'activation de l'EVP se traduit par le préfixage du *prompt* avec la chaîne : `(<nom_evp>)`.<br>
     Par exemple si le *prompt* courant est `user@host $`, l'activation de l'EVP nommé `tf2` modifie le prompt qui devient : `(tf2) user@host $`
 
-1. Charge les modules Python dans ton EVP **activé**
+1. 📥 Charge les modules Python nécessaires à ton projet dans ton EVP __activé__ :
 
-    Avec ton **EVP activé** utilise `conda install <module>`  ou `pip install <module>` pour installer le module Python  `<module>`.
+    Avec ton **EVP activé** utilise `conda install <module_name>`  ou `pip install <module_name>` pour installer le module Python `<module_name>`.
 
-    ❓ `conda install...` ou `pip install...` => la règle est simple :
+    ❓ `conda install...` ou `pip install...` lequel choisir ? le règle est simple :
 
-    * commence de préférence par `conda install...`, qui va installer une version optimisée du module Python si elle est connue de `conda`
-    * si `conda install...` échoue, utilise alors `pip install...`"
+    * commence par `conda install...`, qui va installer une version optimisée du module Python si elle est connue de `conda`
+    * utilise `pip install...` si `conda install...` échoue.
    
+## Exemple
 
-## 🔨 Comment fonctionne un EVP
+### 🔨 Un EVP pour travailler avec `tensorflow2`
 
-Quand l'EVP `<evp>` est activé :
+Avec `miniconda` installé, créé l'EVP `tf2` pour un travail avec Python en version 3.8, puis active l'EVP :
+```bash
+user@host $ conda create -n tf2 python=3.8
+... some stuff...
 
-* la variable d'environnement `PATH` est modifiée pour mentionner en premier :
-  * le répertoire permettant d'accéder à la commande `conda` : par exemple `/home/<logname>/miniconda3/condabin/`
-  * le répertoire associé à l'environnement `<evp>` : par exemple `/home/<logname>>/miniconda3/envs/<evp>`
-* toutes les commandes liées à Python (`python`, `conda`, `pip`...) sont recherchées en premier dans ces deux répertoires.
-* toute installation d'un module Python par `conda` ou `pip` installe le module dans le l'arboresence `/home/<logname>/miniconda3/envs/<evp>/...`
-
-## 🔨 Quels modules Python  installer dans mon EVP pour travailler avec `tensorflow2` ?
-
-En prenant l'exemple d'un EVP nommé `(tf2)` créé avec l'option `python=3.8`, l'installation des modules Python essentiel au travail avec __tensorflow2__ se fait comme indiqué ci-dessous :
+user@host $ conda activate tf2
+(tf2) user@host $
+```
+Tu peux ensuite installer des modules Python essentiels au travail avec __tensorflow2__ :
 
 ```bash
 (tf2) user@host $ conda update -n base -c defaults conda
-(tf2) user@host $ conda install tensorflow==2.4.1
+(tf2) user@host $ pip install tensorflow==2.6
 (tf2) user@host $ conda install numpy scipy matplotlib jupyter pandas
 (tf2) user@host $ pip install scikit-learn scikit-image seaborn pydot rospkg pyyaml
 (tf2) user@host $ pip install opencv-python==4.5.1.48
 ```
 
-## 🔨 EVP : commandes utiles
+## Commandes utiles
 
-* Display information about the __conda__ distribution: `conda info`
+* Afficher les infromations sur la distribution __conda__ : `conda info`
 
-* List the EVP known by __conda__: `conda env list`
+* Listet les EVP connus de __conda__: `conda env list`
 
-* Deactivate the current EVP: `conda deactivate`
+* Desactiver l'EVP courant : `conda deactivate`
 
-* Activate the EVP named `<evp>`: `conda activate <evp>`
+* Activer l'EVP nommé `<evp>`: `conda activate <evp>`
 
-* With your ** EVP activated **:
+* Avec ton ** EVP activé**:
 
-   * List installed packages: `conda list` or` pip list`
+   * Lister les modules Python insyallés : `conda list` ou` pip list`
 
-   * Find versions of a Python module for the current EVP activated:
-
-     * `conda search <module>`: searches for versions of `<module>` known by conda
+   * Trouver les versions d'un module Python pour l'EVP activé : `conda search <module>`
 
 * Update the __conda__ command: `conda update -n base -c defaults conda`.
+
