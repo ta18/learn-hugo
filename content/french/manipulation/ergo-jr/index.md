@@ -59,7 +59,7 @@ git clone https://github.com/poppy-project/poppy_ergo_jr_description.git
 💻 Compilez votre workspace puis sourcez votre `.bashrc`, enfin rdv dans le dossier `urdf` de ce package, puis exécutez la commande `urdf_to_graphiz` qui convertit un fichier URDF en représentation graphique dans un PDF :
 
 ```bash
-sudo apt install liburdfdom-tools ros-noetic-plotjuggler
+sudo apt install liburdfdom-tools ros-noetic-plotjuggler-ros
 roscd poppy_ergo_jr_description/urdf
 urdf_to_graphiz poppy_ergo_jr.urdf
 ```
