@@ -33,16 +33,16 @@ Pour simplifier l'écriture des commandes Linux à taper dans le terminal, tu pe
 
 ### Exemple
 
-Avec le projet `faces_cubes` et le réseau `faster_PTN_resnet50_v1_640x640_coco17_tpu-8` :
+Avec le projet `faces_cubes` et le réseau `faster_rcnn_resnet50_v1_640x640_coco17_tpu-8` :
 
 ```bash
-user@host $ export PTN=faster_PTN_resnet50_v1_640x640_coco17_tpu-8
+user@host $ export PTN=faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
 user@host $ echo $PTN      # pour vérifier
-faster_PTN_resnet50_v1_640x640_coco17_tpu-8
+faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
 
 user@host $ export PTN_DIR=faces_cubes/training/$PTN
 user@host $ echo $PTN_DIR   # pour vérifier
-faces_cubes/training/faster_PTN_resnet50_v1_640x640_coco17_tpu-8
+faces_cubes/training/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
 ```
 
 ## 1. Modifie le fichier de configuration
@@ -60,7 +60,7 @@ user@host $ cp pre-trained/$PTN/pipeline.config $PTN_DIR
 
 ### Exemple
 
-Avec le projet `faces_cubes` et le réseau `faster_PTN_resnet50_v1_640x640_coco17_tpu-8` :
+Avec le projet `faces_cubes` et le réseau `faster_rcnn_resnet50_v1_640x640_coco17_tpu-8` :
 
 |Line | Parameter name              | Description                                                            | Initial value  | Value |  Comment               |
 |:--|:------------------------------|:-----------------------------------------------------------------------|:----------------:|:---------------:|:--------------------------------|
@@ -81,14 +81,16 @@ Avec le projet `faces_cubes` et le réseau `faster_PTN_resnet50_v1_640x640_coco1
 
 ## 2 Lance l'entraînement
 
-Il est très important de bien vérifier le contenu du fichier `<project>/training/<pre-trained_net>/pipeline.configure` avant de lancer l'entraînement : une bonne pratique est de le faire vérifier par quelqu'un d'autre...
+⚠️ Il est très important de bien vérifier le contenu du fichier `<project>/training/<pre-trained_net>/pipeline.configure` avant de lancer l'entraînement : une bonne pratique est de le faire vérifier par quelqu'un d'autre...
 
-* Copie le fichier `models/research/object_detection/model_main_tf2.py` dans la racine `tod_tf2` :
+⚠️ Ne mettre des valeurs de `batch_size` >= 2 que si ton ordinateur possède un CPU puissant avec au moins 4 Gio de RAM !
+
+Copie le fichier `models/research/object_detection/model_main_tf2.py` dans la racine `tod_tf2` :
 ```bash
 # From within tod_tf2
 (tf2) user@host $ cp models/research/object_detection/model_main_tf2.py .
 ```
-* Maintenant lance l'entraînement avec la commande :
+Maintenant lance l'entraînement avec la commande :
 ```bash
 # From within tod_tf2
 (tf2) user@host $ python model_main_tf2.py --model_dir=$PTN_DIR/checkpoint1 --pipeline_config_path=$PTN_DIR/pipeline.config
@@ -100,34 +102,32 @@ Au bout d'un "certain temps" (qui peut être assez long, plusieurs dizaines de m
 
 	...
 	...
-	W0507 00:24:41.010936 140206908888832 deprecation.py:531] From /home/jlc/miniconda3/envs/tf2/lib/python3.8/site-packages/tensorflow/python/util/deprecation.py:605: calling map_fn_v2 (from tensorflow.python.ops.map_fn) with dtype is deprecated and will be removed in a future version.
-	Instructions for updating:
-	Use fn_output_signature instead
-	INFO:tensorflow:Step 100 per-step time 22.002s loss=0.825
-	I0507 01:01:11.942076 140208909420352 model_lib_v2.py:676] Step 100 per-step time 22.002s loss=0.825
-	INFO:tensorflow:Step 200 per-step time 20.926s loss=0.813
-	I0507 01:36:04.090147 140208909420352 model_lib_v2.py:676] Step 200 per-step time 20.926s loss=0.813
-	INFO:tensorflow:Step 300 per-step time 20.803s loss=0.801
-	I0507 02:10:44.351419 140208909420352 model_lib_v2.py:676] Step 300 per-step time 20.803s loss=0.801
-	INFO:tensorflow:Step 400 per-step time 20.946s loss=0.812
-	I0507 02:45:38.927271 140208909420352 model_lib_v2.py:676] Step 400 per-step time 20.946s loss=0.812
-	INFO:tensorflow:Step 500 per-step time 20.960s loss=0.794
-	I0507 03:20:34.990385 140208909420352 model_lib_v2.py:676] Step 500 per-step time 20.960s loss=0.794
-	INFO:tensorflow:Step 600 per-step time 21.045s loss=0.802
-	I0507 03:55:39.516442 140208909420352 model_lib_v2.py:676] Step 600 per-step time 21.045s loss=0.802
-	INFO:tensorflow:Step 700 per-step time 20.863s loss=0.786
-	I0507 04:30:25.868283 140208909420352 model_lib_v2.py:676] Step 700 per-step time 20.863s loss=0.786
-	INFO:tensorflow:Step 800 per-step time 20.744s loss=0.799
-	I0507 05:05:00.163027 140208909420352 model_lib_v2.py:676] Step 800 per-step time 20.744s loss=0.799
-	INFO:tensorflow:Step 900 per-step time 20.825s loss=0.837
-	I0507 05:39:42.691898 140208909420352 model_lib_v2.py:676] Step 900 per-step time 20.825s loss=0.837
-	INFO:tensorflow:Step 1000 per-step time 20.789s loss=0.778
-	I0507 06:14:21.503472 140208909420352 model_lib_v2.py:676] Step 1000 per-step time 20.789s loss=0.778
+	W1027 22:44:53.606964 140698521184000 deprecation.py:542] From /home/user/miniconda3/envs/tf2/lib/python3.8/site-packages/tensorflow/python/util/ 
+	deprecation.py:617: calling map_fn_v2 (from tensorflow.python.ops.map_fn) with dtype is deprecated and will be removed in a future version.
+    Instructions for updating:
+    Use fn_output_signature instead
 
-Dans l'exemple ci-dessus, on voit des logs tous les 100 pas, avec environ 20 secondes par pas, soit environ 35 minutes entre chaque affichage et environ 6h de calcul pour les 1000 pas.
+    INFO:tensorflow:Step 100 per-step time 37.683s
+    I1027 23:47:41.690228 140700337385856 model_lib_v2.py:698] Step 100 per-step time 37.683s
+    INFO:tensorflow:{'Loss/BoxClassifierLoss/classification_loss': 0.099481136,
+     'Loss/BoxClassifierLoss/localization_loss': 0.05722714,
+     'Loss/RPNLoss/localization_loss': 0.00528939,
+     'Loss/RPNLoss/objectness_loss': 0.0010905334,
+     'Loss/regularization_loss': 0.0,
+     'Loss/total_loss': 0.1630882,
+     'learning_rate': 0.014666351}
+    I1027 23:47:41.776031 140700337385856 model_lib_v2.py:701] {'Loss/BoxClassifierLoss/classification_loss': 0.099481136,
+     'Loss/BoxClassifierLoss/localization_loss': 0.05722714,
+     'Loss/RPNLoss/localization_loss': 0.00528939,
+     'Loss/RPNLoss/objectness_loss': 0.0010905334,
+     'Loss/regularization_loss': 0.0,
+     'Loss/total_loss': 0.1630882,
+     'learning_rate': 0.014666351}
 
 En cas d'arrêt brutal du programme avec le message "Processus arrêté", ne pas hésiter à diminer la valeur du paramètre `batch_size` jusquà 2, voire 1 si nécessaire.... <br>
 Même avec un `batch_size` de 2, le processus Python peut nécessiter jusqu'à 2 ou 3 Gio de RAM pour lui tout seul, ce qui peut mettre certains portables en difficulté...
+
+Dans l'exemple ci-dessus, on voit des logs tous les 100 pas, avec environ 37 secondes par pas, soit environ 1 heure entre chaque affichage et environ 10h de calcul pour les 1000 pas !!! Ce calcul est fait avec `batch_size=2` sur un "petit CPU" (AMD A9-9420 RADEON R5 à 3 GHz) : il faudrait diminuer  `batch_size` à 1 pour avoir des temps de calcul plus raisonnables.
 
 Une fois l'entraînement terminé tu peux analyser les statistiques d'entraînement avec `tensorboard` en tapant la commande :
 ```bash
@@ -156,9 +156,9 @@ Le script Python créé le fichier `saved_model.pb` dans le dossier `$PTN_DIR/sa
 ```bash
 # From within tod_tf2
 (tf2) user@host:~ $ tree training/
-training/
-└── faces_cubes
-    └── faster_PTN_resnet50_v1_640x640_coco17_tpu-8
+faces_cubes/
+└── training
+    └── faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
         ├── checkpoint1
         │   ├── checkpoint
         │   ├── ckpt-1.data-00000-of-00001
