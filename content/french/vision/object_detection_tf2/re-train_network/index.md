@@ -102,32 +102,60 @@ Au bout d'un "certain temps" (qui peut être assez long, plusieurs dizaines de m
 
 	...
 	...
-	W1027 22:44:53.606964 140698521184000 deprecation.py:542] From /home/user/miniconda3/envs/tf2/lib/python3.8/site-packages/tensorflow/python/util/ 
-	deprecation.py:617: calling map_fn_v2 (from tensorflow.python.ops.map_fn) with dtype is deprecated and will be removed in a future version.
-    Instructions for updating:
-    Use fn_output_signature instead
-
-    INFO:tensorflow:Step 100 per-step time 37.683s
-    I1027 23:47:41.690228 140700337385856 model_lib_v2.py:698] Step 100 per-step time 37.683s
-    INFO:tensorflow:{'Loss/BoxClassifierLoss/classification_loss': 0.099481136,
-     'Loss/BoxClassifierLoss/localization_loss': 0.05722714,
-     'Loss/RPNLoss/localization_loss': 0.00528939,
-     'Loss/RPNLoss/objectness_loss': 0.0010905334,
+    INFO:tensorflow:Step 100 per-step time 18.002s
+    I1028 00:58:19.951609 140629825712512 model_lib_v2.py:698] Step 100 per-step time 18.002s
+    INFO:tensorflow:{'Loss/BoxClassifierLoss/classification_loss': 0.08096047,
+     'Loss/BoxClassifierLoss/localization_loss': 0.06868178,
+     'Loss/RPNLoss/localization_loss': 0.008976435,
+     'Loss/RPNLoss/objectness_loss': 0.000495165,
      'Loss/regularization_loss': 0.0,
-     'Loss/total_loss': 0.1630882,
+     'Loss/total_loss': 0.15911385,
      'learning_rate': 0.014666351}
-    I1027 23:47:41.776031 140700337385856 model_lib_v2.py:701] {'Loss/BoxClassifierLoss/classification_loss': 0.099481136,
-     'Loss/BoxClassifierLoss/localization_loss': 0.05722714,
-     'Loss/RPNLoss/localization_loss': 0.00528939,
-     'Loss/RPNLoss/objectness_loss': 0.0010905334,
+    I1028 00:58:20.032363 140629825712512 model_lib_v2.py:701] {'Loss/BoxClassifierLoss/classification_loss': 0.08096047,
+     'Loss/BoxClassifierLoss/localization_loss': 0.06868178,
+     'Loss/RPNLoss/localization_loss': 0.008976435,
+     'Loss/RPNLoss/objectness_loss': 0.000495165,
      'Loss/regularization_loss': 0.0,
-     'Loss/total_loss': 0.1630882,
+     'Loss/total_loss': 0.15911385,
      'learning_rate': 0.014666351}
+    INFO:tensorflow:Step 200 per-step time 17.134s
+    I1028 01:26:52.862514 140629825712512 model_lib_v2.py:698] Step 200 per-step time 17.134s
+    INFO:tensorflow:{'Loss/BoxClassifierLoss/classification_loss': 0.063115016,
+     'Loss/BoxClassifierLoss/localization_loss': 0.059545986,
+     'Loss/RPNLoss/localization_loss': 0.006001271,
+     'Loss/RPNLoss/objectness_loss': 0.0012521433,
+     'Loss/regularization_loss': 0.0,
+     'Loss/total_loss': 0.12991442,
+     'learning_rate': 0.0159997}
+    I1028 01:26:52.864115 140629825712512 model_lib_v2.py:701] {'Loss/BoxClassifierLoss/classification_loss': 0.063115016,
+     'Loss/BoxClassifierLoss/localization_loss': 0.059545986,
+     'Loss/RPNLoss/localization_loss': 0.006001271,
+     'Loss/RPNLoss/objectness_loss': 0.0012521433,
+     'Loss/regularization_loss': 0.0,
+     'Loss/total_loss': 0.12991442,
+     'learning_rate': 0.0159997}
+    ...
+    INFO:tensorflow:Step 1000 per-step time 17.001s
+    I1028 05:13:56.353814 140629825712512 model_lib_v2.py:698] Step 1000 per-step time 17.001s
+    INFO:tensorflow:{'Loss/BoxClassifierLoss/classification_loss': 0.012904001,
+     'Loss/BoxClassifierLoss/localization_loss': 0.014184773,
+     'Loss/RPNLoss/localization_loss': 0.002441862,
+     'Loss/RPNLoss/objectness_loss': 0.0001208472,
+     'Loss/regularization_loss': 0.0,
+     'Loss/total_loss': 0.029651484,
+     'learning_rate': 0.0266665}
+    I1028 05:13:56.354788 140629825712512 model_lib_v2.py:701] {'Loss/BoxClassifierLoss/classification_loss': 0.012904001,
+     'Loss/BoxClassifierLoss/localization_loss': 0.014184773,
+     'Loss/RPNLoss/localization_loss': 0.002441862,
+     'Loss/RPNLoss/objectness_loss': 0.0001208472,
+     'Loss/regularization_loss': 0.0,
+     'Loss/total_loss': 0.029651484,
+     'learning_rate': 0.0266665}
 
 En cas d'arrêt brutal du programme avec le message "Processus arrêté", ne pas hésiter à diminer la valeur du paramètre `batch_size` jusquà 2, voire 1 si nécessaire.... <br>
 Même avec un `batch_size` de 2, le processus Python peut nécessiter jusqu'à 2 ou 3 Gio de RAM pour lui tout seul, ce qui peut mettre certains portables en difficulté...
 
-Dans l'exemple ci-dessus, on voit des logs tous les 100 pas, avec environ 37 secondes par pas, soit environ 1 heure entre chaque affichage et environ 10h de calcul pour les 1000 pas !!! Ce calcul est fait avec `batch_size=2` sur un "petit CPU" (AMD A9-9420 RADEON R5 à 3 GHz) : il faudrait diminuer  `batch_size` à 1 pour avoir des temps de calcul plus raisonnables.
+Dans l'exemple ci-dessus, on voit des logs tous les 100 pas, avec environ ~17 secondes par pas, soit environ 29 minutes entre chaque affichage et environ 5h de calcul pour les 1000 pas.  Ce calcul est fait avec `batch_size=1` sur un "petit CPU" (AMD A9-9420 RADEON R5 à 3 GHz)..
 
 Une fois l'entraînement terminé tu peux analyser les statistiques d'entraînement avec `tensorboard` en tapant la commande :
 ```bash
@@ -150,33 +178,39 @@ Copie le script Python `exporter_main_v2.py` situé dans le dossier `models/reas
 # From within tod_tf2
 (tf2) user@host $ cp models/research/object_detection/exporter_main_v2.py .
 (tf2) user@host $ python exporter_main_v2.py --input_type image_tensor --pipeline_config_path $PTN_DIR/pipeline.config --trained_checkpoint_dir $PTN_DIR/checkpoint1 --output_directory $PTN_DIR/saved_model1
+...some stuff....
 ```
 Le script Python créé le fichier `saved_model.pb` dans le dossier `$PTN_DIR/saved_model1/saved_model` :
 
 ```bash
 # From within tod_tf2
-(tf2) user@host:~ $ tree training/
-faces_cubes/
-└── training
-    └── faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
-        ├── checkpoint1
-        │   ├── checkpoint
-        │   ├── ckpt-1.data-00000-of-00001
-        │   ├── ckpt-1.index
-        │   └── train
-        │       └── events.out.tfevents.1620391994.pikatchou.30554.1504.v2
-        ├── pipeline.config
-        ├── saved_model1
-        │   ├── checkpoint
-        │   │   ├── checkpoint
-        │   │   ├── ckpt-0.data-00000-of-00001
-        │   │   └── ckpt-0.index
-        │   ├── pipeline.config
-        │   └── saved_model
-        │       ├── assets
-        │       ├── saved_model.pb
-        │       └── variables
-        │           ├── variables.data-00000-of-00001
-        │           └── variables.index
+(tf2) user@host:~ $ tree faces_cubes/training/
+faces_cubes/training/
+├── faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
+│   ├── checkpoint1
+│   │   ├── checkpoint
+│   │   ├── ckpt-1.data-00000-of-00001
+│   │   ├── ckpt-1.index
+│   │   ├── ckpt-2.data-00000-of-00001
+│   │   ├── ckpt-2.index
+│   │   └── train
+│   │       └── events.out.tfevents.1635373645.pikatchou.30316.0.v2
+│   ├── pipeline.config
+│   └── saved_model1
+│       ├── checkpoint
+│       │   ├── checkpoint
+│       │   ├── ckpt-0.data-00000-of-00001
+│       │   └── ckpt-0.index
+│       ├── pipeline.config
+│       └── saved_model
+│           ├── assets
+│           ├── saved_model.pb
+│           └── variables
+│               ├── variables.data-00000-of-00001
+│               └── variables.index
+├── label_map.pbtxt
+├── test.record
+└── train.record
+
 ```
 
