@@ -30,7 +30,7 @@ Par exemple pour faire la détection des cubes des images de test avec le résea
 
 ```bash
 # From within tod_tf2
-(tf2) user@host: $ ython plot_object_detection_saved_model.py -p faces_cubes -s $PTN_DIR/saved_model1/saved_model -i faces_cubes/images/test/ -n 4
+(tf2) user@host: $ python plot_object_detection_saved_model.py -p faces_cubes -s $PTN_DIR/saved_model1/saved_model -i faces_cubes/images/test/ -n 4
 Loading model...Done! Took 13.23 seconds
 Running inference for faces_cubes/images/test/image016.png... [2 2 1 1]
 [0.9998258  0.99902177 0.99812204 0.9964721 ]
