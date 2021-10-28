@@ -42,7 +42,8 @@ La première image est automatiquement chargée dans l'interface graphique :
 Pour chaque image, tu dois annoter les objets à reconnaître :
 
 * avec le bouton __[Create RectBox]__, tu entoures une face d'un cube,
-* la boîte des labels s'ouvre alors et tu dois écrire le label `one` ou `two` en fonction de la face entourée,
+* la boîte des labels s'ouvre alors et tu dois écrire le label `one` ou `two` en fonction de la face entourée<br>
+⚠️ Il est très important de mettre des __labels alphabétiques__ et pas __numériques__ : mettre la chaîne `un` ou `one` mais pas le nombre `1` !
 * itère le processus pour chacune des faces de cubes présente dans l'image...
 
     première face          |  deuxième face            |  ...fin
