@@ -37,7 +37,7 @@ qui contient 200 000 images annotées avec 80 objets différents. Cette mesure s
 Une fois téléchargée, il faut extraire l'archive TGZ au bon endroit dans l'arborescence de travail :
 ```bash
 # From within tod_tf2/
-(tf2) jlc@pikatchou $ wget http://download.tensorflow.org/models/object_detection/tf2/20200711/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz -P ~/Téléchargement
+(tf2) jlc@pikatchou $ wget http://download.tensorflow.org/models/object_detection/tf2/20200711/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz -P ~/Téléchargements
 (tf2) jlc@pikatchou $ tar xvzf ~/Téléchargements/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz -C pre-trained
 ```
 puis créer le dossier correspondant `faster_rcnn_resnet50_v1_640x640_coco17_tpu-8` dans le dossier `<project>/training`.

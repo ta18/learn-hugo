@@ -12,7 +12,7 @@ menu:
     - Savoir exploiter un réseau TOD ré-entraîné.
 
     Type d'activité     : ⚙️ [tâche]
-    Durée approximative : 40 minutes (dépend des ressources CPU & RAM de ton ordinateur).
+    Durée approximative : 30 minutes (dépend des ressources CPU & RAM de ton ordinateur).
 ---
 
 ## Évaluer les inférences du réseau ré-entrainé
@@ -57,14 +57,21 @@ Running inference for faces_cubes/images/test/image017.png... [2 2 1 1]
  [0.40242052 0.4871788  0.6324738  0.66032267]
  [0.39879817 0.2852207  0.6340168  0.4698804 ]]
 ```
-Pour chaque image traitée on affiche ici :
-* la liste des 4 labels des objets trouvé (1 ou 2)
-* la liste des 4 probabilités de détection des objets
-* la liste des 4 jeux de coordonnées normalisées des boîtes englobantes [ y x coin haut gauche puis y x coin bas droit]. 
 
-Les images produites sont :
+Exemples d'images produites par le script Python :
 
 |   image016.png           |   image018.png               |            image019.png    |    image017.png
 :-------------------------:|:----------------------------:|:--------------------------:|:------------------------------:
 ![1](img/infere_img01.png) |  ![2](img/infere_img02.png)  | ![3](img/infere_img03.png) | ![4](img/infere_img04.png)
+
+Pour chaque image traitée on a :
+* la liste des 4 labels des objets trouvé (`1` ou `2`)
+* la liste des 4 probabilités de détection des objets
+* la liste des 4 jeux de coordonnées normalisées des boîtes englobantes [ y, x coin haut gauche puis y, x coin bas droit]. 
+
+⚠️ Note que les objets sont dans __l'ordre des probabilités de détection décroissantes__ : 
+* si tu veux trier les objets dans l'image de gauche à droite, tu peux exploiter les abcisses `x` des boites englobantes,
+* si tu veux trier les objets dans l'image de haut en bas, tu peux exploiter l'ordonnée `y` des boites englobantes,<br>
+dans tous les cas, la fonction __numpy__ `argsort` est ton amie...
+
 
