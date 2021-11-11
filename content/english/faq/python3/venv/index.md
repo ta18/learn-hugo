@@ -1,5 +1,5 @@
 ---
-title: "🔨 Create and use a Python Virtual Environment"
+title: "🔨 Create a Python Virtual Environment"
 menu:
   main:
     name: "Virtual Env."
@@ -9,7 +9,7 @@ menu:
 
 ## Interest
 
-The state of the art regarding Machine Learning Python programming consists of using a __Python Virtual Environment__ (PVE) 
+The state of the art regarding Python programming (Machine Learning, Data processing...) consists of using a __Python Virtual Environment__ (PVE) 
 to encapsulate each project in a dedicated and sustainable environment.<br>
 A PVE provides a dedicated computing environment containing a specific installation of Python:
 * independent of other Python installs likely to coexist on the same machine,
@@ -20,7 +20,7 @@ You can delete and re-create an PVE very easily, without impacting the other Pyt
 
 ## Tools
 
-Two tools are most often encountered to create EVP:
+Two tools are most often used to create PVE:
 
 * the `conda` command, available when you install Python with [miniconda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual)
 * the `venv` Python module which allows you to create an PVE (see [venv](https://docs.python.org/3/library/venv.html)).
@@ -36,44 +36,57 @@ When the PVE `<pve_name>` is activated:
   * tthe directory containing the `conda` command: for example `/home/<logname>/miniconda3/condabin/`
   * the `bin` directory of the PVE: for example `/home/<logname>/miniconda3/envs/<pve_name>/bin/`
 * all Python-related commands (`python`,` conda`, `pip` ...) are searched first in these two directories.
-* any installation of a Python module by `conda` or` pip` installs the module in the `/home/<logname>/miniconda3/envs/<pve_name>/...` tree
+* any installation of a Python module by `conda` or` pip` will install the module under the `/home/<logname>/miniconda3/envs/<pve_name>/...` tree
 
 
-## Creating an EVP with `conda` under Ubuntu
+## Understanding how to create a PVE with `conda` and Ubuntu
 
-1. Download and install [miniconda] (https://docs.conda.io/en/latest/miniconda.html) on your computer paying attention to these points:
+Prior to the creation of a PVE, you will have to install `miniconda` (or `Anaconda`) on your computer to get the command `conda` available.
 
-    * You must define an installation path of the `miniconda3` directory which does not contain spaces or accentuated characters
-    * The default installation path on Ubuntu looks like `/home/<logname>/miniconda3/`.
-    * At the end of the installation answer `yes` to the question `Do you wish the installer to initialize Miniconda3 by running conda init? [yes | no]`
-    * Start a new terminal or type the command `source ~/.bashrc` to inherit changes from the `.bashrc` file then disable the automatic launch of the PVE `(base)`
-    by typing the command: `conda config --set auto_activate_base false`.
+For the moment just read and unsderstand how to install as many PVE as you want with the 3 steps procedure explained bellow.
 
-1. Create the PVE with the command: `conda create -n <pve_name> python=<version>`
+ ⚠️ Don't do the job now, just undertsand the commands synaxe and arguments. In the section __Work to do__ you will create your PVE for good.
 
-    * `<pve_name>`: (free) name of your PVE: often a mnemonic name like `pyml` (for Python machine learning) or `tf2` for working with tensorflow2...
-    * `<version>`: version of Python you want to install in your PVE (for example `3.6` or` 3.6.8` or `3.8`...)<br>
+1. PVE creation: `conda create -n <pve_name> python=<version>`
 
-2. Activate your PVE with the command `conda activate <pve_name>`:
+    * `<pve_name>` is the (free) name of your PVE, often a mnemonic name like `pyml` (for Python machine learning) or `tf2` for working with tensorflow2 or anything else...
+    * `<version>` is the version of Python you want to install in your PVE (for example `3.6` or` 3.6.8` or `3.8`...).<br>
 
-    * Activating PVE results in the prompt being prefixed with: `(<pve_name>)`.<br>
-    For example if the current prompt is `user@host $`, activating the PVE named `pyml` modifies the prompt which becomes: `(pyml) user@host $`
+2. PVE activatiion: `conda activate <pve_name>`
 
-3. Load the Python modules necessary for your project in your PVE **activated**
+    Activating PVE results in the prompt being prefixed with: `(<pve_name>)`. For example if the current prompt is `user@host $`<br>
+    activating the PVE named `pyml` modifies the prompt which becomes: `(pyml) user@host $`
 
-    With your **PVE activated** use the command: `conda install <module>` or `pip install <module>` to install the Python module `<module>`.
+3. PVE populating with Python modules: `conda install <module_name>` or `pip install <module_name>`
 
-    ❓ `conda install ...` or `pip install ...` the rule is simple:
+    the `install` action downloads and installs the Python module named `<module_name>` in your PVE.<br>
+    The important point is that the modules are installed only for the __current activated PVE__.
 
-    * preferably starts with `conda install ...`, which will install an optimized version of the Python module if known to `conda`
-    * use `pip install ...` if `conda install ...` fails.
+    ❓ `conda install ...` or `pip install ...` the rule is simple:<br>
+    > preferably start with `conda install ...`, which will install an optimized version of the Python module if known to `conda`<br>
+    > use `pip install ...` if `conda install ...` fails.
+
+## Work to do
+
+### 🔨 Install `miniconda`
+
+If you don't have already `miniconda` (or `Anaconda`) installed on your computer download and install 
+[miniconda](https://docs.conda.io/en/latest/miniconda.html) on your computer. <br>
+Pay attention to these points:
+
+* You must define an installation path for the `miniconda3` directory which does not contain spaces or accentuated characters<br>
+  For example the default installation path on Ubuntu looks like `/home/<logname>/miniconda3`
+* At the end of the installation answer `yes` to the question `Do you wish the installer to initialize Miniconda3 by running conda init? [yes | no]`
+* Start a new terminal or type the command `source ~/.bashrc` to inherit changes from the `.bashrc` file<br>
+then disable the automatic launch of the PVE `(base)` by typing the command: `conda config --set auto_activate_base false`.
+
+Now it's done. If you want to check your installation launch a new terminal and try the command `conda info`<br>
+You should get no error in return and see a informations on your __miniconda__ installation displayed on the screen.
 
 
-## Example
+### 🔨 Create a PVE dedicated to machine learning with `tensorflow2`
 
-### 🔨 A PVE to work on machine learning with `tensorflow2`
-
-With `miniconda` installed, create and activate the PVE named `tf2` to work with Python 3.8 :
+With `miniconda` (or `Anaconda`) installed on your computer, create and activate the PVE named `tf2` to work with Python 3.8:
 ```bash
 user@host $ conda create -n tf2 python=3.8
 ... some stuff...
@@ -81,28 +94,22 @@ user@host $ conda create -n tf2 python=3.8
 user@host $ conda activate tf2
 (tf2) user@host $
 ```
-Installation of main Python modules to work with __tensorflow2__ :
+Then install the main Python modules to work with __tensorflow2__ :
 ```bash
 (tf2) user@host $ conda update -n base -c defaults conda
 (tf2) user@host $ pip install tensorflow==2.6
 (tf2) user@host $ conda install numpy scipy matplotlib jupyter pandas
-(tf2) user@host $ pip install scikit-learn scikit-image seaborn pydot rospkg pyyaml
-(tf2) user@host $ pip install opencv-python==4.5.1.48
+(tf2) user@host $ pip install scikit-learn scikit-image seaborn pydot rospkg pyyaml opencv-python==4.5.1.48
 ```
 
 ## Useful commands
 
-* Display distribution information **conda**: `conda info`
-
-* List the PVE known by **conda**: `conda env list`
-
-* Deactivate the current PVE: `conda deactivate`
-
-* Activate the PVE named `<pve_name>`: `conda activate <pve_name>`
-
-* With your **PVE activated**:
-
-  * List installed packages for this PVE: `conda list` or `pip list`
-
-  * Find versions of a Python module for the current PVE activated: `conda search <module>`
+| command | description |
+|:---|:---|
+|`conda info` |Display information about **conda**|
+|`conda env list` |List the PVEs known by **conda**|
+|`conda deactivate` |Deactivate the current PVE|
+|`conda activate <pve_name>` |Activate the PVE named `<pve_name>`|
+|`conda list` or `pip list`|List installed packages for current activated PVE|
+|`conda search <module>` |Find versions of a Python module for current activated PVE|
 
