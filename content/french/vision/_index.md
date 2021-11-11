@@ -14,3 +14,5 @@ menu:
 [Détection d'Objets](object_detection_tf2/) Détection d'objets avec tensorflow2
 
 [Torch](pytorch/) Classification avec Torch (PyTorch)
+
+[Mask Detection](mask_detection/) Exemple d'application
