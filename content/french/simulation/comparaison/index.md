@@ -7,15 +7,14 @@ menu:
     parent: "simulation"
 ---
 
-Les simulateurs robotiques permettent de programmer les robots en hors-ligne. Ils permettent donc de tester certains programmes ou trajectoires robots sans avoir à stopper la production ou endommager le robot. Cette partie a pour but de présenter quelques-uns des principaux simulateurs robotiques du marché.
+Les simulateurs robotiques permettent de programmer les robots sur l'écran d'un ordinateur, en mode 'hors-ligne' (_offline_). Ils permettent de tester des  programmes ou des trajectoires des robots sans risquer d'avoir à stopper la production ou d'endommager le robot. Cette section présente quelques-uns des principaux simulateurs robotiques du marché.
 
-# A - Présentation des principaux simulateurs
+# A - Principaux simulateurs
 
 ## Gazebo
 
-[Gazebo](http://gazebosim.org/) est un des simulateurs les plus connus. Il a été développé en 2004, complètement open-source et intégrant une large variété d'objets et capteurs. Il fonctionne sous Linux (même si quelques versions protégées existent sous Windows). Il est conçu pour reproduire avec grande précision les environnements complexes auquel un robot fait régulièrement face. Il est très bien intégré avec ROS, flexible et produit des simulations précises grâce à quatre différents moteurs physiques (ODE, Bullet, Simbody et DART). Par ailleurs Gazebo bénéficie d'une communauté nombreuse et active. Grâce à OGRE (Object-oriented Graphics Rendering Engine), ce logiciel offre un rendement réaliste des environnements, par exemple un éclairage, des ombres ou des textures de grande qualité. Le logiciel peut également générer des données issues de capteurs ou de caméras préalablement importés. Par ailleurs, en plus d'une grande variété de robots déjà présents, n'importe quel robot peut être importé en utilisant le format SDF. Enfin, les robots, les capteurs ou l'environnement peuvent être controllés via des plugins.   
-
-De nombreux experts le considèrent comme le simulateur le plus complet. 
+[Gazebo](http://gazebosim.org) est un des simulateurs les plus connus. Développé en 2004, complètement open-source, intégre une large variété d'objets et de capteurs. Il fonctionne principalement sous Linux (la version Windows doit être compilée). Gazebo permet de reproduire avec précision les environnements complexes souvent associés aux robots. Il est très bien intégré avec ROS, flexible et produit des simulations précises grâce aux moteurs physiques disponibles : ODE, Bullet, Simbody  ou DART).<br>
+Gazebo bénéficie d'une communauté nombreuse et active. Grâce à OGRE (Object-oriented Graphics Rendering Engine), il offre un rendement réaliste des environnements : éclairage, ombres, textures de grande qualité. Le logiciel peut générer les données issues de capteurs ou de caméras préalablement importés. En plus d'une grande variété de robots déjà présents, n'importe quel robot peut être importé sous le format SDF. Les robots, les capteurs ou l'environnement peuvent être controllés via des plugins. De nombreux experts le considèrent comme le simulateur le plus complet. 
 
 ## RoboDK
 
@@ -47,7 +46,7 @@ Le premier tableau se concentre sur des caractéristiques générales de simulat
 
 |                           	| Gazebo                                        	| RoboDK                                                	| Webots                                                                       	| CoppeliaSim                                                             	| OpenRave                                            	| Unity                                                                         	|
 |---------------------------	|-----------------------------------------------	|-------------------------------------------------------	|------------------------------------------------------------------------------	|-------------------------------------------------------------------------	|-----------------------------------------------------	|-------------------------------------------------------------------------------	|
-| Logo                      	| <img src="img/Gazebo_logo.png" width="100"/>  	| <img src="img/RoboDK_logo.png" width="200"/>          	| <img src="img/Webots_logo.png" width="100"/>                                 	| <img src="img/CoppeliaSim_logo.png" width="200"/>                       	| <img src="img/Openrave_logo.png" width="200"/>      	| <img src="img/Unity_logo.png" width="200"/>                                   	|
+| Logo                      	| <img src="img/Gazebo_logo.png" width="100"/>  	| <img src="img/RoboDK_logo.png" width="200"/>          	| <img src="img/Webots_logo.png" width="100"/>                                 	| <img src="img/CoppeliaSim_logo.png" width="200"/>                       	| <img src="img/Openrave_logo.png" width="200"/>      	| <img src="img/Unity_logo.png" width="150"/>                                   	|
 |                           	|                                               	|                                                       	|                                                                              	|                                                                         	|                                                     	|                                                                               	|
 | Informations générales    	| Open Source Robotics Foundation               	| RoboDK                                                	| Cyberbotics Ltd                                                              	| Coppelia Robotics                                                       	| OpenRAVE Community                                  	| Unity Technologies                                                            	|
 |                           	|                                               	|                                                       	| (Suisse)                                                                     	|                                                                         	|                                                     	|                                                                               	|
@@ -100,4 +99,4 @@ Ce deuxième tableau se concentre, quant à lui, sur des caractéristiques propr
 
 - http://openrave.org - website of OpenRave 
 
-- https://unity.com/fr - website of Unity 
+- https://unity.com/fr/solutions/automotive-transportation-manufacturing/robotics - website of Unity 

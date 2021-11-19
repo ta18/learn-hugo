@@ -1,10 +1,18 @@
 ---
-title: "🔨 Create a Python Virtual Environment"
+title: "⚙️ Create a Python Virtual Environment"
 menu:
   main:
     name: "Virtual Env."
     weight: 1
     parent: "python3"
+---
+---
+    Leraning outcomes :
+    - How to install Python with miniconda.
+    - How to create and use a Python Virtual Environment with the command `conda` under ubuntu.
+
+    Type of the nugge: ⚙️ [tâche]
+    Expected duration: 30-45 minutes (depending on your Internet connexion).
 ---
 
 ## Interest
