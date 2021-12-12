@@ -23,8 +23,8 @@ Each PVE provides a dedicated computing environment containing a specific instal
 * independent of other Python installs likely to coexist on the same machine,
 * independent of computer updates.
 
-A PVE is based on a dedicated disk tree that houses the version of the Python interpreter and modules that you need for your project.<br>
-You can delete and re-create an PVE very easily, without impacting the other Python installs present on your computer.
+A PVE is based on a dedicated disk tree that houses the version of the Python interpreter and modules that you need for your project. 
+You can delete and re-create an PVE very easily, without impacting the other Python installations present on your computer.
 
 ## Tools
 
@@ -39,7 +39,7 @@ library which provides Intel processors optimization for linear algebra librarie
 ## How a Virtual Environment works
 
 The installation of the miniconda package on your computer modifies your `.bashrc` file: 
-the `PATH` environment variable is modified to firt mention the directory containing the _conda_ command 
+the `PATH` environment variable is modified to first mention the directory containing the _conda_ command 
 (the default for Ubuntu is `/home/<logname>/miniconda3/condabin/`).<br>
 ➡️ This mecanism gives you access to the `conda` command in any terminal.
 
@@ -59,9 +59,9 @@ Once _conda_ is installed on your computer, you can install & configure as many 
 ⚠️ Don't do the job now! just understand the commands syntaxe and arguments, the job wil be done for real in the section __Work to do__. 
 
 1. __PVE creation__: `conda create -n <pve_name> python=<version>`
-    * <pve_name> is the (free) name of your PVE, often a mnemonic name like _pyml_ (for _Python machine learning_) 
+    * `<pve_name>` is the (free) name of your PVE, often a mnemonic name like _pyml_ (for _Python machine learning_) 
     or _tf2_ (for working with tensorflow2)…
-    * <version> is the version of Python you want to install in your PVE (for example _3.6_ or _3.6.8_ or _3.8_…)
+    * `<version>` is the version of Python you want to install in your PVE (for example _3.6_ or _3.6.8_ or _3.8_…)
 
 2. __PVE activatiion__: `conda activate <pve_name>`
     * Activating PVE results in the prompt being prefixed with: `(<pve_name>)`.<br>
@@ -69,7 +69,7 @@ Once _conda_ is installed on your computer, you can install & configure as many 
 
 3. __PVE populating__ with Python modules: `conda install <module_name> or pip install <module_name>`
 
-    this command downloads and installs the Python module named <module_name> in your PVE. <br>
+    this command downloads and installs the Python module named `<module_name>` in your PVE. <br>
     ⚠️ The important point is that your PVE must activated!
 
 
@@ -87,7 +87,7 @@ Download and install miniconda on your computer from https://docs.conda.io/en/la
 * You must define an installation path for the `miniconda3` directory which does not contain spaces or accentuated characters<br>
 (the default installation path on Ubuntu looks like `/home/<logname>/miniconda3`)
 * At the end of the installation answer _yes_ to the question _"Do you wish the installer to initialize Miniconda3 by running conda init? [yes | no]"_
-* Start a new terminal or type the command `source ~/.bashrc` to inherit changes from your `.bashrc` file: the `conda` command becomes available.
+* Start a new terminal or type the command `source ~/.bashrc` to inherit changes from your `.bashrc` file: the `conda` command becomes available in the terminal.
 * Advice: you can disable the automatic launch of the PVE `(base)` by typing the command: `conda config --set auto_activate_base false`.
 
 Now it's done. If you want to check your installation launch a new terminal and try the command `conda info`<br>

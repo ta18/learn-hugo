@@ -8,8 +8,8 @@ menu:
 ---
 ---
     Acquis d'apprentissage visés :
-    - Savoir initialiser un espace de travail pour la détection d'objets utilisant l'_API TOD_
-    - Savoir installer l'_API TOD_ et les composants requis
+    - Savoir initialiser ton espace de travail pour la détection d'objets utilisant l'API TOD
+    - Savoir installer l'API TOD et les composants requis
 
     Type d'activité : 🛠️ [setup]
     Durée prévue    : 60 minutes (dépend du débit internet et des ressources CPU & RAM de ton ordinateur).
@@ -25,7 +25,7 @@ menu:
 ## Plan de l'activité 
 
 L'installation de l'API proposée comporte 6 étapes :
-1. Créer et initialiser ton espace de travail
+1. Initialiser ton espace de travail
 2. Télécharger et installer le dépôt `tensorflow/models`
 3. Installer les outils `protobuf`
 4. Installer l'_API COCO_
@@ -83,7 +83,7 @@ models
 (tf2) user@host $ conda install cython contextlib2 pillow lxml
 (tf2) user@host $ pip install labelimg rospkg
 ```
-Mets à jour la variable d’environnement `PYTHONPATH` en ajoutant à la fin du fichier `~/.bashrc` les deux lignes :
+Mets à jour la variable d’environnement `PYTHONPATH` en ajoutant à la fin de ton fichier `~/.bashrc` les deux lignes :
 ```bash
 export TOD_ROOT="<chemin absolu du dossier tod_tf2>"
 export PYTHONPATH=$TOD_ROOT/models:$TOD_ROOT/models/research:$PYTHONPATH

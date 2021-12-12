@@ -1,16 +1,16 @@
 ---
-title: "IA applications: overview"
+title: "AI applications for artificial vision: overview"
 menu:
   main:
-    name: "IA applications: overview"
+    name: "Computer vision: overview"
     weight: 1
     parent: "vision"
 ---
 
-Artificial Intelligence has developed very strongly for more than 10 years with a
-acceleration in the last 5 years. The main fields adressed by AI are:
+Artificial Intelligence has developed very strongly for more than 10 years with a acceleration in the last 5 years.<br>
+This overview addresse the main applications of IA in the field of computer vision.
 
-## A - Visual perception: classification of images, description of scenes, recognition of objects, gestures...
+## Main applications of AI in the field of computer vision
 
 ### Classification of images
 
@@ -107,61 +107,20 @@ Pose estimation is the task of using an neural network to estimate the pose of a
 
 ### Image Generation
 
+AI image generators are complex tool allow you to generate images from text descriptions. 
 
-###|Image Denoising
+https://aiartists.org/ai-generated-art-tools
 
+### Image Processing
 
-## B - Dealing with acoustic signal
+AI is used today to make tratments on images which were until carried out thanks to _conventional image processing_ based on mathematical algorithms involing 2D discrete functions. A lot of treatments are 
 
-Recurrent neural networks are designed to learn form temporal data like sound signal. 
-Many acoustics application can be dsigned thanks to these recurrent networks. 
+image generator based on Natural Language Processing (NLP) networks used to process a textual description of the content of the image and then genertae the image. The GP-3 algorithm is often used (refernce : https://arxiv.org/abs/2005.14165).
+https://openai.com/blog/dall-e/
 
-### Isolate Voice, Music, and Sound Effects
+image upscaling
+https://topten.ai/image-upscalers-review/
 
-<table>
-  <tr>
-    <td>
-<img src="img/the_coktail_fork_problem.png" alt="poseEstimation" style="width:'50px;"><br>
-<font size="2">Image credit: <a href="https://cocktail-fork.github.io">cocktail-fork.github.io</a></font>
-    </td>
-    <td>
-In this application a sound track is splitted in three chanels (music, speed and sound effects) thanks to a succcession of processing including recurrent neral networks specifically trained.<br><br>
-<em>The cocktail party problem aims at isolating any source of interest within a complex acoustic scene, and has long inspired audio source separation research. Recent efforts have mainly focused on separating speech from noise, speech from speech, musical instruments from each other, or sound events from each other...</em><br>
-more in the paper <a ref="https://arxiv.org/abs/2110.09958">The Cocktail Fork Problem...</a>
-    </td>
-  </tr> 
-  <tr>
-  <td>Applications</td>
-</table> 
-
-](/))</font>| 
-
-
-
-# B - Understanding of written or spoken natural language: machine translation, production
-automatic press articles, sentiment analysis.
-
-# C - Automatic analysis by "understanding" a query and returning relevant results
-even if this result does not contain the words of the query.
-
-# D - Autonomous decision-making to beat humans at chess or Go. 
-
-Apart from technological aspects, AI also poses new questions in terms of __ethics__ and
-__risk__: dependence on automation, misuse or error linked to "contaminated" data, impact on
-privacy, etc. 
-
-
-# Current trends in learning techniques 
-
-- Generative adversarial networks (GAN)
-
-- Lean and augmented data learning
-
-- Probabilistic programming
-
-- Automated machine learning (AutoML)
-
-- Digital Twin
 
 
 # Useful links

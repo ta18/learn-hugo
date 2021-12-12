@@ -9,10 +9,10 @@ menu:
 
 ---
     Acquis d'apprentissage visés :
-    - Connaître les principaux avantages/inconvénients des réseaux ___R-CNN___ et ___SSD___.
+    - Connaître les principaux avantages/inconvénients des réseaux R-CNN et SSD.
     - Savoir installer dans l'arborescence de travail un réseau pré-entrainé téléchargé depuis le site _TensorFlow2 Detection Model Zoo_.
 
-    Type d'activité     : 🛠️ [setup]
+    Type d'activité     : ⚙️ [tâche]
     Durée approximative : 20 minutes (dépend du débit internet)
 ---
 
@@ -29,12 +29,15 @@ Au lieu d’appliquer la sous-fenêtre d'analyse à toutes les positions possibl
 
 La différence entre ces deux familles de réseaux est qu’un réseau _R-CNN_ réalise une classification sur chacune des 2000 fenêtres générées par l’algorithme de recherche ciblée, alors qu’un réseau _SSD_ cherche à prédire la classe ET la fenêtre de l’objet en même temps. Cela rend les réseaux _SSD_ plus rapides que les réseaux _Faster R-CNN_, mais également moins précis.
 
+## Télécharger un réseau R-CNN pré-entraîné et l'installer dans l'arborescence de travail 
+
 Dans le tableau du site [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md), les performances des différents réseaux sont exprimées en _COCO mAP (Mean Average Precision)_, métrique couramment utilisée pour mesurer la précision d’un modèle de détection d’objets. Elle consiste à mesurer la proportion de détections réussies sur des images déjà annotées du dataset COCO (Common Object in CONtext)
 qui contient 200 000 images annotées avec 80 objets différents. Cette mesure sert de référence pour comparer la précision de différentes architectures de détection d’objets (cf Lectures complémentaires [2] en fin de page).
 
 
-📥 Pour la suite du travail, tu peux télécharger l'archive TGZ du réseau `Faster R-CNN ResNet50 V1 640x640` sur le site [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md) (~203 Mo).<br>
-Une fois téléchargée, il faut extraire l'archive TGZ au bon endroit dans l'arborescence de travail :
+📥 Pour la suite du travail, tu peux utiliser le `Faster R-CNN ResNet50 V1 640x640` téléchargeable sur le site [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md) (~203 Mo).<br>
+
+Télecharge puis extrait l'archive TGZ au bon endroit dans l'arborescence de travail :
 ```bash
 # From within tod_tf2/
 (tf2) jlc@pikatchou $ wget http://download.tensorflow.org/models/object_detection/tf2/20200711/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz -P ~/Téléchargements
@@ -42,7 +45,7 @@ Une fois téléchargée, il faut extraire l'archive TGZ au bon endroit dans l'ar
 ```
 puis créer le dossier correspondant `faster_rcnn_resnet50_v1_640x640_coco17_tpu-8` dans le dossier `<project>/training`.
 
-## Exemple
+## Exemple : projet de reconaissance de chiffres écrits sur des cubes
 
 Avec le projet _faces_cubes_ :
 
@@ -50,7 +53,7 @@ Avec le projet _faces_cubes_ :
 # From within tod_tf2/
 (tf2) jlc@pikatchou $ mkdir faces_cubes/training/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8
 ```
-Vérifie avec la commande `tree` qui doit donner les affichages ci-dessous :
+Vérifie avec la commande `tree` :
 ```bash
 # From within tod_tf2/
 (tf2) jlc@pikatchou $ tree -d . -I models

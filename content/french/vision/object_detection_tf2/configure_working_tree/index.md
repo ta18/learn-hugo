@@ -54,9 +54,12 @@ L'arborescence générique proposée est la suivante :
 
 * Le dossier `pre-trained/` contient un sous-dossier pour chacun des réseaux pré-entrainés utilisé qui stocke les différents fichiers nécessaires à leur utilisation.
 	
-## Exemple
+## Exemple : chiffres manuscrits sur les faces de cubes 
 	
-Pour le projet de détection des faces des cubes dans les images de la caméra du robot, le dossier `<project>` est nommé `faces_cubes`, ce qui donne l'arborescence :
+Considérons des images fournies par la caméra du robot montarnt des chiffres manuscrits sur les faces de cubes :<br>
+![cube_faces.png](img/cube_faces.png)
+
+Le dossier `<project>` folder est appelé par exeme `faces_cubes`, ce qui donne l'arborescence :
 
 	tod_tf2
 	├── faces_cubes
@@ -77,8 +80,6 @@ Pour le projet de détection des faces des cubes dans les images de la caméra d
 	    └── research
 	        └── object_detection
 
-## Mise en oeuvre :
-
 Quelques commandes shell suffisent pour créer les premiers niveaux de cette arborescence :
 
 ```bash	
@@ -89,6 +90,7 @@ Quelques commandes shell suffisent pour créer les premiers niveaux de cette arb
 (tf2) user@host $ mkdir pre-trained
 ```
 Vérifions :
+
 ```bash	
 # From within tod_tf2
 (tf2) user@host $ tree -d . -I models  # arbre du dossier courant en excluant le dossier 'models'
