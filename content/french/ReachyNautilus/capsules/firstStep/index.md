@@ -33,7 +33,7 @@ Si tu souhaites d'autres informations sur le robot et sa mis en route tu peux co
 
 
 Une fois connecté au robot, tu peux commencer à programmer les mouvements du Reachy. 
-Dans Jupyter, tu trouvera un fichier *premier pas.ipynb* dans le dossier *Nautilus*. Tu dois copier ce fichier et renommer la copie sous la forme *aa-mm-jj.prenom.nom*. 
+Lorsque tu ouvre Jupyter avec la commande `jupyter notebook` dans un terminal, tu trouvera un fichier *premier pas.ipynb* dans le dossier *Nautilus*. Tu dois copier ce fichier et renommer la copie sous la forme *aa-mm-jj.prenom.nom*. 
 Tu peux retrouver ce fichier [ici](https://github.com/ta18/learn-hugo/blob/main/content/french/ReachyNautilus/capsules/firstStep/firstStep.ipynb) également.
 
 ## 1. Instancier l'objet Reachy 
