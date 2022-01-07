@@ -60,6 +60,7 @@ the attribute `shape` of an ndarray object is  _tuple_ that gives the array dime
 (2, 3)
 ``` 
 [top](#keywords)
+```
 
 ### slicing
 

@@ -11,7 +11,4 @@
   </main>
 
   {{ partial "footer" . }}
-
-  {{ $built := resources.Get "js/sidebar.js" | js.Build "sidebar.js" }}
-  <script type="text/javascript" defer src="{{ $built.Permalink }}"></script>
 {{ end }}

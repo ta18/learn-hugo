@@ -59,7 +59,7 @@ git clone https://github.com/poppy-project/poppy_ergo_jr_description.git
 💻 Compilez votre workspace puis sourcez votre `.bashrc`, enfin rdv dans le dossier `urdf` de ce package, puis exécutez la commande `urdf_to_graphiz` qui convertit un fichier URDF en représentation graphique dans un PDF :
 
 ```bash
-sudo apt install liburdfdom-tools ros-noetic-plotjuggler
+sudo apt install liburdfdom-tools ros-noetic-plotjuggler-ros
 roscd poppy_ergo_jr_description/urdf
 urdf_to_graphiz poppy_ergo_jr.urdf
 ```
@@ -77,7 +77,7 @@ Ouvrez le PDF obtenu puis déterminez :
 🤖 Le contrôleur se trouve déjà sur le robot. Vous pouvez directement vous connecter au robot et le démarrer :
 
 ```bash
-ssh pi@poppy.local      # password raspberrypi
+ssh poppy@poppy.local      # password poppy
 # Effacer éventuellement l'ancienne clé ECDSA si vous avez un message d'erreur
 roslaunch poppy_controllers control.launch
 ```
@@ -200,7 +200,7 @@ while not rospy.is_shutdown():
 💻 Compilez votre workspace puis sourcez votre `.bashrc`. Exécutez votre noeud avec rosrun :
 
 ```bash
-cd ~/ros_ws
+cd ~/catkin_ws
 catkin_make
 rosrun ros4pro_custom manipulate.py
 ```
@@ -227,9 +227,12 @@ Utiliser une cible dans l'espace des joints ne peut échouer que si les valeurs 
 MoveIt accepte également des cibles dans l'espace cartésien. Donner une cible cartésienne à un robot fait appel à l'IK qui peut échouer si cette cible ne peut être atteinte, ou même de façon aléatoire du fait que les algorithmes d'IK sont généralement randomisés, ceci se traduit par une erreur **[ABORTED] No motion plan found** dans le temrinal MoveIt. Assurez-vous de la faisabilité de votre cible avant de demander au robot de l'atteindre.
 
 
-Définir une cible cartésienne consiste à passer un objet `Pose` (= position + orientation) à `set_joint_value_target`. Ci-après, nous demandons au groupe **arm_and_finger** comprenant 6 moteurs de déplacer son effecteur (`moving_tip`) à la pose cible spécifiée en coordonnées.
+Définir une cible cartésienne consiste à passer un objet `Pose` (= position + orientation) à `set_joint_value_target`.
+
+Démarrez MoveIt d'abord, puis dans un autre terminal, testez le code Python ci-après. Il commande au groupe **arm_and_finger** comprenant 6 moteurs de déplacer son effecteur (`moving_tip`) à la pose cible spécifiée en coordonnées.
 
 ```python
+#!/usr/bin/env python3
 from geometry_msgs.msg import Pose
 from moveit_commander.move_group import MoveGroupCommander
 
@@ -250,7 +253,7 @@ commander.go()
 
 Si on sélectionne le groupe `arm` comprenant 5 moteurs au lieu de `arm_and_finger` qui en comprend 6, l'effecteur dont on fournit les coordonnées cibles est `fixed_tip`. Dans les 2 cas, ces coordonnées sont exprimées dans la base du robot `base_link`.
 
-⚠️ Hormis certains quaternions remarquables comme l'identité `[0, 0, 0, 1]` ou les rotations de 180°, n'essayez pas de modifier les valeurs d'un quaternion au hasard, votre quaternion résultant serait invalide à coup sûr : pour le modifier il vaut mieux le faire par le calcul mathématique ou par la mesure en direct avec `rosrun tf2 echo.py`.
+⚠️ Hormis certains quaternions remarquables comme l'identité `[0, 0, 0, 1]` ou les rotations de 180°, n'essayez pas de modifier les valeurs d'un quaternion au hasard, votre quaternion résultant serait invalide à coup sûr : pour le modifier il vaut mieux le faire par le calcul mathématique ou par la mesure en direct avec `rosrun tf2_tools echo.py`.
 
 ##### 2.3.2.c. ✍ Mise en pratique de la planification de trajectoire avec MoveIt
 

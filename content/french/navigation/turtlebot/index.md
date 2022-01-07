@@ -19,6 +19,14 @@ menu:
 
 {{<pdf src="https://files.ros4.pro/navigation.pdf" >}}
 
+### Quelques alias
+
+```bash
+alias sb="source ~/.bashrc"
+alias frames="rosrun tf2_tools view_frames.py && evince frames.pdf"
+alias cm="cd ~/catkin_ws && catkin_make"
+```
+
 ## Travaux pratiques
 
 ### 1. Assemblage du Turtlebot (avec un robot réel)

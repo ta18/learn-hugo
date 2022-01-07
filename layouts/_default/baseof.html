@@ -10,11 +10,18 @@
   <title>{{ .Title }}</title>
   {{ partial "import_header.html" }}
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  
 </head>
 
 <body class="sidebar">
+  
+  {{ $built := resources.Get "js/mobile.js" | js.Build "mobile.js" }}
+  <script type="text/javascript" src="{{ $built.Permalink }}"></script>
+
   {{ block "main_body" . }}
   {{ end }}
 </body>
 
+{{ $built := resources.Get "js/sidebar.js" | js.Build "sidebar.js" }}
+<script type="text/javascript" src="{{ $built.Permalink }}"></script>
 </html>

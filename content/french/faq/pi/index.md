@@ -19,8 +19,8 @@ Note préliminaire : la carte SD du robot ne se comporte pas tout-à-fait comme 
 
 Téléchargez ces images ROS en vue de remettre à zéro les cartes SD des robots pour ROS4PRO (⚠️⏳ Optimisez votre temps, le téléchargement peut prendre 1 heure) :
 
-* [Image du Turtlebot pour ROS4PRO](https://github.com/ros4pro/turtlebot3_ros4pro/releases/download/v1.0/2021-05-01-turtlebot.img.7z)
-* [Image de Poppy Ergo Jr pour ROS4PRO](https://github.com/poppy-project/poppy-ergo-jr/releases/download/4.0.0/2021-09-18-poppy-ergo-jr.img.7z)
+* [Image du Turtlebot pour ROS4PRO](https://github.com/ros4pro/turtlebot3_ros4pro/releases/download/v1.1/2021-10-24-turtlebot.img.7z)
+* [Image de Poppy Ergo Jr pour ROS4PRO](https://github.com/poppy-project/poppy-ergo-jr/releases/download/4.0.1/2021-10-20-poppy-ergo-jr.img.7z)
 
 Pour flasher l'une de ces images sur une carte SD :
 
@@ -80,7 +80,7 @@ ssh poppy@poppy.local
 ssh ubuntu@turtlebot.local
 ```
 
-Taper `yes` pour confirmer la connexion puis taper le mot de passe (`turtlebot` pour Turtlebot ou `raspberry` pour Poppy). Votre invite de commande devrait désormais indiquer `poppy@poppy.local~$` ou `ubuntu@turtlebot.local~$` : toute commande tapée dans ce terminal sera exécutée par le robot. En cas d'erreur, consultez la procédure de diagnostic ci-dessous.
+Taper `yes` pour confirmer la connexion puis taper le mot de passe (`turtlebot` pour Turtlebot ou `poppy` pour Poppy). Votre invite de commande devrait désormais indiquer `poppy@poppy.local~$` ou `ubuntu@turtlebot.local~$` : toute commande tapée dans ce terminal sera exécutée par le robot. En cas d'erreur, consultez la procédure de diagnostic ci-dessous.
 
 ### 🔑 Mots de passe par défaut
 
@@ -102,9 +102,9 @@ Si vous obtenez l'erreur `Received JointState is XXXXXX.XXXXXX seconds old` ou t
 
 Vérifiez avec la commande `date` que l'horloge ne dérive pas exagérément.
 
-Vérifiez qu'il est conencté à Internet via la 4G, le réseau Ethernet ou le wifi, puis tapez sur votre PC et/ou en SSH sur le robot :
+Vérifiez qu'il est connecté à Internet via la 4G, le réseau Ethernet ou le wifi, puis tapez sur votre PC et/ou en SSH sur le robot :
 ```
-ssh poppy@poppy.local
+ssh <usename>@<hostname>.local
 sudo timedatectl set-ntp off
 sudo timedatectl set-time "2021-09-30 18:00"   # Mettre ici une date et une heure approximative
 sudo timedatectl set-ntp on

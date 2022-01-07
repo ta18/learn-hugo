@@ -1,0 +1,52 @@
+## B - Dealing with acoustic signal
+
+Recurrent neural networks are designed to learn form temporal data like sound signal. 
+Many acoustics application can be dsigned thanks to these recurrent networks. 
+
+### Isolate Voice, Music, and Sound Effects
+
+<table>
+  <tr>
+    <td>
+<img src="img/the_coktail_fork_problem.png" alt="poseEstimation" style="width:'50px;"><br>
+<font size="2">Image credit: <a href="https://cocktail-fork.github.io">cocktail-fork.github.io</a></font>
+    </td>
+    <td>
+In this application a sound track is splitted in three chanels (music, speed and sound effects) thanks to a succcession of processing including recurrent neral networks specifically trained.<br><br>
+<em>The cocktail party problem aims at isolating any source of interest within a complex acoustic scene, and has long inspired audio source separation research. Recent efforts have mainly focused on separating speech from noise, speech from speech, musical instruments from each other, or sound events from each other...</em><br>
+more in the paper <a ref="https://arxiv.org/abs/2110.09958">The Cocktail Fork Problem...</a>
+    </td>
+  </tr> 
+  <tr>
+  <td>Applications</td>
+</table> 
+
+](/))</font>| 
+
+
+
+# B - Understanding of written or spoken natural language: machine translation, production
+automatic press articles, sentiment analysis.
+
+# C - Automatic analysis by "understanding" a query and returning relevant results
+even if this result does not contain the words of the query.
+
+# D - Autonomous decision-making to beat humans at chess or Go. 
+
+Apart from technological aspects, AI also poses new questions in terms of __ethics__ and
+__risk__: dependence on automation, misuse or error linked to "contaminated" data, impact on
+privacy, etc. 
+
+
+# Current trends in learning techniques 
+
+- Generative adversarial networks (GAN)
+
+- Lean and augmented data learning
+
+- Probabilistic programming
+
+- Automated machine learning (AutoML)
+
+- Digital Twin
+
