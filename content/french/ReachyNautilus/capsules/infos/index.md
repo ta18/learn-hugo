@@ -11,6 +11,8 @@ menu:
 |:-------------------|:------------------|
 | Info  &emsp;  ℹ️  |&emsp; 5 min      |
 
+[Previous: Capsules pédagogiques](../../capsules)
+
 
 ## 🎒 Prérequis
 
@@ -34,12 +36,12 @@ Reachy est utilisé à l'ENSAM comme un des supports aux activités robotiques e
 
 ## 1. Principales caractérisques
 
-Poids total : 6.2 kg   
-Construction: imprimé 3D peinture MJF - Flexible PU molded - Aluminium  
-Alimentation : DC 12 V / 15 A   
-Interfaces : Ethernet (RJ45) / Wifi / USB 3 / HDMi   
-Full Kit Dimensions: 670x450x200mm (670x1800x200mm with arms outstretched)   
-Starter Kit Dimensions: 670x380x200mm (670x1008x200mm with arms outstretched)  
+Poids total : 6.2 kg
+Construction: imprimé 3D peinture MJF - Flexible PU molded - Aluminium
+Alimentation : DC 12 V / 15 A
+Interfaces : Ethernet (RJ45) / Wifi / USB 3 / HDMi
+Full Kit Dimensions: 670x450x200mm (670x1800x200mm with arms outstretched)
+Starter Kit Dimensions: 670x380x200mm (670x1008x200mm with arms outstretched)
  
 ## 2. Caractérisques du bras
 
@@ -77,3 +79,5 @@ La liaison **Orbita**  (liaison rotule) repose sur un mécanisme parallèle moto
 
 ### Antennes
 Les antennes sont animées par un moteur Dynamixel et sont amovibles. Un système de 3 aimants (2 sud et 1 nord) permet de fixer les antennes sur l'axe de rotation.
+
+[Next: Connexion au robot](../setup)

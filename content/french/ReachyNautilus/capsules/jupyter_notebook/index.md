@@ -27,7 +27,7 @@ Cette capsule rappelle comment :
 * arreter un notebook.
 
 
-Jupyter est une application web utilisée pour programmer dans plus de 40 langages de programmation, dont Python, Julia, Ruby, R, ou encore Scala2. Jupyter permet de réaliser des calepins ou notebooks, qui sont des fichiers manipulés dans un navigateur web standrad (firefox, edge, safari...) contenant à la fois du code Python et du texte mis en forme avec des balises *markdown*.
+Jupyter est une application web utilisée pour programmer dans plus de 40 langages de programmation, dont Python, Julia, Ruby, R, ou encore Scala2. Jupyter permet de réaliser des calepins ou *notebooks*, qui sont des fichiers manipulés dans un navigateur web standrad (firefox, edge, safari...) contenant à la fois du code Python et du texte mis en forme avec des balises *Markdown*.
 
 📥  Pour utiliser Jupyter sur ton ordinateur tu dois installer **Python** : nous conseillons d'installer dans un premier temps [miniconda](https://docs.conda.io/en/latest/miniconda.html) puis [jupyter](https://jupyter.org/install).
 

@@ -21,19 +21,19 @@ menu:
 A l'issue de cette activité, l'apprenant saura : 
 * utiliser un notebook Jupyter pour faire bouger le robot 
 * faire bouger la tête 
-* faire bouger un bras  
+* faire bouger un bras
 * mettre le robot compliant ou non-compliant
 
 
 ## 📗 Documentation
 
-Si tu souhaites d'autres informations sur le robot et sa mis en route tu peux consulter ces liens :
-[Doc Pollen Robotics](https://docs.pollen-robotics.com/)   
+Si tu souhaites d'autres informations sur le robot et sa mise en route tu peux consulter ces liens (en anglais) :
+[Doc Pollen Robotics](https://docs.pollen-robotics.com/)
 [Doc SDK Reachy](https://docs.pollen-robotics.com/sdk/getting-started/introduction/)
 
 
-Une fois connecté au robot, tu peux commencer à programmer les mouvements du Reachy. 
-Lorsque tu ouvre Jupyter avec la commande `jupyter notebook` dans un terminal, tu trouvera un fichier *premier pas.ipynb* dans le dossier *Nautilus*. Tu dois copier ce fichier et renommer la copie sous la forme *aa-mm-jj.prenom.nom*. 
+Une fois connecté au robot, tu peux commencer à programmer les mouvements du robot. 
+Après avoir tapé la commande `jupyter notebook` dans un terminal, tu peux ouvrir le notebook *premier pas.ipynb* présent dans le dossier *Nautilus*. Tu dois copier ce fichier et renommer la copie sous la forme *aa-mm-jj.prenom.nom*. 
 Tu peux retrouver ce fichier [ici](https://github.com/ta18/learn-hugo/blob/main/content/french/ReachyNautilus/capsules/firstStep/firstStep.ipynb) également.
 
 ## 1. Instancier l'objet Reachy 
@@ -43,14 +43,14 @@ Regardons en détail le code :
 ```python 
 from reachy_sdk import ReachySDK
 ```  
-On import l'objet reachy du sdk Reachy. 
+On importe la définition de la classe `ReachySDK` définie dans le module reachy_sdk.
 
-On se connecte au robot :
+On créé ensuite un objet de type `ReachySDK` avec une connexion locale :
 ```python
 reachy = ReachySDK('localhost')
 ```
 
-Si tu ne vois aucune erreur au lancement de ces lignes de code, bonne nouvelle, tu es maintenant connecté au Robot et tous les systèmes ont bien été trouvés !
+Si aucune erreur ne se produit à l'exécution de ces lignes de code, bonne nouvelle, tu es maintenant connecté au Robot et tous les systèmes ont bien été trouvés !
 
 L'objet reachy possède 8 attributs et 2 méthodes que nous allons rapidement présenter ici : 
 * `reachy.fans` : permet d'accéder au ventilateur du bras et de la tête 
