@@ -9,10 +9,10 @@ menu:
 ---
 
 Capsules pédagogiques proposées : 
-* [Reachy : informations](infos/) 
-* [Reachy : configuration](setup/) 
-* [Reachy : premiers pas](firstStep/) 
-* [Prise en main de jupyter notebook](jupyter_notebook/)
+* [Reachy : Informations générales](infos/) 
+* [Reachy : Connexion au robot Reachy](setup/) 
+* [Reachy : Premiers pas avec Reachy](firstStep/) 
+* [Prise en main des notebooks jupyter](jupyter_notebook/)
 * [Python : les bases](python_basic) 
 * [Python : tracer des courbes avec matplotlib](python_matplotlib/) 
 * [Python : calculer avec numpy](python_numpy/) 

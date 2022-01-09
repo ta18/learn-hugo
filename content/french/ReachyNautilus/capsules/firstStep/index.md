@@ -1,8 +1,8 @@
 ---
-title: "Premier pas sur Reachy"
+title: "Premier pas avec Reachy"
 menu:
   main:
-    name: "Premier pas sur Reachy"
+    name: "Premier pas avec Reachy"
     weight: 3
     parent: "capsules"
 ---
@@ -11,6 +11,7 @@ menu:
 |:-------------------|:------------------|
 | Task  &emsp;  ⚙️  |&emsp; 10 min      |
 
+[Previous: Connexion au robot Reachy](../setup)
 
 ## 🎒 Prérequis
 

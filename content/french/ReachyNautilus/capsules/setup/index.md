@@ -11,12 +11,13 @@ menu:
 |:-------------------|:------------------|
 | Setup  &emsp;  🛠️  |&emsp; 10 min      |
 
+[Previous: Informations générales](../infos)
 
 ## 📗 Ressources
 
 Plus d'informations sur le robot et sa mise en route avec ces liens :
 - [Doc Pollen Robotics](https://www.pollen-robotics.com/reachy/)  (en anglais)
-- [Prise en main Reachy](https://github.com/ta18/Reachy_Nautilus/blob/main/Prise%20en%20main.md)
+- [Prise en main Reachy 2019 (obsolète)](https://github.com/ta18/Reachy_Nautilus/blob/main/Prise%20en%20main.md)
 
 Matériel nécessaire : 
 - Hub USB 
